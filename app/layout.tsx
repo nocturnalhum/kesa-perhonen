@@ -23,7 +23,7 @@ export default async function RootLayout({
       <head>
         <link rel='icon' href='/icon.ico' sizes='any' />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} text-slate-700`}>
         <Toaster
           toastOptions={{
             style: { background: 'rgb(51 65 85)', color: '#fff' },
