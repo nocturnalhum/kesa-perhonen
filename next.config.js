@@ -5,6 +5,7 @@ const nextConfig = {
       'firebasestorage.googleapis.com',
       'lh3.googleusercontent.com',
       'sketch-canvas-images.s3.ca-central-1.amazonaws.com',
+      'kesa-perhonen.s3.ca-central-1.amazonaws.com',
     ],
   },
 };

@@ -120,31 +120,31 @@ export const products = [
   },
   {
     id: '648437b38c44d52b9542e340',
-    name: 'Apple iPhone 12, 64GB',
+    name: "Women's High Gauge Wool Crew Neck Cardigan ",
     description:
-      'The product is refurbished, fully functional, and in excellent condition. Backed by the 90-day E~Shop Renewed Guarantee.\n- This pre-owned product has been professionally inspected, tested and cleaned by Amazon qualified vendors. It is not certified by Apple.\n- This product is in "Excellent condition". The screen and body show no signs of cosmetic damage visible from 12 inches away.\n- This product will have a battery that exceeds 80% capacity relative to new.\n- Accessories may not be original, but will be compatible and fully functional. Product may come in generic box.\n- Product will come with a SIM removal tool, a charger and a charging cable. Headphone and SIM card are not included.\n- This product is eligible for a replacement or refund within 90-day of receipt if it does not work as expected.\n- Refurbished phones are not guaranteed to be waterproof.',
-    price: 40,
-    brand: 'Apple',
-    category: 'Phone',
-    inStock: true,
+      'Warm and soft sweater made from pill-resistant wool yarn. Shrink-resistant and machine-washable.',
+    price: 49.9,
+    brand: 'Muji',
+    category: "Women's tops",
+    inStock: 2,
     images: [
       {
-        color: 'Black',
-        colorCode: '#000000',
+        color: 'Gray',
+        colorCode: '#a3a2a0',
         image:
-          'https://firebasestorage.googleapis.com/v0/b/e-shop-vid.appspot.com/o/products%2Fiphone%2012%20black.png?alt=media&token=8fe19551-173a-4550-9d02-20afffc79b12',
+          'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/cardigan_gray.jpg',
       },
       {
         color: 'Blue',
-        colorCode: ' #0000FF',
+        colorCode: '#243c6d',
         image:
-          'https://firebasestorage.googleapis.com/v0/b/e-shop-vid.appspot.com/o/products%2Fiphone%2012%20blue.png?alt=media&token=ede757d2-b631-4451-b80c-123861f16c92',
+          'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/cardigan_blue.jpg',
       },
       {
         color: 'Red',
-        colorCode: '#FF0000',
+        colorCode: '#900C3F',
         image:
-          'https://firebasestorage.googleapis.com/v0/b/e-shop-vid.appspot.com/o/products%2Fiphone%2012%20red.png?alt=media&token=945e1ffb-953e-467a-8325-5a8fbbbf3153',
+          'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/cardigan_red.jpg',
       },
     ],
     reviews: [
@@ -152,13 +152,14 @@ export const products = [
         id: '6499b4887402b0efd394d8f3',
         userId: '6499b184b0e9a8c8709821d3',
         productId: '648437b38c44d52b9542e340',
-        rating: 4,
+        rating: 1,
+        title: 'Very disappointing experience!!',
         comment:
-          'good enough. I like the camera and casing. the delivery was fast too.',
+          'I saw this style in the store, and I thought it was very lovely and cute. The material was very soft too. So I eventually placed an order online. I purchased two different colours. However, after one wash of the grey cardigan, the material became so wrinkly, and I had to iron it fully in order to wear it. I have never worn cardigans that would turn so wrinkly after washing. It is also not normal wrinkles, it looks like fish scales spreading all over the place, which is why you must iron it before wearing it out!!! And yet the writtings on the tag claim that this is a non-stretchy and non-linting fabric. It lints very bad to be honest. I decided to return the beige colour the following week. The grey one I have already washed so I can not return that anymore. Overall, I have been very disappointed with this purchase. A waste of money!!!',
         createdDate: '2023-06-26T15:53:44.483Z',
         user: {
           id: '6499b184b0e9a8c8709821d3',
-          name: 'Chaoo',
+          name: 'Huilin Z.',
           email: 'example1@gmail.com',
           emailVerified: null,
           image:
@@ -174,11 +175,12 @@ export const products = [
         userId: '6475af156bad4917456e6e1e',
         productId: '648437b38c44d52b9542e340',
         rating: 5,
-        comment: 'I really liked it!!',
+        title: 'Very good',
+        comment: 'Very good',
         createdDate: '2023-06-26T14:30:40.998Z',
         user: {
           id: '6475af156bad4917456e6e1e',
-          name: 'Charles',
+          name: 'Susan D.',
           email: 'example@gmail.com',
           emailVerified: null,
           image:
@@ -193,44 +195,44 @@ export const products = [
   },
   {
     id: '64a4e9e77e7299078334019f',
-    name: 'Logitech MX Master 2S Wireless Mouse – Use on Any Surface, Hyper-Fast Scrolling, Ergonomic Shape, Rechargeable, Control Upto 3 Apple Mac and Windows Computers, Graphite',
+    name: 'Banko Ware Earthenware Pot 1600mL',
     description:
-      'Cross computer control: Game changing capacity to navigate seamlessly on 3 computers, and copy paste text, images, and files from 1 to the other using Logitech flow\nDual connectivity: Use with upto 3 Windows or Mac computers via included Unifying receiver or Bluetooth Smart wireless technology. Gesture button- Yes',
+      'This 1600ml Japanese-style ceramic pot is ideal for serving 2-3 people. Perfect for making hot soup, rice, or having a family hot pot.',
     price: 70,
-    brand: 'logitech',
-    category: 'Accesories',
-    inStock: true,
+    brand: 'Hakusan',
+    category: 'Cookware',
+    inStock: 7,
     images: [
       {
-        color: 'Graphite',
-        colorCode: ' #383838',
+        color: 'Natural',
+        colorCode: ' #ffffff',
         image:
-          'https://sketch-canvas-images.s3.ca-central-1.amazonaws.com/MX-Master-mouse.jpg',
+          'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/nabe_pot.jpg',
       },
     ],
     reviews: [],
   },
   {
     id: '649d775128b6744f0f497040',
-    name: 'Smart Watch(Answer/Make Call), 1.85" Smartwatch for Men Women IP68 Waterproof, 100+ Sport Modes, Fitness Activity Tracker, Heart Rate Sleep Monitor, Pedometer, Smart Watches for Android iOS, 2023',
+    name: "Women's Kapok Blend Double Gauze Long Sleeve Dress",
     description:
-      'Bluetooth Call and Message Reminder: The smart watch is equipped with HD speaker, after connecting to your phone via Bluetooth, you can directly use the smartwatches to answer or make calls, read messages, store contacts, view call history. The smartwatch can set up more message notifications in "GloryFit" APP. You will never miss any calls and messages during meetings, workout and riding.',
-    price: 50,
+      'An easy-to-wear dress that is light and comfortable, perfect for spring.\n\nThe soft gauze material is made from a blend of organic cotton and kapok, an environmentally friendly plant grown without pesticides. By using a fabric that mixes kapok with cotton, it is softer and lighter than conventional 100% cotton.\n\n[What is Kapok]\nThe fibre harvested from kapok nuts is a material with minimal environmental impact that can be cultivated with little fertilizer and water without pesticides. Because the fibre inside is hollow, it is light and contains a lot of air.',
+    price: 79.9,
     brand: 'Nerunsa',
-    category: 'Watch',
-    inStock: true,
+    category: 'Dresses',
+    inStock: 21,
     images: [
       {
         color: 'Black',
         colorCode: '#000000',
         image:
-          'https://firebasestorage.googleapis.com/v0/b/e-shop-vid.appspot.com/o/products%2F1695192445608-watch-black.jpg?alt=media&token=4446b901-01ab-4152-8953-e36b22608755',
+          'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/dress_black.jpg',
       },
       {
-        color: 'Silver',
-        colorCode: '#C0C0C0',
+        color: 'Green',
+        colorCode: '##689282',
         image:
-          'https://firebasestorage.googleapis.com/v0/b/e-shop-vid.appspot.com/o/products%2F1695192448311-watch-silver.jpg?alt=media&token=a76bec63-f616-4647-9dd3-b3d23407ba4f',
+          'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/dress_green.jpg',
       },
     ],
     reviews: [],
