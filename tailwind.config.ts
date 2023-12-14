@@ -8,9 +8,9 @@ const config: Config = {
   ],
   theme: {
     screens: {
-      tablet: '680px',
-      laptop: '720px',
-      desktop: '1024px',
+      tablet: '768px',
+      laptop: '1024px',
+      desktop: '1366px',
     },
   },
   plugins: [],
