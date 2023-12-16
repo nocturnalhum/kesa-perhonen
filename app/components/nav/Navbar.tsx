@@ -6,6 +6,7 @@ import Container from '../Container';
 import { CiMenuBurger } from 'react-icons/ci';
 import { GoChevronDown } from 'react-icons/go';
 import { IoSearchOutline } from 'react-icons/io5';
+import Link from 'next/link';
 
 const noto = Noto_Serif_JP({ subsets: ['latin'], weight: ['600'] });
 
@@ -24,11 +25,13 @@ const Navbar = () => {
           </button>
           {/* =====<<< SHOP LOGO >>>=========================================== */}
           <div className='relative w-56 h-10'>
-            <h1
-              className={`${noto.className} absolute top-1.5 left-2.5 text-xl font-semibold text-center w-full z-20 laptop:text-lg`}
-            >
-              kesä perhonen
-            </h1>
+            <Link href='/'>
+              <h1
+                className={`${noto.className} absolute top-1.5 left-2.5 text-xl font-semibold text-center w-full z-20 laptop:text-lg`}
+              >
+                kesä perhonen
+              </h1>
+            </Link>
             <Image
               src='/butterfly_logo.gif'
               alt='butterfly logo'

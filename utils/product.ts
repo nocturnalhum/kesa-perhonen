@@ -7,7 +7,7 @@ export const products = [
     price: 99.9,
     brand: 'muji',
     category: 'sweater',
-    inStock: 15,
+    inStock: 3,
     images: [
       {
         color: 'natural',
