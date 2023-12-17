@@ -12,7 +12,7 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
-  const { name, images, price, reviews } = data;
+  const { name, items, price, reviews } = data;
   const router = useRouter();
 
   const productRating =
@@ -27,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
       <div className='flex flex-col items-center w-full'>
         <div className='relative w-full aspect-square overflow-hidden'>
           <Image
-            src={images[0].image}
+            src={items[0].image}
             alt={name}
             height={600}
             width={600}

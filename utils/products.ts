@@ -7,35 +7,44 @@ export const products = [
     price: 39.9,
     brand: 'muji',
     category: 'hats',
-    inStock: 12,
-    images: [
+    items: [
       {
         color: 'sand beige',
         colorCode: '#e2e1e1',
+        inStock: 10,
+
         image:
           'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/sand_700.jpg',
       },
       {
-        color: 'grey',
+        color: 'gray',
         colorCode: '#7a7c7c',
+        inStock: 0,
+
         image:
-          'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/grey_700.jpg',
+          'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/gray_700.jpg',
       },
       {
         color: 'smokey green',
         colorCode: '#6b8e8a',
+        inStock: 12,
+
         image:
           'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/green_700.jpg',
       },
       {
         color: 'dark mustard',
         colorCode: '#c4841e',
+        inStock: 5,
+
         image:
           'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/mustard_700.jpg',
       },
       {
         color: 'black',
         colorCode: '#000000',
+        inStock: 2,
+
         image:
           'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/black_700.jpg',
       },
@@ -50,44 +59,44 @@ export const products = [
     price: 99.9,
     brand: 'muji',
     category: 'sweater',
-    inStock: 15,
-    images: [
+    items: [
       {
         color: 'natural',
         colorCode: '#f7f3e3 ',
+        inStock: 22,
         image:
           'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/sweater_white_700.jpg',
       },
       {
-        color: 'grey',
+        color: 'gray',
         colorCode: '#a3a2a0',
+        inStock: 8,
         image:
           'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/sweater_gray_700.jpg',
       },
       {
         color: 'black',
         colorCode: '#000000',
+        inStock: 2,
         image:
           'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/sweater_black_700.jpg',
       },
     ],
     reviews: [
       {
-        id: '64a65a6158b470c6e06959ee',
+        id: '64a65a6158b470c6e06959fe',
         userId: '6475af156bad4917456e6e1e',
         productId: '64a4ebe300900d44bb50628a',
         rating: 5,
         title: 'Very good quality sweater love it',
-        comment:
-          'Beautiful fleece! Pls don’t mind the first comment. I was pleasantly surprise by the quality of the article definitely not worth the price!',
+        comment: `Beautiful fleece! Pls don't mind the first comment. I was pleasantly surprise by the quality of the article definitely not worth the price!`,
         createdDate: '2023-07-06T06:08:33.067Z',
         user: {
           id: '6475af156bad4917456e6e1e',
           name: 'Henri',
           email: 'example@gmail.com',
           emailVerified: null,
-          image:
-            'https://lh3.googleusercontent.com/a/AAcHTteOiCtILLBWiAoolIW9PJH-r5825pBDl824_8LD=s96-c',
+          image: '',
           hashedPassword: null,
           createdAt: '2023-05-30T08:08:53.979Z',
           updatedAt: '2023-05-30T08:08:53.979Z',
@@ -108,8 +117,7 @@ export const products = [
           name: 'Jiwook K.',
           email: 'example@gmail.com',
           emailVerified: null,
-          image:
-            'https://lh3.googleusercontent.com/a/AAcHTteOiCtILLBWiAoolIW9PJH-r5825pBDl824_8LD=s96-c',
+          image: '',
           hashedPassword: null,
           createdAt: '2023-05-30T08:08:53.979Z',
           updatedAt: '2023-05-30T08:08:53.979Z',
@@ -126,23 +134,25 @@ export const products = [
     price: 49.9,
     brand: 'Muji',
     category: "Women's tops",
-    inStock: 2,
-    images: [
+    items: [
       {
         color: 'Gray',
         colorCode: '#a3a2a0',
+        inStock: 2,
         image:
           'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/cardigan_gray.jpg',
       },
       {
         color: 'Blue',
         colorCode: '#243c6d',
+        inStock: 0,
         image:
           'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/cardigan_blue.jpg',
       },
       {
         color: 'Red',
         colorCode: '#900C3F',
+        inStock: 12,
         image:
           'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/cardigan_red.jpg',
       },
@@ -183,8 +193,7 @@ export const products = [
           name: 'Susan D.',
           email: 'example@gmail.com',
           emailVerified: null,
-          image:
-            'https://lh3.googleusercontent.com/a/AAcHTteOiCtILLBWiAoolIW9PJH-r5825pBDl824_8LD=s96-c',
+          image: '',
           hashedPassword: null,
           createdAt: '2023-05-30T08:08:53.979Z',
           updatedAt: '2023-05-30T08:08:53.979Z',
@@ -201,11 +210,12 @@ export const products = [
     price: 70,
     brand: 'Hakusan',
     category: 'Cookware',
-    inStock: 7,
-    images: [
+    items: [
       {
         color: 'Natural',
         colorCode: ' #ffffff',
+        inStock: 7,
+
         image:
           'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/nabe_pot.jpg',
       },
@@ -220,17 +230,20 @@ export const products = [
     price: 79.9,
     brand: 'Nerunsa',
     category: 'Dresses',
-    inStock: 21,
-    images: [
+    items: [
       {
         color: 'Black',
         colorCode: '#000000',
+        inStock: 21,
+
         image:
           'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/dress_black.jpg',
       },
       {
         color: 'Green',
-        colorCode: '##689282',
+        colorCode: '#689282',
+        inStock: 2,
+
         image:
           'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/dress_green.jpg',
       },

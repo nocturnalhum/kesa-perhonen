@@ -1,8 +1,9 @@
 'use client';
 
 import Button from '@/app/components/Button';
+import ProductImage from '@/app/components/products/ProductImage';
 import SetColor from '@/app/components/products/SetColor';
-import SetQuantity from '@/app/components/products/setQuantity';
+import SetQuantity from '@/app/components/products/SetQuantity';
 import { Rating } from '@mui/material';
 import { useCallback, useState } from 'react';
 
@@ -24,6 +25,7 @@ export type CartProductType = {
 export type SelectedImgType = {
   color: string;
   colorCode: string;
+  inStock: number;
   image: string;
 };
 
@@ -38,7 +40,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     description: product.description,
     category: product.category,
     brand: product.brand,
-    selectedImg: { ...product.images[0] },
+    selectedImg: { ...product.items[0] },
     quantity: 1,
     price: product.price,
   });
@@ -73,9 +75,15 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
   return (
     <div className='grid grid-cols-1 tablet:grid-cols-2 gap-12'>
-      <div>Images</div>
+      <ProductImage
+        cartProduct={cartProduct}
+        product={product}
+        handleColorSelect={handleColorSelect}
+      />
       <div className='flex flex-col gap-1 text-slate-500 text-sm'>
-        <h2 className='text-3xl font-medium to-sky-700'>{product.name}</h2>
+        <h2 className='text-3xl font-medium to-sky-700 capitalize'>
+          {product.name}
+        </h2>
         <div className='flex items-center gap-2'>
           <Rating value={productRating} precision={0.5} readOnly />
           <div>{product.reviews.length} reviews</div>
@@ -83,35 +91,36 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         <Horizontal />
         <div className='text-justify'>{product.description}</div>
         <Horizontal />
-        <div>
+        <div className='capitalize'>
           <span className='font-semibold uppercase'>category: </span>
           {product.category}
         </div>
-        <div>
+        <div className='capitalize'>
           <span className='font-semibold uppercase'>brand: </span>
           {product.brand}
         </div>
         <div
           className={`capitalize ${
-            product.inStock > 5 ? 'text-teal-400' : 'text-rose-400'
+            cartProduct.selectedImg.inStock > 5
+              ? 'text-teal-400'
+              : 'text-rose-400'
           }`}
         >
-          {product.inStock > 5
+          {cartProduct.selectedImg.inStock > 5
             ? 'in stock'
-            : product.inStock > 0
-            ? `Only ${product.inStock} left in stock.`
+            : cartProduct.selectedImg.inStock > 0
+            ? `Only ${cartProduct.selectedImg.inStock} left in stock.`
             : 'out of stock'}
         </div>
         <Horizontal />
         <div>
           <SetColor
             cartProduct={cartProduct}
-            images={product.images}
+            items={product.items}
             handleColorSelect={handleColorSelect}
           />
         </div>
         <Horizontal />
-        {/* <div className='font-semibold uppercase'>quantity: </div> */}
         <SetQuantity
           cartProduct={cartProduct}
           handleQtyIncrease={handleQtyIncrease}

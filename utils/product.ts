@@ -8,7 +8,7 @@ export const products = [
     brand: 'muji',
     category: 'sweater',
     inStock: 3,
-    images: [
+    items: [
       {
         color: 'natural',
         colorCode: '#f7f3e3 ',
@@ -52,7 +52,7 @@ export const products = [
         },
       },
       {
-        id: '64a65a6158b470c6e06959ee',
+        id: '64a65a6158b470c6e06958ee',
         userId: '6475af156bad4917456e6e12',
         productId: '64a4ebe300900d44bb50628a',
         rating: 2,

@@ -7,13 +7,13 @@ import {
 import React from 'react';
 
 interface SetColorProps {
-  images: SelectedImgType[];
+  items: SelectedImgType[];
   cartProduct: CartProductType;
   handleColorSelect: (value: SelectedImgType) => void;
 }
 
 const SetColor: React.FC<SetColorProps> = ({
-  images,
+  items,
   cartProduct,
   handleColorSelect,
 }) => {
@@ -22,7 +22,7 @@ const SetColor: React.FC<SetColorProps> = ({
       <div>
         <span className='font-bold uppercase'>color:</span>
         <div className='flex gap-1'>
-          {images.map((image) => {
+          {items.map((image) => {
             return (
               <div
                 onClick={() => handleColorSelect(image)}
