@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Footer from './components/footer/Footer';
 import Navbar from './components/nav/Navbar';
+import CartProvider from '@/providers/CartProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -29,11 +30,13 @@ export default async function RootLayout({
             style: { background: 'rgb(51 65 85)', color: '#fff' },
           }}
         />
-        <div className='flex flex-col min-h-screen'>
-          <Navbar />
-          <main className='flex-grow bg-slate-50'>{children}</main>
-          <Footer />
-        </div>
+        <CartProvider>
+          <div className='flex flex-col min-h-screen'>
+            <Navbar />
+            <main className='flex-grow bg-slate-50'>{children}</main>
+            <Footer />
+          </div>
+        </CartProvider>
       </body>
     </html>
   );
