@@ -15,6 +15,7 @@ type CartContextType = {
   cartTotalAmount: number;
   cartProducts: CartProductType[] | null;
   handleAddProductToCart: (product: CartProductType) => void;
+  handleRemoveProductFromCart: (product: CartProductType) => void;
   handleClearCart: () => void;
 };
 
@@ -66,18 +67,45 @@ export const CartContextProvider = (props: Props) => {
   // ========<<< Handle Add Cart Product >>>===================================
   // ==========================================================================
   const handleAddProductToCart = useCallback((product: CartProductType) => {
+    const cartProduct = {
+      ...product,
+      id: product.id + product.selectedImg.colorCode,
+    };
     setCartProducts((prev) => {
       let updatedCart;
       if (prev) {
-        updatedCart = [...prev, product];
+        updatedCart = [...prev, cartProduct];
       } else {
-        updatedCart = [product];
+        updatedCart = [cartProduct];
       }
       localStorage.setItem('eShopCartItems', JSON.stringify(updatedCart));
+      console.log('CartProducts', updatedCart);
       return updatedCart;
     });
     toast.success('Product added to cart');
   }, []);
+
+  // ==========================================================================
+  // ========<<< Handle Remmove Cart Product >>>===============================
+  // ==========================================================================
+  const handleRemoveProductFromCart = useCallback(
+    (product: CartProductType) => {
+      if (cartProducts) {
+        const filteredCartProducts = cartProducts.filter(
+          (item) =>
+            item.id !== product.id ||
+            item.selectedImg.color !== product.selectedImg.color
+        );
+        setCartProducts(filteredCartProducts);
+        toast.success('Product removed');
+        localStorage.setItem(
+          'eShopCartItems',
+          JSON.stringify(filteredCartProducts)
+        );
+      }
+    },
+    [cartProducts]
+  );
 
   // ==========================================================================
   // ========<<< Clear Cart >>>================================================
@@ -96,6 +124,7 @@ export const CartContextProvider = (props: Props) => {
     cartTotalAmount,
     cartProducts,
     handleAddProductToCart,
+    handleRemoveProductFromCart,
     handleClearCart,
   };
 

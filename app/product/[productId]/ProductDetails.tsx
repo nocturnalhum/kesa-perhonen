@@ -50,21 +50,15 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     price: product.price,
   });
 
-  // if (cartProducts) {
-  //   console.log('Cart Products', cartProducts);
-  //   console.log('Cart Product', cartProduct);
-  //   console.log('Product', product);
-  // }
-
   const router = useRouter();
 
   useEffect(() => {
     setIsProductInCart(false);
     if (cartProducts) {
+      console.log('cartProducts', cartProducts);
+      console.log('cartProduct', cartProduct);
       const existingIndex = cartProducts.findIndex(
-        (item) =>
-          item.id === cartProduct.id &&
-          item.selectedImg.color === cartProduct.selectedImg.color
+        (item) => item.id === cartProduct.id + cartProduct.selectedImg.colorCode
       );
       if (existingIndex > -1) {
         setIsProductInCart(true);

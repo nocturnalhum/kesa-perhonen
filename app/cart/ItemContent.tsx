@@ -11,11 +11,12 @@ interface ItemContentProps {
   item: CartProductType;
 }
 const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
+  const { handleRemoveProductFromCart } = useCart();
   return (
     <div className='grid grid-cols-5 text-xs laptop:text-sm gap-4 border-t-[1.5px] border-slate-200 py-4 items-center'>
       <div className='col-span-2 justify-self-start flex gap-2 laptop:gap-4'>
         <Link href={`/product/${item.id}`}>
-          <div className='relative w-[70px] aspect-square'>
+          <div className='relative w-20 aspect-square'>
             <Image
               src={item.selectedImg.image}
               alt={item.name}
@@ -25,11 +26,16 @@ const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
             />
           </div>
         </Link>
-        <div className='flex flex-col justify-between'>
+        <div className='flex flex-col justify-between capitalize'>
           <Link href={`/product/${item.id}`}>{truncateText(item.name)}</Link>
           <div>{item.selectedImg.color}</div>
-          <div className='w-[70px]'>
-            <button className='text-slate-500 underline' onClick={() => {}}>
+          <div className='w-20'>
+            <button
+              className='text-slate-500 underline'
+              onClick={() => {
+                handleRemoveProductFromCart(item);
+              }}
+            >
               Remove
             </button>
           </div>
