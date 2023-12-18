@@ -185,7 +185,12 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             <div className='max-w-xs'>
               <Button
                 outline
-                label='Add To Cart'
+                disabled={cartProduct.selectedImg.inStock < 1}
+                label={
+                  cartProduct.selectedImg.inStock < 1
+                    ? 'Out of Stock'
+                    : 'Add To Cart'
+                }
                 onClick={() => handleAddProductToCart(cartProduct)}
               />
             </div>
