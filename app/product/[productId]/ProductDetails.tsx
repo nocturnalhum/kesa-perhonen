@@ -6,9 +6,11 @@ import SetColor from '@/app/components/products/SetColor';
 import SetQuantity from '@/app/components/products/SetQuantity';
 import { useCart } from '@/hooks/useCart';
 import { Rating } from '@mui/material';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
-import { MdCheckCircle } from 'react-icons/md';
+import toast from 'react-hot-toast';
+import { MdArrowBack, MdCheckCircle } from 'react-icons/md';
 
 interface ProductDetailsProps {
   product: any;
@@ -55,8 +57,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   useEffect(() => {
     setIsProductInCart(false);
     if (cartProducts) {
-      console.log('cartProducts', cartProducts);
-      console.log('cartProduct', cartProduct);
       const existingIndex = cartProducts.findIndex(
         (item) => item.id === cartProduct.id + cartProduct.selectedImg.colorCode
       );
@@ -72,18 +72,21 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
   const handleColorSelect = useCallback((value: SelectedImgType) => {
     setCartProduct((prev) => {
-      return { ...prev, selectedImg: value };
+      return { ...prev, selectedImg: value, quantity: 1 };
     });
   }, []);
 
   const handleQtyIncrease = useCallback(() => {
+    if (cartProduct.quantity >= cartProduct.selectedImg.inStock) {
+      return toast.error('Maximum quantity reached');
+    }
     setCartProduct((prev) => {
       return {
         ...prev,
-        quantity: prev.quantity < 25 ? prev.quantity + 1 : prev.quantity,
+        quantity: prev.quantity + 1,
       };
     });
-  }, []);
+  }, [cartProduct]);
 
   const handleQtyDecrease = useCallback(() => {
     setCartProduct((prev) => {
@@ -156,6 +159,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                   router.push('/cart');
                 }}
               />
+              <div
+                onClick={() => router.back()}
+                className='text-slate-500 flex items-center gap-1 mt-2 cursor-pointer'
+              >
+                <MdArrowBack />
+                <span>Continue Shopping</span>
+              </div>
             </div>
           </>
         ) : (

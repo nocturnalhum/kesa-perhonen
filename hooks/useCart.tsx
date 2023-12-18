@@ -16,6 +16,7 @@ type CartContextType = {
   cartProducts: CartProductType[] | null;
   handleAddProductToCart: (product: CartProductType) => void;
   handleRemoveProductFromCart: (product: CartProductType) => void;
+  handleCartQtyIncrease: (product: CartProductType) => void;
   handleClearCart: () => void;
 };
 
@@ -108,6 +109,33 @@ export const CartContextProvider = (props: Props) => {
   );
 
   // ==========================================================================
+  // ========<<< Handle Cart Qty Increase >>>==================================
+  // ==========================================================================
+  const handleCartQtyIncrease = useCallback(
+    (product: CartProductType) => {
+      let updatedCart;
+      if (product.quantity > 9) {
+        return toast.error('Maximum quantity reached');
+      }
+
+      if (cartProducts) {
+        updatedCart = [...cartProducts];
+
+        const existingIndex = cartProducts.findIndex(
+          (item) => item.id === product.id
+        );
+
+        if (existingIndex > -1) {
+          ++updatedCart[existingIndex].quantity;
+        }
+        setCartProducts(updatedCart);
+        localStorage.setItem('eShopCartItems', JSON.stringify(updatedCart));
+      }
+    },
+    [cartProducts]
+  );
+
+  // ==========================================================================
   // ========<<< Clear Cart >>>================================================
   // ==========================================================================
   const handleClearCart = useCallback(() => {
@@ -125,6 +153,7 @@ export const CartContextProvider = (props: Props) => {
     cartProducts,
     handleAddProductToCart,
     handleRemoveProductFromCart,
+    handleCartQtyIncrease,
     handleClearCart,
   };
 
