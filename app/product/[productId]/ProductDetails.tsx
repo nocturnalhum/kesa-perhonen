@@ -6,7 +6,6 @@ import SetColor from '@/app/components/products/SetColor';
 import SetQuantity from '@/app/components/products/SetQuantity';
 import { useCart } from '@/hooks/useCart';
 import { Rating } from '@mui/material';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -78,7 +77,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
   const handleQtyIncrease = useCallback(() => {
     if (cartProduct.quantity >= cartProduct.selectedImg.inStock) {
-      return toast.error('Maximum quantity reached');
+      return toast.error(
+        `Sorry. We only have ${cartProduct.selectedImg.inStock} in stock.`
+      );
     }
     setCartProduct((prev) => {
       return {

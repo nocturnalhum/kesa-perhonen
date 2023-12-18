@@ -17,6 +17,7 @@ type CartContextType = {
   handleAddProductToCart: (product: CartProductType) => void;
   handleRemoveProductFromCart: (product: CartProductType) => void;
   handleCartQtyIncrease: (product: CartProductType) => void;
+  handleCartQtyDecrease: (product: CartProductType) => void;
   handleClearCart: () => void;
 };
 
@@ -114,8 +115,39 @@ export const CartContextProvider = (props: Props) => {
   const handleCartQtyIncrease = useCallback(
     (product: CartProductType) => {
       let updatedCart;
-      if (product.quantity > 9) {
-        return toast.error('Maximum quantity reached');
+
+      if (product.quantity >= product.selectedImg.inStock) {
+        return toast.error(
+          `Sorry. We only have ${product.selectedImg.inStock} in stock.`
+        );
+      }
+
+      if (cartProducts) {
+        updatedCart = [...cartProducts];
+        const existingIndex = cartProducts.findIndex(
+          (item) => item.id === product.id
+        );
+
+        if (existingIndex > -1) {
+          ++updatedCart[existingIndex].quantity;
+        }
+        setCartProducts(updatedCart);
+        localStorage.setItem('eShopCartItems', JSON.stringify(updatedCart));
+      }
+    },
+    [cartProducts]
+  );
+
+  // ==========================================================================
+  // ========<<< Handle Cart Qty Decrease >>>==================================
+  // ==========================================================================
+  const handleCartQtyDecrease = useCallback(
+    (product: CartProductType) => {
+      let updatedCart;
+      if (product.quantity <= 1) {
+        return toast.error(
+          'Minimum quantity reached.\n Click Remove to remove product.'
+        );
       }
 
       if (cartProducts) {
@@ -126,7 +158,7 @@ export const CartContextProvider = (props: Props) => {
         );
 
         if (existingIndex > -1) {
-          ++updatedCart[existingIndex].quantity;
+          --updatedCart[existingIndex].quantity;
         }
         setCartProducts(updatedCart);
         localStorage.setItem('eShopCartItems', JSON.stringify(updatedCart));
@@ -154,6 +186,7 @@ export const CartContextProvider = (props: Props) => {
     handleAddProductToCart,
     handleRemoveProductFromCart,
     handleCartQtyIncrease,
+    handleCartQtyDecrease,
     handleClearCart,
   };
 
