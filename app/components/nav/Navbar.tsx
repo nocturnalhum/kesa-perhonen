@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import Image from 'next/image';
 import { Noto_Serif_JP } from 'next/font/google';
@@ -10,11 +8,13 @@ import { GoChevronDown } from 'react-icons/go';
 import { IoSearchOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import UserMenu from './UserMenu';
+import { getCurrentUser } from '@/actions/getCurrentUser';
 
 const noto = Noto_Serif_JP({ subsets: ['latin'], weight: ['600'] });
 
-const Navbar = () => {
-  const router = useRouter();
+const Navbar = async () => {
+  const currentUser = await getCurrentUser();
   return (
     <header className='sticky px-10 py-2 w-full bg-slate-50 z-30 shadow-sm'>
       <Container>
@@ -64,10 +64,12 @@ const Navbar = () => {
           </div>
 
           {/* =====<<< SHOPPING CART >>>======================================= */}
-          <div onClick={() => router.push('/cart')} className='cursor-pointer'>
+          <Link href='/cart' className='cursor-pointer'>
             <CartCount />
+          </Link>
+          <div className='ml-3'>
+            <UserMenu currentUser={currentUser} />
           </div>
-          <div className='ml-3'>User</div>
         </div>
       </Container>
     </header>

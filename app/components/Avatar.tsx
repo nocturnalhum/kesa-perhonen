@@ -12,17 +12,14 @@ const Avatar: React.FC<AvatarProps> = ({ src }) => {
   if (src) {
     return (
       <>
-        <div className='relative flex items-center justify-center group'>
-          <div className=''>
-            <Image
-              src={src}
-              alt='Avatar'
-              className='rounded-full h-10 w-10'
-              height={30}
-              width={30}
-            />
-          </div>
-          <div className='absolute bg-gradient-to-br from-slate-400 via-slate-200 to-slate-100 -bottom-0.5 -left-0.5 h-11 w-11 group-hover:animate-spin rounded-full -z-10' />
+        <div className='flex items-center justify-center rounded-full border border-slate-400'>
+          <Image
+            src={src}
+            alt='Avatar'
+            className='rounded-full'
+            height={50}
+            width={50}
+          />
         </div>
       </>
     );

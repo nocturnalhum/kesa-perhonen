@@ -58,6 +58,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
     return <p className='text-center'>Logged In. Redirecting...</p>;
   }
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSubmit(onSubmit)();
+    }
+  };
+
   return (
     <>
       <Heading title='Sign in to Account' />
@@ -87,6 +93,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
         errors={errors}
         required
         type='password'
+        onKeyDown={handleKeyPress}
       />
       <Button
         label={isLoading ? 'Loading' : 'Login'}

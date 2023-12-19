@@ -2,10 +2,11 @@ import React from 'react';
 import Container from '../components/Container';
 import FormWrap from '../components/FormWrap';
 import RegisterForm from './RegisterForm';
+import { getCurrentUser } from '@/actions/getCurrentUser';
 // import { getCurrentUser } from '@/actions/getCurrentUser';
 
 const Register = async () => {
-  const currentUser = null;
+  const currentUser = await getCurrentUser();
   return (
     <Container>
       <FormWrap>
