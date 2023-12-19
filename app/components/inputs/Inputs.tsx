@@ -35,7 +35,7 @@ const Input: React.FC<InputProps> = ({
       />
       <label
         htmlFor={id}
-        className={`absolute cursor-text capitalize text-base duration-300 transform -translate-y-3 top-5 left-4 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75  peer-focus:-translate-y-4 text-slate-400`}
+        className={`absolute cursor-text capitalize text-base text-slate-400 duration-300 transform -translate-y-3 top-5 left-4 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
       >
         {label}
         <span className='text-rose-400 pl-0.5'>*</span>
