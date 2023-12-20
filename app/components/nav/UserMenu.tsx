@@ -19,8 +19,6 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     setIsOpen((prev) => !prev);
   }, []);
 
-  console.log('currentUser', currentUser);
-
   return (
     <>
       <div className='relative z-30'>

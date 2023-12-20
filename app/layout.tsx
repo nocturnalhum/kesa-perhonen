@@ -22,6 +22,11 @@ export default async function RootLayout({
   return (
     <html lang='en'>
       <head>
+        <meta
+          httpEquiv='Content-Security-Policy'
+          content="default-src 'self'; style-src 'self' 'unsafe-inline' https://js.stripe.com;"
+        />
+
         <link rel='icon' href='/icon.ico' sizes='any' />
       </head>
       <body className={`${inter.className} text-slate-700`}>

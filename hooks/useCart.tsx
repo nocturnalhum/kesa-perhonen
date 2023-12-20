@@ -19,6 +19,8 @@ type CartContextType = {
   handleCartQtyIncrease: (product: CartProductType) => void;
   handleCartQtyDecrease: (product: CartProductType) => void;
   handleClearCart: () => void;
+  paymentIntent: string | null;
+  handleSetPaymentIntent: (value: string | null) => void;
 };
 
 interface Props {
@@ -33,6 +35,7 @@ export const CartContextProvider = (props: Props) => {
   const [cartProducts, setCartProducts] = useState<CartProductType[] | null>(
     null
   );
+  const [paymentIntent, setPaymentIntent] = useState<string | null>(null);
 
   useEffect(() => {
     const cartItems: any = localStorage.getItem('eShopCartItems');
@@ -41,6 +44,9 @@ export const CartContextProvider = (props: Props) => {
         JSON.parse(cartItems);
       setCartProducts(cartProductsLocalStore);
     }
+    const shopPaymentIntent: any = localStorage.getItem('shopPaymentIntent');
+    const paymentIntent: string | null = JSON.parse(shopPaymentIntent);
+    setPaymentIntent(paymentIntent);
   }, []);
 
   useEffect(() => {
@@ -81,7 +87,7 @@ export const CartContextProvider = (props: Props) => {
         updatedCart = [cartProduct];
       }
       localStorage.setItem('eShopCartItems', JSON.stringify(updatedCart));
-      console.log('CartProducts', updatedCart);
+
       return updatedCart;
     });
     toast.success('Product added to cart');
@@ -177,6 +183,15 @@ export const CartContextProvider = (props: Props) => {
   }, []);
 
   // ==========================================================================
+  // ========<<< Handle Set Payment Intent >>>=================================
+  // ==========================================================================
+
+  const handleSetPaymentIntent = useCallback((value: string | null) => {
+    setPaymentIntent(value);
+    localStorage.setItem('shopPaymentIntent', JSON.stringify(value));
+  }, []);
+
+  // ==========================================================================
   // ========<<< Cart Context Values >>>=======================================
   // ==========================================================================
   const value = {
@@ -188,6 +203,8 @@ export const CartContextProvider = (props: Props) => {
     handleCartQtyIncrease,
     handleCartQtyDecrease,
     handleClearCart,
+    paymentIntent,
+    handleSetPaymentIntent,
   };
 
   return <CartContext.Provider value={value} {...props} />;
