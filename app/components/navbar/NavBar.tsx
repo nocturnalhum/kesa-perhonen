@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { CiMenuBurger } from 'react-icons/ci';
 import { IoSearchOutline } from 'react-icons/io5';
 import Container from '../Container';
+import Categories from './Categories';
+import SearchBar from './SearchBar';
 
 const noto = Noto_Serif_JP({
   subsets: [],
@@ -17,11 +19,11 @@ const NavBar = async () => {
         <div className='flex flex-col pt-2'>
           <div className='flex items-center justify-between h-full w-full'>
             {/* =====<<< MENU BUTTON &  SEARCH ICON>>>========================== */}
-            <div className='flex  items-center text-lg cursor-pointer laptop:hidden'>
+            <div className='flex  items-center text-lg cursor-pointer lg:hidden'>
               <button className='cursor-pointer'>
                 <CiMenuBurger />
               </button>
-              <button className='pl-4 cursor-pointer bg-transparent tablet:hidden'>
+              <button className='pl-4 cursor-pointer bg-transparent md:hidden'>
                 <IoSearchOutline size={24} className='cursor-pointer' />
               </button>
             </div>
@@ -31,7 +33,7 @@ const NavBar = async () => {
               <div className='relative w-56 h-10'>
                 <Link href='/'>
                   <h1
-                    className={`${noto.className} absolute top-1.5 left-2.5 text-xl font-semibold text-center w-full z-20 laptop:text-lg`}
+                    className={`${noto.className} absolute top-1.5 left-2.5 text-xl font-semibold text-center w-full z-20 hover:text-slate-950`}
                   >
                     kesä perhonen
                   </h1>
@@ -46,7 +48,7 @@ const NavBar = async () => {
                 />
               </div>
               {/* =====<<< SEARCH BAR >>>========================================== */}
-              SearchBar
+              <SearchBar />
             </div>
 
             {/* =====<<< SHOPPING CART >>>======================================= */}
@@ -58,7 +60,7 @@ const NavBar = async () => {
             </div>
           </div>
           {/* =====<<< SHOPPING CATEGORIES >>>================================== */}
-          Categories
+          <Categories />
         </div>
       </Container>
     </header>
