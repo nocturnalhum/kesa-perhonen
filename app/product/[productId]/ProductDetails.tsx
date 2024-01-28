@@ -6,6 +6,10 @@ import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { MdArrowBack, MdCheckCircle } from 'react-icons/md';
+import SetColor from './SetColor';
+import SetQuantity from './SetQuantity';
+import Button from '@/app/components/forms/Button';
+import ProductImage from './ProductImage';
 
 interface ProductDetailsProps {
   product: any;
@@ -24,6 +28,10 @@ export type SelectedItemType = {
   color: string;
   colorCode: string;
   image: string;
+  sizes: SizeType[];
+};
+
+export type SizeType = {
   size: string[];
   price: number;
   discount: number;
@@ -43,17 +51,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     description: product.description,
     category: product.category,
     selectedItem: {
-      color: product.items[0].color,
-      colorCode: product.items[0].colorCode,
-      image: product.items[0].image,
-      size: product.items[0].sizes[0].size[1],
-      price: product.items[0].sizes[0].price,
-      discount: product.items[0].sizes[0].discount,
-      inventory: product.items[0].sizes[0].inventory,
+      ...product.items[0],
+      sizes: [{ ...product.items[0].sizes[0] }],
     },
     quantity: 1,
   });
 
+  console.log('cartProduct', cartProduct);
   // ==========================================================================
   // ========<<< Calculate Product Rating >>>==================================
   // ==========================================================================
@@ -61,16 +65,65 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     product.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) /
     product.reviews.length;
 
+  // ==========================================================================
+  // ========<<< Handle Color Select >>>=======================================
+  // ==========================================================================
+  const handleColorSelect = useCallback((item: SelectedItemType) => {
+    const { color, colorCode, image, sizes } = item;
+    setCartProduct((prev) => {
+      return { ...prev, selectedItem: item };
+    });
+  }, []);
+
+  // ==========================================================================
+  // ========<<< Handle Quantity Increase >>>==================================
+  // ==========================================================================
+
+  const handleQtyIncrease = useCallback(() => {
+    // if (cartProduct.quantity >= cartProduct.selectedItem.inventory) {
+    //   return toast.error(
+    //     `Sorry. We currently have ${cartProduct.selectedItem.inventory} in stock.`,
+    //     {
+    //       id: 'quantity_limit',
+    //       duration: 1000,
+    //     }
+    //   );
+    // }
+    setCartProduct((prev) => {
+      return {
+        ...prev,
+        quantity: prev.quantity + 1,
+      };
+    });
+  }, []);
+
+  // ==========================================================================
+  // ========<<< Handle Quantity Decrease >>>==================================
+  // ==========================================================================
+
+  const handleQtyDecrease = useCallback(() => {
+    setCartProduct((prev) => {
+      return {
+        ...prev,
+        quantity: prev.quantity > 1 ? prev.quantity - 1 : prev.quantity,
+      };
+    });
+  }, []);
+
   return (
     <>
       <div
         onClick={() => router.back()}
-        className='flex items-center font-semibold gap-1 pb-3 text-slate-700 cursor-pointer'
+        className='flex items-center font-semibold gap-1 pb-3 text-slate-500 duration-300 hover:tracking-wider cursor-pointer'
       >
         <MdArrowBack size={20} /> Back
       </div>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-12'>
-        <div className=''>Images</div>
+        <ProductImage
+          cartProduct={cartProduct}
+          product={product}
+          handleColorSelect={handleColorSelect}
+        />
         <div className='flex flex-col gap-1 text-slate-500 text-sm'>
           {/* ========<<< Product Name >>>======================================= */}
           <h2 className='text-3xl font-medium capitalize'>{product?.name}</h2>
@@ -106,13 +159,23 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             <div>In Stock</div>
             <Horizontal />
             {/* ========<<< Set Color >>>====================================== */}
-            <div>Set Color</div>
+            <SetColor
+              cartProduct={cartProduct}
+              items={product.items}
+              handleColorSelect={handleColorSelect}
+            />
             <Horizontal />
             {/* ========<<< Set Quantity >>>=================================== */}
-            <div>Set Quantity</div>
+            <SetQuantity
+              cartProduct={cartProduct}
+              handleQtyIncrease={handleQtyIncrease}
+              handleQtyDecrease={handleQtyDecrease}
+            />
             <Horizontal />
             {/* ========<<< Add To Cart Button >>>============================= */}
-            <div>Add To Cart Button</div>
+            <div className='max-w-80'>
+              <Button label='Add To Cart' onClick={() => {}} />
+            </div>
           </div>
         </div>
       </div>

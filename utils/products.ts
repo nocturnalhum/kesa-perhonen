@@ -155,7 +155,7 @@ export const products = [
           },
         ],
         image:
-          'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/sweater_gray_700.jpg',
+          'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/sweater_gray.jpg',
       },
       {
         color: 'black',
@@ -188,7 +188,7 @@ export const products = [
           },
         ],
         image:
-          'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/sweater_black_700.jpg',
+          'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/sweater_black.jpg',
       },
     ],
     reviews: [

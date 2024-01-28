@@ -1,12 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import React from 'react';
+import { CartProductType, SelectedItemType } from './ProductDetails';
 
 interface ProductImageProps {
-  cartProduct: any;
+  cartProduct: CartProductType;
   product: any;
-  handleColorSelect: (value: any) => void;
+  handleColorSelect: (value: SelectedItemType) => void;
 }
 const ProductImage: React.FC<ProductImageProps> = ({
   cartProduct,
@@ -23,9 +23,9 @@ const ProductImage: React.FC<ProductImageProps> = ({
               <div
                 key={item.color}
                 onClick={() => handleColorSelect(item)}
-                className={`relative w-[80%] aspect-square rounded border-teal-300 my-2 ${
+                className={`relative w-[80%] aspect-square rounded border-amber-400 my-2 ${
                   cartProduct.selectedItem?.color === item.color
-                    ? 'border-[1.5px]'
+                    ? 'border-2'
                     : 'border-none'
                 }`}
               >
