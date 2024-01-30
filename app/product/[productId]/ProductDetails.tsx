@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 
 import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { v4 as uuidv4 } from 'uuid';
 import { MdArrowBack, MdCheckCircle } from 'react-icons/md';
 import SetColor from './SetColor';
 import SetQuantity from './SetQuantity';
@@ -21,7 +20,6 @@ interface ProductDetailsProps {
 
 export type ItemType = {
   color: string;
-  colorCode: string;
   image: string;
   sizes: SizeType[];
 };
@@ -38,7 +36,6 @@ export type CartProductType = {
 
 export type SelectedItemType = {
   color: string;
-  colorCode: string;
   image: string;
   itemDetail: SizeType;
 };
@@ -56,11 +53,12 @@ const Horizontal = () => {
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const { handleAddProductToCart, shoppingCart } = useCart();
+  const [isProductInCart, setIsProductInCart] = useState(false);
 
   const router = useRouter();
 
   const [cartProduct, setCartProduct] = useState<CartProductType>({
-    cartProductId: uuidv4(),
+    cartProductId: '',
     id: product.id,
     name: product.name,
     description: product.description,
@@ -68,13 +66,31 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     quantity: 1,
     selectedItem: {
       color: product.items[0].color,
-      colorCode: product.items[0].colorCode,
       image: product.items[0].image,
       itemDetail: {
         ...product.items[0].sizes[0],
       },
     },
   });
+
+  useEffect(() => {
+    setIsProductInCart(false);
+    console.log('ShoppingCart', shoppingCart);
+    if (shoppingCart) {
+      const existingIndex = shoppingCart.findIndex(
+        (item) =>
+          item.id === cartProduct.id &&
+          item.selectedItem.color === cartProduct.selectedItem.color &&
+          item.selectedItem.itemDetail.size[0] ===
+            cartProduct.selectedItem.itemDetail.size[0]
+      );
+      console.log('shoppingCart', shoppingCart);
+      console.log('cartProduct', cartProduct);
+      if (existingIndex > -1) {
+        setIsProductInCart(true);
+      }
+    }
+  }, [shoppingCart, cartProduct]);
 
   // ==========================================================================
   // ========<<< Calculate Product Rating >>>==================================
@@ -106,7 +122,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   // ==========================================================================
   const handleColorSelect = useCallback(
     (item: any) => {
-      const { color, colorCode, image, sizes } = item;
+      const { color, image, sizes } = item;
       const updateItemDetail = sizes.find(
         (sizeDetail: SizeType) =>
           sizeDetail.size[0] === cartProduct.selectedItem.itemDetail.size[0]
@@ -114,7 +130,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
       const updatedItem = {
         ...cartProduct.selectedItem,
         color,
-        colorCode,
         image,
         itemDetail: updateItemDetail,
       };
@@ -129,22 +144,22 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   // ========<<< Handle Quantity Increase >>>==================================
   // ==========================================================================
   const handleQtyIncrease = useCallback(() => {
-    // if (cartProduct.quantity >= cartProduct.selectedItem.inventory) {
-    //   return toast.error(
-    //     `Sorry. We currently have ${cartProduct.selectedItem.inventory} in stock.`,
-    //     {
-    //       id: 'quantity_limit',
-    //       duration: 1000,
-    //     }
-    //   );
-    // }
+    if (cartProduct.quantity >= cartProduct.selectedItem.itemDetail.inventory) {
+      return toast.error(
+        `Sorry. We currently have ${cartProduct.selectedItem.itemDetail.inventory} in stock.`,
+        {
+          id: 'quantity_limit',
+          duration: 1000,
+        }
+      );
+    }
     setCartProduct((prev) => {
       return {
         ...prev,
         quantity: prev.quantity + 1,
       };
     });
-  }, []);
+  }, [cartProduct]);
 
   // ==========================================================================
   // ========<<< Handle Quantity Decrease >>>==================================
@@ -212,6 +227,21 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                 )}
               </div>
             </div>
+            {/* ========<<< In Stock >>>========================================= */}
+            <div
+              className={`capitalize ${
+                cartProduct.selectedItem.itemDetail.inventory > 5
+                  ? 'text-teal-400'
+                  : 'text-rose-400'
+              }`}
+            >
+              {cartProduct.selectedItem.itemDetail.inventory > 5
+                ? 'in stock'
+                : cartProduct.selectedItem.itemDetail.inventory > 0
+                ? `Only ${cartProduct.selectedItem.itemDetail.inventory} left in stock.`
+                : 'out of stock'}
+            </div>
+            <Horizontal />
             {/* ========<<< Category >>>========================================= */}
             <div className='flex capitalize'>
               <span className='font-semibold'>category:</span>
@@ -233,45 +263,72 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
               handleSizeSelect={handleSizeSelect}
             />
             <Horizontal />
-            {/* ========<<< Set Color >>>====================================== */}
-            <SetColor
-              cartProduct={cartProduct}
-              items={product.items}
-              handleColorSelect={handleColorSelect}
-            />
-            <Horizontal />
-            {/* ========<<< In Stock >>>========================================= */}
-            <div
-              className={`capitalize ${
-                cartProduct.selectedItem.itemDetail.inventory > 5
-                  ? 'text-teal-400'
-                  : 'text-rose-400'
-              }`}
-            >
-              {cartProduct.selectedItem.itemDetail.inventory > 5
-                ? 'in stock'
-                : cartProduct.selectedItem.itemDetail.inventory > 0
-                ? `Only ${cartProduct.selectedItem.itemDetail.inventory} left in stock.`
-                : 'out of stock'}
-            </div>
-            <Horizontal />
 
-            {/* ========<<< Set Quantity >>>=================================== */}
-            <SetQuantity
-              cartProduct={cartProduct}
-              handleQtyIncrease={handleQtyIncrease}
-              handleQtyDecrease={handleQtyDecrease}
-            />
-            <Horizontal />
-            {/* ========<<< Add To Cart Button >>>============================= */}
-            <div className='max-w-80'>
-              <Button
-                label='Add To Cart'
-                onClick={() => {
-                  handleAddProductToCart(cartProduct);
-                }}
-              />
-            </div>
+            {isProductInCart ? (
+              // {/* ========<<< Set Color >>>====================================== */}
+              <>
+                <div>
+                  <SetColor
+                    cartProduct={cartProduct}
+                    items={product.items}
+                    handleColorSelect={handleColorSelect}
+                  />
+                  <Horizontal />
+                  <p className='mb-2 text-slate-500 flex items-center gap-1'>
+                    <MdCheckCircle size={20} className='text-teal-400' />
+                    <span>Product added to cart</span>
+                  </p>
+                  <div className='max-w-xs'>
+                    <Button
+                      label='View Cart'
+                      outline
+                      onClick={() => {
+                        router.push('/cart');
+                      }}
+                    />
+                    <div
+                      onClick={() => router.back()}
+                      className='text-slate-700 flex items-center gap-1 mt-2 cursor-pointer'
+                    >
+                      <MdArrowBack />
+                      <span>Continue Shopping</span>
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div>
+                  <SetColor
+                    cartProduct={cartProduct}
+                    items={product.items}
+                    handleColorSelect={handleColorSelect}
+                  />
+                </div>
+                <Horizontal />
+                {/* ========<<< Set Quantity >>>=================================== */}
+                <div>
+                  <SetQuantity
+                    cartProduct={cartProduct}
+                    handleQtyIncrease={handleQtyIncrease}
+                    handleQtyDecrease={handleQtyDecrease}
+                  />
+                </div>
+                <Horizontal />
+                <div className='max-w-xs'>
+                  <Button
+                    outline
+                    disabled={cartProduct.selectedItem.itemDetail.inventory < 1}
+                    label={
+                      cartProduct.selectedItem.itemDetail.inventory < 1
+                        ? 'Out of Stock'
+                        : 'Add To Cart'
+                    }
+                    onClick={() => handleAddProductToCart(cartProduct)}
+                  />
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

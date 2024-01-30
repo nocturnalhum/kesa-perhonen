@@ -1,9 +1,12 @@
 import Container from '../components/Container';
+import CartClient from './CartClient';
 
 const Cart = async () => {
   return (
     <div className='pt-8'>
-      <Container>Cart Page</Container>
+      <Container>
+        <CartClient />
+      </Container>
     </div>
   );
 };

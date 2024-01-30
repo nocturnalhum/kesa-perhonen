@@ -1,11 +1,21 @@
+'use client';
+
 import { CartProductType } from '@/app/product/[productId]/ProductDetails';
-import { createContext, useCallback, useContext, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import toast from 'react-hot-toast';
 
 type CartContextType = {
   cartTotalQty: number;
   shoppingCart: CartProductType[] | null;
   handleAddProductToCart: (product: CartProductType) => void;
+  handleRemoveProductFromCart: (product: CartProductType) => void;
 };
 
 interface Props {
@@ -20,31 +30,57 @@ export const CartContextProvider = (props: Props) => {
     null
   );
 
+  console.log('shopCartItems', shoppingCart);
+
+  // ==========================================================================
+  // ========<<< Get Shopping Cart and Payment Intent from Local Storage >>>===
+  // ==========================================================================
+  useEffect(() => {
+    const cartItems: any = localStorage.getItem('shopCartItems');
+    if (cartItems) {
+      const shopLocalStorage: CartProductType[] | null = JSON.parse(cartItems);
+      setShoppingCart(shopLocalStorage);
+    }
+  }, []);
+
   // ==========================================================================
   // ========<<< Handle Add Product to Cart >>>================================
   // ==========================================================================
   const handleAddProductToCart = useCallback((product: CartProductType) => {
-    console.log('handleAddProductToCart-product', product);
-    setShoppingCart((prev) => {
-      return prev ? [...prev, product] : [product];
-    });
-    // const cartProduct = {
-    //   ...product,
-    //   id: `${product.id}-${product.selectedItem.colorCode}-${product.selectedItem.size}`,
-    // };
-    // setShoppingCart((prev) => {
-    //   let updatedCart;
-    //   if (prev) {
-    //     updatedCart = [...prev, cartProduct];
-    //   } else {
-    //     updatedCart = [cartProduct];
-    //   }
-    //   localStorage.setItem('shopCartItems', JSON.stringify(updatedCart));
+    // Add unique cartProductId for each ShoppingCart item:
+    const updateCardProductId = { ...product, cartProductId: uuidv4() };
 
-    //   return updatedCart;
-    // });
-    // toast.success('Product added to cart');
+    setShoppingCart((prev) => {
+      const updatedCart = prev
+        ? [...prev, updateCardProductId]
+        : [updateCardProductId];
+      localStorage.setItem('shopCartItems', JSON.stringify(updatedCart));
+      return updatedCart;
+    });
+    toast.success('Product added to cart');
   }, []);
+
+  // ==========================================================================
+  // ========<<< Handle Remmove Cart Product >>>===============================
+  // ==========================================================================
+  const handleRemoveProductFromCart = useCallback(
+    (product: CartProductType) => {
+      if (shoppingCart) {
+        const filteredCartProducts = shoppingCart.filter(
+          (item) =>
+            item.id !== product.id ||
+            item.selectedItem.color !== product.selectedItem.color
+        );
+        setShoppingCart(filteredCartProducts);
+        toast.success('Product removed');
+        localStorage.setItem(
+          'shopCartItems',
+          JSON.stringify(filteredCartProducts)
+        );
+      }
+    },
+    [shoppingCart]
+  );
 
   // ==========================================================================
   // ========<<< CartContextProvider Values >>>================================
@@ -53,6 +89,7 @@ export const CartContextProvider = (props: Props) => {
     cartTotalQty,
     shoppingCart,
     handleAddProductToCart,
+    handleRemoveProductFromCart,
   };
   return <CartContext.Provider value={value} {...props} />;
 };
