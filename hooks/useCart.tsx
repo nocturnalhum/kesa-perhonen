@@ -13,6 +13,7 @@ import toast from 'react-hot-toast';
 
 type CartContextType = {
   cartTotalQty: number;
+  cartTotalAmount: number;
   shoppingCart: CartProductType[] | null;
   handleAddProductToCart: (product: CartProductType) => void;
   handleRemoveProductFromCart: (product: CartProductType) => void;
@@ -29,11 +30,10 @@ export const CartContext = createContext<CartContextType | null>(null);
 
 export const CartContextProvider = (props: Props) => {
   const [cartTotalQty, setCartTotalQty] = useState(0);
+  const [cartTotalAmount, setCartTotalAmount] = useState(0);
   const [shoppingCart, setShoppingCart] = useState<CartProductType[] | null>(
     null
   );
-
-  console.log('shopCartItems', shoppingCart);
 
   // ==========================================================================
   // ========<<< Get Shopping Cart and Payment Intent from Local Storage >>>===
@@ -45,6 +45,34 @@ export const CartContextProvider = (props: Props) => {
       setShoppingCart(shopLocalStorage);
     }
   }, []);
+
+  // ==========================================================================
+  // ========<<< Update Shopping Cart Subtotal >>>=============================
+  // ==========================================================================
+  useEffect(() => {
+    const getTotals = () => {
+      if (shoppingCart) {
+        const { total, qty } = shoppingCart?.reduce(
+          (acc, item) => {
+            const itemTotal =
+              item.selectedItem.itemDetail.price *
+              (1 - item.selectedItem.itemDetail.discount / 100) *
+              item.quantity;
+            acc.total += itemTotal;
+            acc.qty += item.quantity;
+            return acc;
+          },
+          {
+            total: 0,
+            qty: 0,
+          }
+        );
+        setCartTotalQty(qty);
+        setCartTotalAmount(total);
+      }
+    };
+    getTotals();
+  }, [shoppingCart]);
 
   // ==========================================================================
   // ========<<< Handle Add Product to Cart >>>================================
@@ -160,6 +188,7 @@ export const CartContextProvider = (props: Props) => {
   // ==========================================================================
   const value = {
     cartTotalQty,
+    cartTotalAmount,
     shoppingCart,
     handleAddProductToCart,
     handleRemoveProductFromCart,

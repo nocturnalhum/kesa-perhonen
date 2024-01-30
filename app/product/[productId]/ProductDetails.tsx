@@ -75,7 +75,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
   useEffect(() => {
     setIsProductInCart(false);
-    console.log('ShoppingCart', shoppingCart);
     if (shoppingCart) {
       const existingIndex = shoppingCart.findIndex(
         (item) =>
@@ -84,8 +83,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           item.selectedItem.itemDetail.size[0] ===
             cartProduct.selectedItem.itemDetail.size[0]
       );
-      console.log('shoppingCart', shoppingCart);
-      console.log('cartProduct', cartProduct);
+
       if (existingIndex > -1) {
         setIsProductInCart(true);
       }
@@ -108,13 +106,22 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         ...cartProduct.selectedItem,
         itemDetail: item,
       };
-      setCartProduct((prev) => {
-        return { ...prev, selectedItem: updatedSelectedItem };
-      });
 
-      return;
+      // Update Quantity to prevent orders exceeding an inventory stock:
+      const updateQuantity =
+        item.inventory < cartProduct.quantity
+          ? item.inventory
+          : cartProduct.quantity;
+
+      setCartProduct((prev) => {
+        return {
+          ...prev,
+          selectedItem: updatedSelectedItem,
+          quantity: updateQuantity,
+        };
+      });
     },
-    [cartProduct.selectedItem]
+    [cartProduct]
   );
 
   // ==========================================================================
@@ -127,6 +134,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         (sizeDetail: SizeType) =>
           sizeDetail.size[0] === cartProduct.selectedItem.itemDetail.size[0]
       );
+
+      // Update Quantity to prevent orders exceeding an inventory stock:
+      const updateQuantity =
+        updateItemDetail.inventory < cartProduct.quantity
+          ? updateItemDetail.inventory
+          : cartProduct.quantity;
+
       const updatedItem = {
         ...cartProduct.selectedItem,
         color,
@@ -134,7 +148,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         itemDetail: updateItemDetail,
       };
       setCartProduct((prev) => {
-        return { ...prev, selectedItem: updatedItem };
+        return { ...prev, selectedItem: updatedItem, quantity: updateQuantity };
       });
     },
     [cartProduct]

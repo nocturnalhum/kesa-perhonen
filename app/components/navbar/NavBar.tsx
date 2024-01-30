@@ -1,4 +1,4 @@
-import { Noto_Serif_JP } from 'next/font/google';
+import { Amatic_SC } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 import { CiMenuBurger } from 'react-icons/ci';
@@ -6,13 +6,17 @@ import { IoSearchOutline } from 'react-icons/io5';
 import Container from '../Container';
 import Categories from './Categories';
 import SearchBar from './SearchBar';
+import CartCount from './CartCount';
+import UserMenu from './UserMenu';
+import { getCurrentUser } from '@/actions/getCurrentUser';
 
-const noto = Noto_Serif_JP({
+const noto = Amatic_SC({
   subsets: [],
-  weight: ['600'],
+  weight: ['400', '700'],
 });
 
 const NavBar = async () => {
+  const currentUser = await getCurrentUser();
   return (
     <header className='sticky w-full bg-slate-50 z-30 shadow-sm'>
       <Container>
@@ -33,19 +37,19 @@ const NavBar = async () => {
               <div className='relative w-56 h-10'>
                 <Link href='/'>
                   <h1
-                    className={`${noto.className} absolute top-1.5 left-2.5 text-xl font-semibold text-center w-full z-20 hover:text-slate-950`}
+                    className={`${noto.className} absolute top-0 left-3 text-3xl font-semibold text-center w-full z-20 hover:text-slate-950`}
                   >
                     kesä perhonen
                   </h1>
+                  <Image
+                    priority
+                    src='/butterfly_logo.gif'
+                    alt='butterfly logo'
+                    height={100}
+                    width={100}
+                    className='absolute -top-1 left-6 lg:left-8 w-full h-full'
+                  />
                 </Link>
-                <Image
-                  priority
-                  src='/butterfly_logo.gif'
-                  alt='butterfly logo'
-                  height={100}
-                  width={100}
-                  className='absolute top-0 left-8 w-full h-full'
-                />
               </div>
               {/* =====<<< SEARCH BAR >>>========================================== */}
               <SearchBar />
@@ -54,9 +58,11 @@ const NavBar = async () => {
             {/* =====<<< SHOPPING CART >>>======================================= */}
             <div className='flex items-center'>
               <Link href='/cart' className='cursor-pointer'>
-                CartCount
+                <CartCount />
               </Link>
-              <div className='ml-3'>UserMenu</div>
+              <div className='ml-3'>
+                <UserMenu currentUser={currentUser} />
+              </div>
             </div>
           </div>
           {/* =====<<< SHOPPING CATEGORIES >>>================================== */}

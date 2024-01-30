@@ -111,7 +111,7 @@ export const products = [
             size: ['m', 'm', 'medium'],
             price: 99.9,
             discount: 0,
-            inventory: 12,
+            inventory: 9,
           },
           { size: ['l', 'l', 'large'], price: 99.9, discount: 0, inventory: 2 },
           {
@@ -144,7 +144,7 @@ export const products = [
             size: ['m', 'm', 'medium'],
             price: 99.9,
             discount: 0,
-            inventory: 12,
+            inventory: 14,
           },
           { size: ['l', 'l', 'large'], price: 99.9, discount: 0, inventory: 2 },
           {

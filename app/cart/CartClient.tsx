@@ -10,7 +10,7 @@ import ItemContent from './ItemContent';
 import Button from '../components/forms/Button';
 
 const CartClient = ({}) => {
-  const { shoppingCart, handleClearCart } = useCart();
+  const { shoppingCart, handleClearCart, cartTotalAmount } = useCart();
   const router = useRouter();
 
   // ========<<< Empty Shopping Cart Display >>>===============================
@@ -65,7 +65,7 @@ const CartClient = ({}) => {
         <div className='flex flex-col gap-1 items-start text-sm'>
           <div className='flex justify-between w-full text-base font-semibold'>
             <span>Subtotal:</span>
-            <span>{formatPrice(0)}</span>
+            <span>{formatPrice(cartTotalAmount)}</span>
           </div>
           <p className='text-slate-500'>
             Taxes and shipping calculated at checkout
