@@ -16,6 +16,9 @@ type CartContextType = {
   shoppingCart: CartProductType[] | null;
   handleAddProductToCart: (product: CartProductType) => void;
   handleRemoveProductFromCart: (product: CartProductType) => void;
+  handleCartQtyIncrease: (product: CartProductType) => void;
+  handleCartQtyDecrease: (product: CartProductType) => void;
+  handleClearCart: () => void;
 };
 
 interface Props {
@@ -67,9 +70,7 @@ export const CartContextProvider = (props: Props) => {
     (product: CartProductType) => {
       if (shoppingCart) {
         const filteredCartProducts = shoppingCart.filter(
-          (item) =>
-            item.id !== product.id ||
-            item.selectedItem.color !== product.selectedItem.color
+          (item) => item.cartProductId !== product.cartProductId
         );
         setShoppingCart(filteredCartProducts);
         toast.success('Product removed');
@@ -83,6 +84,78 @@ export const CartContextProvider = (props: Props) => {
   );
 
   // ==========================================================================
+  // ========<<< Handle Cart Qty Increase >>>==================================
+  // ==========================================================================
+  const handleCartQtyIncrease = useCallback(
+    (product: CartProductType) => {
+      let updatedCart;
+
+      if (product.quantity >= product.selectedItem.itemDetail.inventory) {
+        return toast.error(
+          `Sorry. We only have ${product.selectedItem.itemDetail.inventory} in stock.`,
+          {
+            id: 'limit_reached',
+            duration: 2500,
+          }
+        );
+      }
+
+      if (shoppingCart) {
+        updatedCart = [...shoppingCart];
+        const existingIndex = shoppingCart.findIndex(
+          (item) => item.cartProductId === product.cartProductId
+        );
+
+        if (existingIndex > -1) {
+          ++updatedCart[existingIndex].quantity;
+        }
+        setShoppingCart(updatedCart);
+        localStorage.setItem('shopCartItems', JSON.stringify(updatedCart));
+      }
+    },
+    [shoppingCart]
+  );
+
+  // ==========================================================================
+  // ========<<< Handle Cart Qty Decrease >>>==================================
+  // ==========================================================================
+  const handleCartQtyDecrease = useCallback(
+    (product: CartProductType) => {
+      let updatedCart;
+      if (product.quantity <= 1) {
+        return toast.error("Click 'Remove' to remove product.", {
+          id: 'remove',
+          duration: 1000,
+        });
+      }
+
+      if (shoppingCart) {
+        updatedCart = [...shoppingCart];
+
+        const existingIndex = shoppingCart.findIndex(
+          (item) => item.cartProductId === product.cartProductId
+        );
+
+        if (existingIndex > -1) {
+          --updatedCart[existingIndex].quantity;
+        }
+        setShoppingCart(updatedCart);
+        localStorage.setItem('shopCartItems', JSON.stringify(updatedCart));
+      }
+    },
+    [shoppingCart]
+  );
+
+  // ==========================================================================
+  // ========<<< Handle Clear Cart >>>=========================================
+  // ==========================================================================
+  const handleClearCart = useCallback(() => {
+    setShoppingCart(null);
+    setCartTotalQty(0);
+    localStorage.setItem('shopCartItems', JSON.stringify(null));
+  }, []);
+
+  // ==========================================================================
   // ========<<< CartContextProvider Values >>>================================
   // ==========================================================================
   const value = {
@@ -90,6 +163,9 @@ export const CartContextProvider = (props: Props) => {
     shoppingCart,
     handleAddProductToCart,
     handleRemoveProductFromCart,
+    handleCartQtyIncrease,
+    handleCartQtyDecrease,
+    handleClearCart,
   };
   return <CartContext.Provider value={value} {...props} />;
 };

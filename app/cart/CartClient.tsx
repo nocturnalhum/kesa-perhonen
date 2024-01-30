@@ -10,7 +10,7 @@ import ItemContent from './ItemContent';
 import Button from '../components/forms/Button';
 
 const CartClient = ({}) => {
-  const { shoppingCart } = useCart();
+  const { shoppingCart, handleClearCart } = useCart();
   const router = useRouter();
 
   // ========<<< Empty Shopping Cart Display >>>===============================
@@ -51,7 +51,14 @@ const CartClient = ({}) => {
       <div className='border-t-[1.5px] border-slate-200 flex justify-between py-4'>
         {/* ========<<< Clear Shopping Cart Button >>>========================= */}
         <div className='w-24'>
-          <Button label='Clear Cart' small outline onClick={() => {}} />
+          <Button
+            label='Clear Cart'
+            small
+            outline
+            onClick={() => {
+              handleClearCart();
+            }}
+          />
         </div>
 
         {/* ========<<< Shopping Cart Subtotal >>>============================= */}
