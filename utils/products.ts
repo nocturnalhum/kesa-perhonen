@@ -255,13 +255,13 @@ export const products = [
           },
           {
             size: ['m', '23-25cm', '23-25cm (US W7-9 M5-7.5)'],
-            price: 12.9,
+            price: 22.9,
             discount: 20,
             inventory: 6,
           },
           {
             size: ['l', '25-27cm', '25-27cm (US W9-11 M7.5-10)'],
-            price: 12.9,
+            price: 32.9,
             discount: 20,
             inventory: 5,
           },
@@ -282,13 +282,13 @@ export const products = [
           {
             size: ['m', '23-25cm', '23-25cm (US W7-9 M5-7.5)'],
             price: 12.9,
-            discount: 20,
+            discount: 10,
             inventory: 6,
           },
           {
             size: ['l', '25-27cm', '25-27cm (US W9-11 M7.5-10)'],
             price: 12.9,
-            discount: 20,
+            discount: 0,
             inventory: 5,
           },
         ],
@@ -301,20 +301,20 @@ export const products = [
         sizes: [
           {
             size: ['s', '21-23cm', '21-23cm (US W5-7 M3-5)'],
-            price: 12.9,
+            price: 2.9,
             discount: 20,
             inventory: 21,
           },
           {
             size: ['m', '23-25cm', '23-25cm (US W7-9 M5-7.5)'],
-            price: 12.9,
+            price: 3.9,
             discount: 20,
             inventory: 16,
           },
           {
             size: ['l', '25-27cm', '25-27cm (US W9-11 M7.5-10)'],
-            price: 12.9,
-            discount: 20,
+            price: 5.9,
+            discount: 0,
             inventory: 15,
           },
         ],

@@ -2,6 +2,7 @@
 
 import {
   CartProductType,
+  ItemType,
   SelectedItemType,
   SizeType,
 } from '@/app/product/[productId]/ProductDetails';
@@ -11,13 +12,6 @@ interface SetSizeProps {
   cartProduct: CartProductType;
   handleSizeSelect: (value: SizeType) => void;
 }
-
-type ItemType = {
-  color: string;
-  colorCode: string;
-  image: string;
-  sizes: SizeType[];
-};
 
 const SetSize: React.FC<SetSizeProps> = ({
   items,

@@ -43,6 +43,7 @@ const ProductImage: React.FC<ProductImageProps> = ({
       <div className='col-span-5 aspect-square'>
         {/* =====<<< Display large color image of item selected for adding to cart >>>=====*/}
         <Image
+          priority
           src={cartProduct.selectedItem.image}
           alt={cartProduct.name + ' ' + cartProduct.selectedItem.color}
           height={800}
