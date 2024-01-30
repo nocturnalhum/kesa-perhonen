@@ -379,9 +379,24 @@ export const products = [
         color: 'natural',
         colorCode: ' #ffffff',
         sizes: [
-          { size: 's', price: 29.9, discount: 0, inventory: 21 },
-          { size: 'm', price: 39.9, discount: 0, inventory: 12 },
-          { size: 'l', price: 59.9, discount: 0, inventory: 2 },
+          {
+            size: ['s', '1.5L', '1.5L'],
+            price: 29.9,
+            discount: 0,
+            inventory: 21,
+          },
+          {
+            size: ['m', '3.0L', '3.0L'],
+            price: 39.9,
+            discount: 0,
+            inventory: 12,
+          },
+          {
+            size: ['l', '4.5L', '4.5L'],
+            price: 59.9,
+            discount: 0,
+            inventory: 2,
+          },
         ],
         image:
           'https://kesa-perhonen.s3.ca-central-1.amazonaws.com/nabe_pot.jpg',

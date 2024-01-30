@@ -3,32 +3,37 @@
 import { formatPrice } from '@/utils/formatPrice';
 import { Rating } from '@mui/material';
 import { useRouter } from 'next/navigation';
+
 import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { v4 as uuidv4 } from 'uuid';
 import { MdArrowBack, MdCheckCircle } from 'react-icons/md';
 import SetColor from './SetColor';
 import SetQuantity from './SetQuantity';
 import Button from '@/app/components/forms/Button';
 import ProductImage from './ProductImage';
+import { useCart } from '@/hooks/useCart';
+import SetSize from './SetSize';
 
 interface ProductDetailsProps {
   product: any;
 }
 
 export type CartProductType = {
+  cartProductId: string;
   id: string;
   name: string;
   description: string;
   category: string[];
-  selectedItem: SelectedItemType;
   quantity: number;
+  selectedItem: SelectedItemType;
 };
 
 export type SelectedItemType = {
   color: string;
   colorCode: string;
   image: string;
-  sizes: SizeType[];
+  itemDetail: SizeType;
 };
 
 export type SizeType = {
@@ -43,21 +48,27 @@ const Horizontal = () => {
 };
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
+  const { handleAddProductToCart, shoppingCart } = useCart();
+
   const router = useRouter();
 
   const [cartProduct, setCartProduct] = useState<CartProductType>({
+    cartProductId: uuidv4(),
     id: product.id,
     name: product.name,
     description: product.description,
     category: product.category,
-    selectedItem: {
-      ...product.items[0],
-      sizes: [{ ...product.items[0].sizes[0] }],
-    },
     quantity: 1,
+    selectedItem: {
+      color: product.items[0].color,
+      colorCode: product.items[0].colorCode,
+      image: product.items[0].image,
+      itemDetail: {
+        ...product.items[0].sizes[0],
+      },
+    },
   });
 
-  console.log('cartProduct', cartProduct);
   // ==========================================================================
   // ========<<< Calculate Product Rating >>>==================================
   // ==========================================================================
@@ -66,19 +77,45 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     product.reviews.length;
 
   // ==========================================================================
+  // ========<<< Handle Size Select >>>========================================
+  // ==========================================================================
+  const handleSizeSelect = useCallback(
+    (item: SizeType) => {
+      const updatedSelectedItem = {
+        ...cartProduct.selectedItem,
+        itemDetail: item,
+      };
+      setCartProduct((prev) => {
+        return { ...prev, selectedItem: updatedSelectedItem };
+      });
+
+      return;
+    },
+    [cartProduct.selectedItem]
+  );
+
+  // ==========================================================================
   // ========<<< Handle Color Select >>>=======================================
   // ==========================================================================
-  const handleColorSelect = useCallback((item: SelectedItemType) => {
-    const { color, colorCode, image, sizes } = item;
-    setCartProduct((prev) => {
-      return { ...prev, selectedItem: item };
-    });
-  }, []);
+  const handleColorSelect = useCallback(
+    (item: SelectedItemType) => {
+      const { color, colorCode, image } = item;
+      const updatedItem = {
+        ...cartProduct.selectedItem,
+        color,
+        colorCode,
+        image,
+      };
+      setCartProduct((prev) => {
+        return { ...prev, selectedItem: updatedItem };
+      });
+    },
+    [cartProduct.selectedItem]
+  );
 
   // ==========================================================================
   // ========<<< Handle Quantity Increase >>>==================================
   // ==========================================================================
-
   const handleQtyIncrease = useCallback(() => {
     // if (cartProduct.quantity >= cartProduct.selectedItem.inventory) {
     //   return toast.error(
@@ -109,6 +146,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
       };
     });
   }, []);
+
+  // ==========================================================================
+  // ==========================================================================
 
   return (
     <>
@@ -154,7 +194,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
               </span>
             </div>
             {/* ========<<< Size >>>============================================ */}
-            <div>Size</div>
+            <SetSize
+              cartProduct={cartProduct}
+              items={product.items}
+              handleSizeSelect={handleSizeSelect}
+            />
             {/* ========<<< In Stock >>>========================================= */}
             <div>In Stock</div>
             <Horizontal />
@@ -174,7 +218,12 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             <Horizontal />
             {/* ========<<< Add To Cart Button >>>============================= */}
             <div className='max-w-80'>
-              <Button label='Add To Cart' onClick={() => {}} />
+              <Button
+                label='Add To Cart'
+                onClick={() => {
+                  handleAddProductToCart(cartProduct);
+                }}
+              />
             </div>
           </div>
         </div>
