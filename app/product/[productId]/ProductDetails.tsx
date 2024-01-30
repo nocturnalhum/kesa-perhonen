@@ -19,6 +19,13 @@ interface ProductDetailsProps {
   product: any;
 }
 
+export type ItemType = {
+  color: string;
+  colorCode: string;
+  image: string;
+  sizes: SizeType[];
+};
+
 export type CartProductType = {
   cartProductId: string;
   id: string;
@@ -98,19 +105,24 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   // ========<<< Handle Color Select >>>=======================================
   // ==========================================================================
   const handleColorSelect = useCallback(
-    (item: SelectedItemType) => {
-      const { color, colorCode, image } = item;
+    (item: any) => {
+      const { color, colorCode, image, sizes } = item;
+      const updateItemDetail = sizes.find(
+        (sizeDetail: SizeType) =>
+          sizeDetail.size[0] === cartProduct.selectedItem.itemDetail.size[0]
+      );
       const updatedItem = {
         ...cartProduct.selectedItem,
         color,
         colorCode,
         image,
+        itemDetail: updateItemDetail,
       };
       setCartProduct((prev) => {
         return { ...prev, selectedItem: updatedItem };
       });
     },
-    [cartProduct.selectedItem]
+    [cartProduct]
   );
 
   // ==========================================================================
@@ -178,7 +190,28 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           <Horizontal />
           <div className='space-y-3'>
             {/* ========<<< Price >>>============================================ */}
-            Price
+            <div className={`flex gap-4 font-bold text-lg text-slate-600`}>
+              <div
+                className={`${
+                  cartProduct.selectedItem.itemDetail.discount > 0 &&
+                  'line-through'
+                }`}
+              >
+                {formatPrice(cartProduct.selectedItem.itemDetail.price)}
+              </div>
+              <div
+                className={`${
+                  cartProduct.selectedItem.itemDetail.discount > 0
+                    ? 'text-rose-500'
+                    : 'hidden'
+                }`}
+              >
+                {formatPrice(
+                  cartProduct.selectedItem.itemDetail.price *
+                    (1 - cartProduct.selectedItem.itemDetail.discount / 100)
+                )}
+              </div>
+            </div>
             {/* ========<<< Category >>>========================================= */}
             <div className='flex capitalize'>
               <span className='font-semibold'>category:</span>
