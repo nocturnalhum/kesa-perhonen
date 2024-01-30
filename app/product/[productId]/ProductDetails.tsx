@@ -232,8 +232,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
               items={product.items}
               handleSizeSelect={handleSizeSelect}
             />
-            {/* ========<<< In Stock >>>========================================= */}
-            <div>In Stock</div>
             <Horizontal />
             {/* ========<<< Set Color >>>====================================== */}
             <SetColor
@@ -242,6 +240,22 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
               handleColorSelect={handleColorSelect}
             />
             <Horizontal />
+            {/* ========<<< In Stock >>>========================================= */}
+            <div
+              className={`capitalize ${
+                cartProduct.selectedItem.itemDetail.inventory > 5
+                  ? 'text-teal-400'
+                  : 'text-rose-400'
+              }`}
+            >
+              {cartProduct.selectedItem.itemDetail.inventory > 5
+                ? 'in stock'
+                : cartProduct.selectedItem.itemDetail.inventory > 0
+                ? `Only ${cartProduct.selectedItem.itemDetail.inventory} left in stock.`
+                : 'out of stock'}
+            </div>
+            <Horizontal />
+
             {/* ========<<< Set Quantity >>>=================================== */}
             <SetQuantity
               cartProduct={cartProduct}

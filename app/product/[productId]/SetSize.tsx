@@ -23,14 +23,14 @@ const SetSize: React.FC<SetSizeProps> = ({
   );
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col py-2'>
       <span className='font-bold uppercase'>
         size:
         <span className='font-normal uppercase ml-2'>
           {cartProduct.selectedItem.itemDetail.size[1]}
         </span>
       </span>
-      <div className='flex gap-3 items-center mt-2 ml-2'>
+      <div className='flex gap-3 items-center mt-2'>
         {selectedItem?.sizes.map((sizeDetail) => {
           return (
             <div
