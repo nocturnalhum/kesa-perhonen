@@ -1,8 +1,8 @@
-import prisma from '@/libs/prismadb';
 import Stripe from 'stripe';
+import prisma from '@/libs/prismadb';
 import { getCurrentUser } from '@/actions/getCurrentUser';
 import { NextResponse } from 'next/server';
-import { CartProductType } from '@prisma/client';
+import { CartProductType } from '@/app/product/[productId]/ProductDetails';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: '2023-10-16',
@@ -12,9 +12,9 @@ const calculateOrderAmount = (items: CartProductType[]) => {
   const TAXES = 113;
   const totalPrice = items.reduce((acc, item) => {
     const itemTotal =
-      item.selectedItem.price *
+      item.selectedItem.itemDetail.price *
       item.quantity *
-      (1 - item.selectedItem.discount / 100);
+      (1 - item.selectedItem.itemDetail.discount / 100);
     return acc + itemTotal;
   }, 0);
 
@@ -53,7 +53,7 @@ export async function POST(request: Request) {
         { amount: totalAmount }
       );
       // update order
-      const [existing_order] = await Promise.all([
+      const [existing_order, update_order] = await Promise.all([
         prisma.order.findFirst({
           where: { paymentIntentId: payment_intent_id },
         }),

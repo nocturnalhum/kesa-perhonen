@@ -20,7 +20,6 @@ const Category: React.FC<CategoryProps> = ({ label, icon: Icon, selected }) => {
       let currentQuery = {};
       if (params) {
         currentQuery = queryString.parse(params.toString());
-        console.log('Category - Params', currentQuery);
       }
 
       const updatedQuery: any = {

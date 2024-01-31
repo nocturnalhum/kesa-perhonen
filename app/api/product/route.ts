@@ -14,7 +14,6 @@ export async function POST(request: Request) {
   const body = await request.json();
 
   const { name, description, category, isNew, items } = body;
-  console.log('ITEMS', items);
 
   const existingProduct = await prisma.product.findFirst({
     where: { AND: [{ name }, { description }] },

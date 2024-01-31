@@ -41,8 +41,48 @@ model User {
   role Role @default(USER)
 
   accounts          Account[]
+  orders            Order[]
   reviews           Review[]
 }
+
+model Order {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  amount Float
+  currency String
+  status String
+  deliveryStatus String?
+  createDate DateTime @default(now())
+  paymentIntentId String @unique
+  products CartProductType[]
+  address Address?
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+type CartProductType {
+  cartProductId String
+  id String
+  name String
+  description String
+  category String[]
+  quantity Int
+  selectedItem SelectedItemType
+}
+
+type SelectedItemType {
+  color String
+  image String
+  itemDetail SizeType
+}
+
+type SizeType  {
+  size String[]
+  price Float
+  discount Int
+  inventory Int
+}
+
+
 
 model Product {
   id String @id @default(auto()) @map("_id") @db.ObjectId
@@ -73,14 +113,6 @@ type ItemType {
   image String
   sizes SizeType[]
 }
-
-type SizeType {
-  price Float
-  discount Int
-  inventory Int
-  size String[]
-}
-
 
 type Address {
   city String
