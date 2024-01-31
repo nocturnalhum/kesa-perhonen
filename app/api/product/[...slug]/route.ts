@@ -1,4 +1,5 @@
 import { getCurrentUser } from '@/actions/getCurrentUser';
+import { ItemType, SizeType } from '@prisma/client';
 import { NextResponse } from 'next/server';
 
 export async function DELETE(
@@ -25,7 +26,7 @@ export async function DELETE(
 
   // Find item index in product's items array based on color
   const itemToUpdateIndex = product.items.findIndex(
-    (item) => item.color === colorToRemove
+    (item: ItemType) => item.color === colorToRemove
   );
 
   if (itemToUpdateIndex === -1) {
@@ -33,7 +34,7 @@ export async function DELETE(
   }
 
   const updatedSizes = product.items[itemToUpdateIndex].sizes.filter(
-    (size) => size.size[0] !== sizeToRemove
+    (size: SizeType) => size.size[0] !== sizeToRemove
   );
 
   console.log('updatedSizes', updatedSizes);
@@ -44,7 +45,9 @@ export async function DELETE(
       where: { id },
       data: {
         items: {
-          set: product.items.filter((item) => item.color !== colorToRemove),
+          set: product.items.filter(
+            (item: ItemType) => item.color !== colorToRemove
+          ),
         },
       },
     });
