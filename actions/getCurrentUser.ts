@@ -4,19 +4,26 @@ import prisma from '@/libs/prismadb';
 
 export async function getCurrentUser() {
   try {
-    let session = null;
+    const session = await getServerSession(authOptions);
 
-    if (process.env.NODE_ENV === 'production') {
-      // Only execute dynamic code in production, not during static generation
-      session = await getServerSession(authOptions);
-      if (!session?.user?.email) return null;
+    if (!session?.user?.email) {
+      console.error('No email found in session.');
+      return null;
     }
 
-    const currentUser = await prisma?.user.findFirst({
-      where: { email: session?.user?.email },
-    });
+    const currentUser = await prisma.user
+      .findUnique({
+        where: { email: session?.user?.email },
+      })
+      .catch((error) => {
+        console.error('Error querying user data: ', error.message);
+        return null;
+      });
 
-    if (!currentUser) return null;
+    if (!currentUser) {
+      console.error('User not found in the database.');
+      return null;
+    }
 
     return {
       ...currentUser,

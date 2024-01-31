@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { getCurrentUser } from '@/actions/getCurrentUser';
 import { ItemType, Order, Review } from '@prisma/client';
 import { NextResponse } from 'next/server';

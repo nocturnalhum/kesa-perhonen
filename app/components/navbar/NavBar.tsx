@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { Amatic_SC } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';

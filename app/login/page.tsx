@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import React from 'react';
 import Container from '../components/Container';
 import FormWrap from '../components/FormWrap';
