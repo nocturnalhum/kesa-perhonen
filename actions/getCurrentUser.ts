@@ -6,7 +6,7 @@ export async function getCurrentUser() {
   try {
     let session = null;
 
-    if (process.env.NEXT_PUBLIC_VERCEL_ENV === 'production') {
+    if (process.env.NODE_ENV === 'production') {
       // Only execute dynamic code in production, not during static generation
       session = await getServerSession(authOptions);
       if (!session?.user?.email) return null;
