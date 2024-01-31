@@ -13,6 +13,7 @@ export async function PUT(request: Request) {
 
   try {
     for (const item of items) {
+      // TODO: Remove colorCode
       const [id, colorCode, itemSize] = item.id.split('-');
 
       const updatedProduct = await prisma.product.update({

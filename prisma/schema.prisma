@@ -60,8 +60,8 @@ model Order {
 }
 
 type CartProductType {
-  cartProductId String
   id String
+  cartProductId String
   name String
   description String
   category String[]
@@ -82,8 +82,6 @@ type SizeType  {
   inventory Int
 }
 
-
-
 model Product {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
@@ -92,6 +90,12 @@ model Product {
   isNew Boolean
   items ItemType[]
   reviews Review[]
+}
+
+type ItemType {
+  color String
+  image String
+  sizes SizeType[]
 }
 
 model Review {
@@ -105,13 +109,6 @@ model Review {
   
   product Product @relation(fields: [productId], references: [id])
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-type ItemType {
-  color String
-  colorCode String
-  image String
-  sizes SizeType[]
 }
 
 type Address {

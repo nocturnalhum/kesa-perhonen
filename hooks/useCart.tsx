@@ -15,12 +15,13 @@ type CartContextType = {
   cartTotalQty: number;
   cartTotalAmount: number;
   shoppingCart: CartProductType[] | null;
+  paymentIntent: string | null;
   handleAddProductToCart: (product: CartProductType) => void;
   handleRemoveProductFromCart: (product: CartProductType) => void;
   handleCartQtyIncrease: (product: CartProductType) => void;
   handleCartQtyDecrease: (product: CartProductType) => void;
   handleClearCart: () => void;
-  handleSetPaymentIntent: (val: string | null) => void;
+  handleSetPaymentIntent: (paymentIntent: string | null) => void;
 };
 
 interface Props {
@@ -41,11 +42,14 @@ export const CartContextProvider = (props: Props) => {
   // ========<<< Get Shopping Cart and Payment Intent from Local Storage >>>===
   // ==========================================================================
   useEffect(() => {
+    // Get Shopping Cart Items from Local Storage:
     const cartItems: any = localStorage.getItem('shopCartItems');
     if (cartItems) {
       const shopLocalStorage: CartProductType[] | null = JSON.parse(cartItems);
       setShoppingCart(shopLocalStorage);
     }
+
+    // Get Payment Intent from Local Storage:
     const shopPaymentIntent: any = localStorage.getItem('shopPaymentIntent');
     const paymentIntent: string | null = JSON.parse(shopPaymentIntent);
     setPaymentIntent(paymentIntent);
@@ -180,17 +184,6 @@ export const CartContextProvider = (props: Props) => {
   );
 
   // ==========================================================================
-  // ========<<< Handle Set Payment Intent To Local Storage >>>================
-  // ==========================================================================
-  const handleSetPaymentIntent = useCallback(
-    (val: string | null) => {
-      setPaymentIntent(val);
-      localStorage.setItem('shopPaymentIntent', JSON.stringify(val));
-    },
-    [paymentIntent]
-  );
-
-  // ==========================================================================
   // ========<<< Handle Clear Cart >>>=========================================
   // ==========================================================================
   const handleClearCart = useCallback(() => {
@@ -200,12 +193,21 @@ export const CartContextProvider = (props: Props) => {
   }, []);
 
   // ==========================================================================
+  // ========<<< Handle Set Payment Intent To Local Storage >>>================
+  // ==========================================================================
+  const handleSetPaymentIntent = useCallback((paymentIntent: string | null) => {
+    setPaymentIntent(paymentIntent);
+    localStorage.setItem('shopPaymentIntent', JSON.stringify(paymentIntent));
+  }, []);
+
+  // ==========================================================================
   // ========<<< CartContextProvider Values >>>================================
   // ==========================================================================
   const value = {
     cartTotalQty,
     cartTotalAmount,
     shoppingCart,
+    paymentIntent,
     handleAddProductToCart,
     handleRemoveProductFromCart,
     handleCartQtyIncrease,

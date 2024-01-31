@@ -8,6 +8,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: '2023-10-16',
 });
 
+// ============================================================================
+// ========<<< Calculate Order Amount >>>======================================
+// ============================================================================
 const calculateOrderAmount = (items: CartProductType[]) => {
   const TAXES = 113;
   const totalPrice = items.reduce((acc, item) => {
@@ -21,17 +24,22 @@ const calculateOrderAmount = (items: CartProductType[]) => {
   return Math.round(totalPrice * TAXES);
 };
 
+// ============================================================================
+// ========<<< POST Request >>>================================================
+// ============================================================================
 export async function POST(request: Request) {
+  // Get CurrentUser:
   const currentUser = await getCurrentUser();
   if (!currentUser) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
+
   const body = await request.json();
 
   const { items, payment_intent_id } = body;
   const totalAmount = calculateOrderAmount(items);
 
-  // MongoDB object:
+  // MongoDB ORDER object:
   const orderData = {
     user: { connect: { id: currentUser.id } },
     amount: totalAmount,
@@ -42,18 +50,20 @@ export async function POST(request: Request) {
     products: items,
   };
 
+  // Check if PaymentIntentId already exists:
   if (payment_intent_id) {
     const current_intent = await stripe.paymentIntents.retrieve(
       payment_intent_id
     );
 
+    // Update Payment Intent on ORDER change:
     if (current_intent) {
       const updated_intent = await stripe.paymentIntents.update(
         payment_intent_id,
         { amount: totalAmount }
       );
-      // update order
-      const [existing_order, update_order] = await Promise.all([
+      // Update ORDER in MongoDB with new Items and Total Amount:
+      const [existing_order] = await Promise.all([
         prisma.order.findFirst({
           where: { paymentIntentId: payment_intent_id },
         }),
@@ -75,13 +85,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ paymentIntent: updated_intent });
     }
   } else {
-    // Create New Intent
+    // Create New Payment Intent if doesn't exist:
     const paymentIntent = await stripe.paymentIntents.create({
       amount: totalAmount,
       currency: 'cad',
       automatic_payment_methods: { enabled: true },
     });
-    // Create the Order
+    // Create new Order in MongoDB with PaymentIntentId:
     orderData.paymentIntentId = paymentIntent.id;
     await prisma.order.create({
       data: orderData,
