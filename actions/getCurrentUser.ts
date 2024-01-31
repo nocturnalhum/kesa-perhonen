@@ -1,15 +1,18 @@
-export const dynamic = 'force-dynamic';
-
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { getServerSession } from 'next-auth';
 import prisma from '@/libs/prismadb';
 
 export async function getCurrentUser() {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.email) return null;
+    let session = null;
 
-    const currentUser = await prisma?.user.findUnique({
+    if (process.env.NEXT_PUBLIC_VERCEL_ENV === 'production') {
+      // Only execute dynamic code in production, not during static generation
+      session = await getServerSession(authOptions);
+      if (!session?.user?.email) return null;
+    }
+
+    const currentUser = await prisma?.user.findFirst({
       where: { email: session?.user?.email },
     });
 
