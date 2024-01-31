@@ -1,5 +1,3 @@
-// export const dynamic = 'force-dynamic';
-
 import prisma from '@/libs/prismadb';
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/actions/getCurrentUser';
