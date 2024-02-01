@@ -12,7 +12,7 @@ import { getCurrentUser } from '@/actions/getCurrentUser';
 
 const noto = Amatic_SC({
   subsets: [],
-  weight: ['400', '700'],
+  weight: ['700'],
 });
 
 const NavBar = async () => {

@@ -3,9 +3,10 @@ import {
   CartProductType,
   SelectedItemType,
 } from '@/app/product/[productId]/ProductDetails';
+import { ItemType } from '@prisma/client';
 
 interface SetColorProps {
-  items: SelectedItemType[];
+  items: ItemType[];
   cartProduct: CartProductType;
   handleColorSelect: (value: SelectedItemType) => void;
 }
@@ -15,6 +16,8 @@ const SetColor: React.FC<SetColorProps> = ({
   cartProduct,
   handleColorSelect,
 }) => {
+  console.log('items', items);
+  console.log('cartProduct', cartProduct);
   return (
     <div className='flex flex-col items-start'>
       <span className='font-bold uppercase'>
@@ -43,6 +46,9 @@ const SetColor: React.FC<SetColorProps> = ({
                 width={40}
                 className='rounded-full bg-white'
               />
+              {item.sizes[0].inventory === 0 && (
+                <div className='absolute h-[1.5px] w-12 content-center bg-red-600 rotate-[130deg]' />
+              )}
             </div>
           );
         })}

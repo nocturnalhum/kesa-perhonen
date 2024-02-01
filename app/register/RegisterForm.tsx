@@ -55,7 +55,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
           redirect: false,
         }).then((callback) => {
           if (callback?.ok) {
-            router.push('/');
+            router.back();
             router.refresh();
             toast.success('Logged In');
           }

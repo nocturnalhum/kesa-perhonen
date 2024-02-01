@@ -110,7 +110,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
       // Update Quantity to prevent orders exceeding an inventory stock:
       const updateQuantity =
         item.inventory < cartProduct.quantity
-          ? item.inventory
+          ? item.inventory === 0
+            ? 1
+            : item.inventory
           : cartProduct.quantity;
 
       setCartProduct((prev) => {
@@ -138,7 +140,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
       // Update Quantity to prevent orders exceeding an inventory stock:
       const updateQuantity =
         updateItemDetail.inventory < cartProduct.quantity
-          ? updateItemDetail.inventory
+          ? updateItemDetail.inventory === 0
+            ? 1
+            : updateItemDetail.inventory
           : cartProduct.quantity;
 
       const updatedItem = {

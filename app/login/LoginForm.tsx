@@ -43,7 +43,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
     signIn('credentials', { ...data, redirect: false }).then((callback) => {
       setIsLoading(false);
       if (callback?.ok) {
-        router.push('/');
+        router.back();
         router.refresh();
         toast.success('Logged In');
       }
