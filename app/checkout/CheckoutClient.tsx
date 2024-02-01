@@ -1,13 +1,13 @@
 'use client';
 
-import { useCart } from '@/hooks/useCart';
-import { useRouter } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import { StripeElementsOptions, loadStripe } from '@stripe/stripe-js';
+import { useRouter } from 'next/navigation';
+import { useCart } from '@/hooks/useCart';
 import { Elements } from '@stripe/react-stripe-js';
-import CheckoutForm from './CheckoutForm';
 import { CartProductType } from '@prisma/client';
+import toast from 'react-hot-toast';
+import CheckoutForm from './CheckoutForm';
 import Button from '../components/forms/Button';
 
 const stripePromise = loadStripe(
@@ -50,6 +50,7 @@ const CheckoutClient = () => {
           const data = await res.json();
           setClientSecret(data.paymentIntent.client_secret);
           handleSetPaymentIntent(data.paymentIntent.id);
+          return data;
         } catch (error) {
           setError(true);
           console.error('Error in CheckoutClient: ', error);

@@ -1,5 +1,9 @@
 'use client';
 
+import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import Heading from '../components/Heading';
+import Button from '../components/forms/Button';
 import { useCart } from '@/hooks/useCart';
 import { formatPrice } from '@/utils/formatPrice';
 import {
@@ -8,10 +12,6 @@ import {
   useElements,
   useStripe,
 } from '@stripe/react-stripe-js';
-import React, { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import Heading from '../components/Heading';
-import Button from '../components/forms/Button';
 
 interface CheckoutFormProps {
   clientSecret: string;
