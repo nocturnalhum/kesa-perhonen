@@ -3,7 +3,6 @@
 import {
   CartProductType,
   ItemType,
-  SelectedItemType,
   SizeType,
 } from '@/app/product/[productId]/ProductDetails';
 

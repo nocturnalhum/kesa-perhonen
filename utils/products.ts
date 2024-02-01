@@ -105,7 +105,7 @@ export const products = [
             size: ['s', 's', 'small'],
             price: 99.9,
             discount: 0,
-            inventory: 21,
+            inventory: 0,
           },
           {
             size: ['m', 'm', 'medium'],
@@ -151,7 +151,7 @@ export const products = [
             size: ['xl', 'xl', 'extra-large'],
             price: 99.9,
             discount: 0,
-            inventory: 22,
+            inventory: 0,
           },
         ],
         image:
@@ -171,7 +171,7 @@ export const products = [
             size: ['s', 's', 'small'],
             price: 99.9,
             discount: 0,
-            inventory: 21,
+            inventory: 0,
           },
           {
             size: ['m', 'm', 'medium'],
@@ -289,7 +289,7 @@ export const products = [
             size: ['l', '25-27cm', '25-27cm (US W9-11 M7.5-10)'],
             price: 12.9,
             discount: 0,
-            inventory: 5,
+            inventory: 0,
           },
         ],
         image:
@@ -309,7 +309,7 @@ export const products = [
             size: ['m', '23-25cm', '23-25cm (US W7-9 M5-7.5)'],
             price: 3.9,
             discount: 20,
-            inventory: 16,
+            inventory: 0,
           },
           {
             size: ['l', '25-27cm', '25-27cm (US W9-11 M7.5-10)'],
@@ -432,7 +432,7 @@ export const products = [
             size: ['m', 'm', 'medium'],
             price: 79.9,
             discount: 0,
-            inventory: 12,
+            inventory: 0,
           },
           {
             size: ['l', 'l', 'large'],
@@ -444,7 +444,7 @@ export const products = [
             size: ['xl', 'xl', 'extra-large'],
             price: 79.9,
             discount: 0,
-            inventory: 22,
+            inventory: 0,
           },
         ],
 
@@ -465,7 +465,7 @@ export const products = [
             size: ['s', 's', 'small'],
             price: 79.9,
             discount: 0,
-            inventory: 21,
+            inventory: 0,
           },
           {
             size: ['m', 'm', 'medium'],
@@ -478,7 +478,7 @@ export const products = [
             size: ['xl', 'xl', 'extra-large'],
             price: 79.9,
             discount: 0,
-            inventory: 22,
+            inventory: 0,
           },
         ],
 

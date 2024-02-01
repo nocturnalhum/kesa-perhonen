@@ -2,6 +2,7 @@ import Image from 'next/image';
 import {
   CartProductType,
   SelectedItemType,
+  SizeType,
 } from '@/app/product/[productId]/ProductDetails';
 import { ItemType } from '@prisma/client';
 
@@ -16,8 +17,17 @@ const SetColor: React.FC<SetColorProps> = ({
   cartProduct,
   handleColorSelect,
 }) => {
-  console.log('items', items);
-  console.log('cartProduct', cartProduct);
+  // ==========================================================================
+  // ========<<< Check If Item Is Out Of Stock >>>=============================
+  // ==========================================================================
+  const checkInventory = (item: ItemType) => {
+    const stock = item.sizes.find(
+      (sizeItem: SizeType) =>
+        sizeItem.size[0] === cartProduct.selectedItem.itemDetail.size[0]
+    );
+    return stock.inventory === 0;
+  };
+
   return (
     <div className='flex flex-col items-start'>
       <span className='font-bold uppercase'>
@@ -46,7 +56,7 @@ const SetColor: React.FC<SetColorProps> = ({
                 width={40}
                 className='rounded-full bg-white'
               />
-              {item.sizes[0].inventory === 0 && (
+              {checkInventory(item) && (
                 <div className='absolute h-[1.5px] w-12 content-center bg-red-600 rotate-[130deg]' />
               )}
             </div>
@@ -58,3 +68,5 @@ const SetColor: React.FC<SetColorProps> = ({
 };
 
 export default SetColor;
+// cartProduct.selectedItem.color === item.color &&
+//                 cartProduct.selectedItem.itemDetail.inventory === 0 &&
