@@ -1,7 +1,7 @@
-import Stripe from 'stripe';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { buffer } from 'micro';
 import prisma from '@/libs/prismadb';
+import Stripe from 'stripe';
+import { buffer } from 'micro';
 
 export const config = {
   api: { bodyParser: false },
@@ -38,7 +38,7 @@ export default async function handler(
   }
 
   const CHARGE_SUCCEEDED_EVENT = 'charge.succeeded';
-
+  console.log('EVENT TYPE', event.type);
   switch (event.type) {
     case CHARGE_SUCCEEDED_EVENT:
       const charge: any = event.data.object as Stripe.Charge;

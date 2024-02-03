@@ -7,6 +7,7 @@ import CartProvider from '@/providers/CartProvider';
 import NavBar from './components/navbar/NavBar';
 import Footer from './components/footer/Footer';
 import { Toaster } from 'react-hot-toast';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -35,7 +36,10 @@ export default function RootLayout({
         <CartProvider>
           <div className='flex flex-col min-h-screen'>
             <NavBar />
-            <main className='flex-grow bg-slate-50'>{children}</main>
+            <main className='flex-grow bg-slate-50'>
+              {children}
+              <SpeedInsights />
+            </main>
             <Footer />
           </div>
         </CartProvider>

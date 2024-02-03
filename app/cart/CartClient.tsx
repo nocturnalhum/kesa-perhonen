@@ -19,7 +19,7 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
   const router = useRouter();
 
   // ========<<< Empty Shopping Cart Display >>>===============================
-  if (!shoppingCart || shoppingCart.length === 0) {
+  if (shoppingCart?.length === 0) {
     return (
       <div className='flex flex-col items-center'>
         <div className='text-2xl'>Your cart is empty</div>
@@ -55,7 +55,7 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
       </div>
       <div className='border-t-[1.5px] border-slate-200 flex justify-between py-4'>
         {/* ========<<< Clear Shopping Cart Button >>>========================= */}
-        <div className='w-24'>
+        <div className='w-24 mr-2'>
           <Button
             label='Clear Cart'
             small
@@ -78,8 +78,7 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
           <Button
             label={currentUser ? 'Checkout' : 'Login To Checkout'}
             outline={currentUser ? false : true}
-            onClick={(event) => {
-              event.preventDefault();
+            onClick={() => {
               currentUser ? router.push('/checkout') : router.push('/login');
             }}
           />

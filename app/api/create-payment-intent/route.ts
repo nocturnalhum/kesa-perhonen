@@ -1,10 +1,10 @@
 import Stripe from 'stripe';
 import prisma from '@/libs/prismadb';
 import { getCurrentUser } from '@/actions/getCurrentUser';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { CartProductType } from '@/app/product/[productId]/ProductDetails';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2023-10-16',
 });
 
@@ -27,7 +27,7 @@ const calculateOrderAmount = (items: CartProductType[]) => {
 // ============================================================================
 // ========<<< POST Request >>>================================================
 // ============================================================================
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   // Get CurrentUser:
   const currentUser = await getCurrentUser();
   if (!currentUser) {

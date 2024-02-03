@@ -10,7 +10,7 @@ import CartCount from './CartCount';
 import UserMenu from './UserMenu';
 import { getCurrentUser } from '@/actions/getCurrentUser';
 
-const noto = Amatic_SC({
+const amatic = Amatic_SC({
   subsets: [],
   weight: ['700'],
 });
@@ -37,7 +37,7 @@ const NavBar = async () => {
               <div className='relative w-56 h-10'>
                 <Link href='/'>
                   <h1
-                    className={`${noto.className} absolute top-0 left-3 text-3xl font-semibold text-center w-full z-20 hover:text-slate-950`}
+                    className={`${amatic.className} absolute top-0 left-3 text-3xl font-semibold text-center w-full z-20 hover:text-slate-950`}
                   >
                     kesä perhonen
                   </h1>
