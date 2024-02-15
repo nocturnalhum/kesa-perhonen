@@ -11,12 +11,12 @@ const Avatar: React.FC<AvatarProps> = ({ src }) => {
   if (src) {
     return (
       <>
-        <div className='flex items-center justify-center rounded-full border border-slate-400'>
+        <div className='flex items-center justify-center rounded-full'>
           <Image
             src={src}
             alt='Avatar'
-            height={50}
-            width={50}
+            height={40}
+            width={40}
             className='rounded-full'
           />
         </div>

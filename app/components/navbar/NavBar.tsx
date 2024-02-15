@@ -11,7 +11,7 @@ import UserMenu from './UserMenu';
 import { getCurrentUser } from '@/actions/getCurrentUser';
 
 const amatic = Amatic_SC({
-  subsets: [],
+  subsets: ['latin'],
   weight: ['700'],
 });
 
@@ -37,7 +37,7 @@ const NavBar = async () => {
               <div className='relative w-56 h-10'>
                 <Link href='/'>
                   <h1
-                    className={`${amatic.className} absolute top-0 left-3 text-3xl font-semibold text-center w-full z-20 hover:text-slate-950`}
+                    className={`${amatic.className} absolute top-0 left-3 text-3xl text-center w-full z-20 hover:text-slate-950`}
                   >
                     kesä perhonen
                   </h1>
@@ -47,7 +47,7 @@ const NavBar = async () => {
                     alt='butterfly logo'
                     height={100}
                     width={100}
-                    className='absolute -top-1 left-6 lg:left-8 w-full h-full'
+                    className='absolute -top-2 left-9 lg:left-8 w-full h-full'
                   />
                 </Link>
               </div>

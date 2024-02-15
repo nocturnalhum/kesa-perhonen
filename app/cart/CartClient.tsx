@@ -18,8 +18,9 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
   const { shoppingCart, handleClearCart, cartTotalAmount } = useCart();
   const router = useRouter();
 
+  console.log('currentUser', currentUser);
   // ========<<< Empty Shopping Cart Display >>>===============================
-  if (shoppingCart?.length === 0) {
+  if (shoppingCart?.length === 0 || shoppingCart === null) {
     return (
       <div className='flex flex-col items-center'>
         <div className='text-2xl'>Your cart is empty</div>
@@ -35,6 +36,7 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
       </div>
     );
   }
+
   return (
     <div>
       {/* ========<<< Shopping Cart Headers Display >>>======================== */}

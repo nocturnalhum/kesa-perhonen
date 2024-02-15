@@ -12,7 +12,7 @@ const NullData: React.FC<NullDataProps> = ({ title }) => {
         href={'/login'}
         className='text-lg font-medium text-blue-500 underline'
       >
-        Please login
+        Return
       </Link>
     </div>
   );

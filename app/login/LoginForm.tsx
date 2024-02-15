@@ -11,21 +11,35 @@ import toast from 'react-hot-toast';
 import { SafeUser } from '@/types';
 import Button from '../components/forms/Button';
 import Input from '../components/forms/Input';
+import axios from 'axios';
+import { useCart } from '@/hooks/useCart';
 
 interface LoginFormProps {
   currentUser: SafeUser | null;
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
+  const { handleSetPaymentIntent, handleSetCartToLocalStorage } = useCart();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     if (currentUser) {
+      axios
+        .post('/api/login', { userId: currentUser.id })
+        .then((res) => {
+          const { data } = res;
+          console.log('data', data.paymentIntentId);
+          handleSetPaymentIntent(data.paymentIntentId);
+          handleSetCartToLocalStorage(data.products);
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
       router.push('/');
       router.refresh();
     }
-  });
+  }, []);
 
   const {
     register,

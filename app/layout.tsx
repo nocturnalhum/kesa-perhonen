@@ -3,11 +3,12 @@ export const dynamic = 'force-dynamic';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import CartProvider from '@/providers/CartProvider';
-import NavBar from './components/navbar/NavBar';
-import Footer from './components/footer/Footer';
 import { Toaster } from 'react-hot-toast';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import NavBar from './components/navbar/NavBar';
+import Footer from './components/footer/Footer';
+import CartProvider from '@/providers/CartProvider';
+import { getCurrentUser } from '@/actions/getCurrentUser';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,11 +18,17 @@ export const metadata: Metadata = {
     'The official home for Kesä Perhonen Online Shop for clothing, home décor, and lifestyle goods.',
 };
 
-export default function RootLayout({
-  children,
-}: {
+interface Props {
   children: React.ReactNode;
-}) {
+}
+
+export default async function RootLayout({ children }: Props) {
+  // const currentUser = await getCurrentUser();
+  // if (currentUser) {
+  //   console.log('currentUser', currentUser);
+  // } else {
+  //   console.log('Not signed in');
+  // }
   return (
     <html lang='en'>
       <head>

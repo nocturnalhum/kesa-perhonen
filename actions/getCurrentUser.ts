@@ -9,7 +9,6 @@ export async function getCurrentUser() {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
-      console.error('No email found in session.');
       return null;
     }
 

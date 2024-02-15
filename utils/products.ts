@@ -9,7 +9,6 @@ export const products = [
     items: [
       {
         color: 'sand beige',
-        colorCode: '#e2e1e1',
         sizes: [
           {
             size: ['os', 'os', 'one-size'],
@@ -23,7 +22,6 @@ export const products = [
       },
       {
         color: 'gray',
-        colorCode: '#7a7c7c',
         sizes: [
           {
             size: ['os', 'os', 'one-size'],
@@ -37,7 +35,6 @@ export const products = [
       },
       {
         color: 'smokey green',
-        colorCode: '#6b8e8a',
         sizes: [
           {
             size: ['os', 'os', 'one-size'],
@@ -52,7 +49,6 @@ export const products = [
       },
       {
         color: 'dark mustard',
-        colorCode: '#c4841e',
         sizes: [
           {
             size: ['os', 'os', 'one-size'],
@@ -67,7 +63,6 @@ export const products = [
       },
       {
         color: 'black',
-        colorCode: '#000000',
         sizes: [
           {
             size: ['os', 'os', 'one-size'],
@@ -93,7 +88,6 @@ export const products = [
     items: [
       {
         color: 'natural',
-        colorCode: '#f7f3e3',
         sizes: [
           {
             size: ['xs', 'xs', 'extra-small'],
@@ -126,7 +120,6 @@ export const products = [
       },
       {
         color: 'gray',
-        colorCode: '#a3a2a0',
         sizes: [
           {
             size: ['xs', 'xs', 'extra-small'],
@@ -159,7 +152,6 @@ export const products = [
       },
       {
         color: 'black',
-        colorCode: '#000000',
         sizes: [
           {
             size: ['xs', 'xs', 'extra-small'],
@@ -245,7 +237,6 @@ export const products = [
     items: [
       {
         color: 'Gray',
-        colorCode: '#a3a2a0',
         sizes: [
           {
             size: ['s', '21-23cm', '21-23cm (US W5-7 M3-5)'],
@@ -271,7 +262,6 @@ export const products = [
       },
       {
         color: 'Blue',
-        colorCode: '#243c6d',
         sizes: [
           {
             size: ['s', '21-23cm', '21-23cm (US W5-7 M3-5)'],
@@ -297,7 +287,6 @@ export const products = [
       },
       {
         color: 'Red',
-        colorCode: '#900C3F',
         sizes: [
           {
             size: ['s', '21-23cm', '21-23cm (US W5-7 M3-5)'],
@@ -377,7 +366,6 @@ export const products = [
     items: [
       {
         color: 'natural',
-        colorCode: ' #ffffff',
         sizes: [
           {
             size: ['s', '1.5L', '1.5L'],
@@ -414,7 +402,6 @@ export const products = [
     items: [
       {
         color: 'Black',
-        colorCode: '#000000',
         sizes: [
           {
             size: ['xs', 'xs', 'extra-small'],
@@ -453,7 +440,6 @@ export const products = [
       },
       {
         color: 'Green',
-        colorCode: '#689282',
         sizes: [
           {
             size: ['xs', 'xs', 'extra-small'],

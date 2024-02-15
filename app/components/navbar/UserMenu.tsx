@@ -26,7 +26,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
       <div className='relative z-30'>
         <div
           // className='h-[35px] aspect-square cursor-pointer'
-          className='p-2 border border-slate-400 flex flex-row items-center gap-1 rounded-full cursor-pointer hover:shadow-md transition text-slate-700'
+          className='flex flex-row items-center rounded-full cursor-pointer text-slate-700'
           onClick={toggleOpen}
         >
           <Avatar src={currentUser?.image} />
@@ -48,6 +48,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 <MenuItem
                   onClick={() => {
                     toggleOpen();
+                    localStorage.clear();
                     signOut({ callbackUrl: 'http://localhost:3000' });
                     toast.success('Logged Out');
                   }}

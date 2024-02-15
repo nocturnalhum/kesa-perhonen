@@ -59,14 +59,14 @@ export default SetSize;
 /**
  * Notes: CartProduct:
  * id * name * description * category[] * quantity * selectedItem
- *    selectedItem: color: 'Black' * colorCode * image * sizes[]
+ *    selectedItem: color: 'Black' * image * sizes[]
  *        sizes: discount * inventory * price * size[]
  *            size: [ "xs", "xs", "extra-small" ]
  */
 
 /**
  * Notes: SetSize-items:
- * Object1 { color: 'Natural' * colorCode * image * sizes[5]}
+ * Object1 { color: 'Natural' * image * sizes[5]}
  *    sizes: price * discount * inventory * size[3]
  *        size: [ "xs", "xs", "extra-small" ]
  * Object2 *
@@ -76,7 +76,7 @@ export default SetSize;
 /**
  * Notes: SetSize-cartProduct: Same as above
  * id * name * description * category[] * quantity * selectedItem
- *    selectedItem: color: 'Black' * colorCode * image * sizes[]
+ *    selectedItem: color: 'Black' * image * sizes[]
  *        sizes: discount * inventory * price * size[]
  *            size: [ "xs", "xs", "extra-small" ]
  */
@@ -84,7 +84,7 @@ export default SetSize;
 /**
  * Notes: Product:
  * id * name * description * category[] * isNew * items * reviews[]
- *    items[3]: color: 'Black' * colorCode * image * sizes[5]
+ *    items[3]: color: 'Black' * image * sizes[5]
  *        sizes[0]: discount * inventory * price * size[3]
  *            size: [ "xs", "xs", "extra-small" ]
  */
@@ -100,7 +100,6 @@ export default SetSize;
 
 // export type ItemType = {
 //   color: string;
-//   colorCode: string;
 //   image: string;
 //   sizes: SizeType[];
 // }

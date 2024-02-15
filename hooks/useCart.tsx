@@ -21,7 +21,8 @@ type CartContextType = {
   handleCartQtyIncrease: (product: CartProductType) => void;
   handleCartQtyDecrease: (product: CartProductType) => void;
   handleClearCart: () => void;
-  handleSetPaymentIntent: (paymentIntent: string | null) => void;
+  handleSetPaymentIntent: (paymentIntentVal: string | null) => void;
+  handleSetCartToLocalStorage: (products: CartProductType[]) => void;
 };
 
 interface Props {
@@ -38,6 +39,7 @@ export const CartContextProvider = (props: Props) => {
     null
   );
 
+  console.log('shoppingCart', shoppingCart);
   // ==========================================================================
   // ========<<< Get Shopping Cart and Payment Intent from Local Storage >>>===
   // ==========================================================================
@@ -45,14 +47,16 @@ export const CartContextProvider = (props: Props) => {
     // Get Shopping Cart Items from Local Storage:
     const cartItems: any = localStorage.getItem('shopCartItems');
     if (cartItems) {
-      const shopLocalStorage: CartProductType[] | null = JSON.parse(cartItems);
-      setShoppingCart(shopLocalStorage);
+      const cartLocalStorage: CartProductType[] | null = JSON.parse(cartItems);
+      setShoppingCart(cartLocalStorage);
     }
 
     // Get Payment Intent from Local Storage:
     const shopPaymentIntent: any = localStorage.getItem('shopPaymentIntent');
-    const paymentIntent: string | null = JSON.parse(shopPaymentIntent);
-    setPaymentIntent(paymentIntent);
+    if (shopPaymentIntent) {
+      const paymentIntent: string | null = JSON.parse(shopPaymentIntent);
+      setPaymentIntent(paymentIntent);
+    }
   }, []);
 
   // ==========================================================================
@@ -82,6 +86,44 @@ export const CartContextProvider = (props: Props) => {
     };
     getTotals();
   }, [shoppingCart]);
+
+  // ==========================================================================
+  // ========<<< Handle Set Payment Intent To Local Storage >>>================
+  // ==========================================================================
+  const handleSetPaymentIntent = useCallback((payIntentVal: string | null) => {
+    setPaymentIntent(payIntentVal);
+    localStorage.setItem('shopPaymentIntent', JSON.stringify(payIntentVal));
+  }, []);
+
+  // ==========================================================================
+  // ========<<< Handle Set Products To Local Storage >>>======================
+  // ==========================================================================
+  const handleSetCartToLocalStorage = useCallback(
+    (products: CartProductType[]) => {
+      products.forEach((product) => {
+        setShoppingCart((prev) => {
+          let updatedCart;
+          if (prev) {
+            // Check if product is already in cart:
+            const index = prev.findIndex((item) => item.id === product.id);
+            if (index !== -1) {
+              console.log('Already in cart');
+              prev[index].quantity += product.quantity;
+              updatedCart = [...prev];
+            } else {
+              console.log('Not in cart');
+              updatedCart = [...prev, product];
+            }
+          } else {
+            updatedCart = [product];
+          }
+          localStorage.setItem('shopCartItems', JSON.stringify(updatedCart));
+          return updatedCart;
+        });
+      });
+    },
+    []
+  );
 
   // ==========================================================================
   // ========<<< Handle Add Product to Cart >>>================================
@@ -189,15 +231,8 @@ export const CartContextProvider = (props: Props) => {
   const handleClearCart = useCallback(() => {
     setShoppingCart(null);
     setCartTotalQty(0);
+    setCartTotalAmount(0);
     localStorage.setItem('shopCartItems', JSON.stringify(null));
-  }, []);
-
-  // ==========================================================================
-  // ========<<< Handle Set Payment Intent To Local Storage >>>================
-  // ==========================================================================
-  const handleSetPaymentIntent = useCallback((paymentIntent: string | null) => {
-    setPaymentIntent(paymentIntent);
-    localStorage.setItem('shopPaymentIntent', JSON.stringify(paymentIntent));
   }, []);
 
   // ==========================================================================
@@ -214,6 +249,7 @@ export const CartContextProvider = (props: Props) => {
     handleCartQtyDecrease,
     handleClearCart,
     handleSetPaymentIntent,
+    handleSetCartToLocalStorage,
   };
   return <CartContext.Provider value={value} {...props} />;
 };
