@@ -39,7 +39,6 @@ export const CartContextProvider = (props: Props) => {
     null
   );
 
-  console.log('shoppingCart', shoppingCart);
   // ==========================================================================
   // ========<<< Get Shopping Cart and Payment Intent from Local Storage >>>===
   // ==========================================================================
@@ -105,7 +104,11 @@ export const CartContextProvider = (props: Props) => {
           let updatedCart;
           if (prev) {
             // Check if product is already in cart:
-            const index = prev.findIndex((item) => item.id === product.id);
+            const index = prev.findIndex(
+              (item) =>
+                item.id === product.id &&
+                item.selectedItem.color === product.selectedItem.color
+            );
             if (index !== -1) {
               console.log('Already in cart');
               prev[index].quantity += product.quantity;
