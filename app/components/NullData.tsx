@@ -6,7 +6,7 @@ interface NullDataProps {
 
 const NullData: React.FC<NullDataProps> = ({ title }) => {
   return (
-    <div className='flex flex-col items-center justify-center gap-5 w-full h-[50vh] text-xl laptop:text-2xl'>
+    <div className='flex flex-col items-center justify-center gap-5 w-full h-[50vh] text-xl md:text-2xl'>
       <p className='font-medium'>{title}</p>
       <Link
         href={'/login'}

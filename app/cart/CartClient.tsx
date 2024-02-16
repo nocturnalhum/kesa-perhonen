@@ -18,7 +18,6 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
   const { shoppingCart, handleClearCart, cartTotalAmount } = useCart();
   const router = useRouter();
 
-  console.log('currentUser', currentUser);
   // ========<<< Empty Shopping Cart Display >>>===============================
   if (shoppingCart?.length === 0 || shoppingCart === null) {
     return (

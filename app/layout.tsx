@@ -23,12 +23,6 @@ interface Props {
 }
 
 export default async function RootLayout({ children }: Props) {
-  // const currentUser = await getCurrentUser();
-  // if (currentUser) {
-  //   console.log('currentUser', currentUser);
-  // } else {
-  //   console.log('Not signed in');
-  // }
   return (
     <html lang='en'>
       <head>

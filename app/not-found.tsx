@@ -10,7 +10,7 @@ const Notfound = () => {
           alt='empty coat hanger'
           height={150}
           width={300}
-          className='h-auto w-[80%] max-w-[350px] tablet:max-w-[500px] laptop:max-w-[600px] opacity-50'
+          className='h-auto w-[80%] max-w-[350px] md:max-w-[500px] lg:max-w-[600px] opacity-50'
         />
         <div className='flex w-full justify-center text-3xl text-neutral-500 font-semibold'>
           404: Page Not Found

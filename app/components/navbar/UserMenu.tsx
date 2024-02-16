@@ -49,7 +49,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                   onClick={() => {
                     toggleOpen();
                     localStorage.clear();
-                    signOut({ callbackUrl: 'http://localhost:3000' });
+                    signOut({ callbackUrl: process.env.NEXTAUTH_URL });
                     toast.success('Logged Out');
                   }}
                 >
