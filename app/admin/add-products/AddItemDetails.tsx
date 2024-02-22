@@ -241,7 +241,7 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
       <div className='text-sm mb-2'>
         Enter price, discount and inventory values for each size item
       </div>
-      <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 w-full bg-blue-300'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 w-full'>
         {sizeCategoryValue.split(',').map((item) => {
           return (
             <div
