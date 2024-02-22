@@ -184,7 +184,7 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
   };
 
   return (
-    <div className='relative w-full max-w-lg mx-auto h-full flex flex-col flex-wrap gap-2 bg-slate-100 border border-slate-400 rounded px-3 py-2'>
+    <div className='relative w-full mx-auto h-full flex flex-col flex-wrap gap-2 bg-slate-100 border border-slate-400 rounded px-3 py-2'>
       {/* ==========<<< Delete Item Component >>>============================= */}
       <button onClick={() => handleRemoveItemDetails(itemId)}>
         <RiCloseCircleFill size={30} className='absolute right-2 top-2' />
