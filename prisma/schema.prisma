@@ -77,7 +77,7 @@ type SelectedItemType {
 }
 
 type SizeType  {
-  size String[]
+  size String
   price Float
   discount Int
   inventory Int
@@ -94,6 +94,7 @@ model Product {
 }
 
 type ItemType {
+  itemId String
   color String
   image String
   sizes SizeType[]
