@@ -39,7 +39,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
       router.push('/');
       router.refresh();
     }
-  }, []);
+  }, [
+    currentUser,
+    handleSetPaymentIntent,
+    handleSetCartToLocalStorage,
+    router,
+  ]);
 
   const {
     register,

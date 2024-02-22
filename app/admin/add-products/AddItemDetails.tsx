@@ -197,7 +197,7 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
       {/* ==========<<< Item Color Details >>>================================= */}
       <div className=''>
         <div className='flex items-center gap-1 mt-7 mb-2'>
-          <div>Color:</div>
+          <div>Colors:</div>
           <input
             name='color'
             type='text'
