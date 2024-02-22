@@ -183,8 +183,10 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
     setSizeCategoryValue(sizeOptions[index].value);
   };
 
+  // ==========================================================================
+  // ==========================================================================
   return (
-    <div className='relative w-full mx-auto h-full flex flex-col flex-wrap gap-2 bg-slate-100 border border-slate-400 rounded px-3 py-2'>
+    <div className='relative w-full mx-auto max-h-xl h-full flex flex-col flex-wrap gap-2 bg-slate-100 border border-slate-400 rounded px-3 py-2'>
       {/* ==========<<< Delete Item Component >>>============================= */}
       <button onClick={() => handleRemoveItemDetails(itemId)}>
         <RiCloseCircleFill size={30} className='absolute right-2 top-2' />
@@ -197,7 +199,7 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
       {/* ==========<<< Item Color Details >>>================================= */}
       <div className=''>
         <div className='flex items-center gap-1 mt-7 mb-2'>
-          <div>Colors:</div>
+          <div>Color:</div>
           <input
             name='color'
             type='text'
