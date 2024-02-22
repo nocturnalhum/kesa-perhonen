@@ -18,7 +18,7 @@ const amatic = Amatic_SC({
 const NavBar = async () => {
   const currentUser = await getCurrentUser();
   return (
-    <header className='sticky w-full bg-slate-50 pb-2 z-30'>
+    <header className='sticky w-full bg-slate-50 pb-2 z-30 px-2'>
       <Container>
         <div className='flex flex-col pt-2'>
           <div className='flex items-center justify-between h-full w-full'>
@@ -32,7 +32,7 @@ const NavBar = async () => {
               </button>
             </div>
 
-            <div className='flex justify-center items-center w-full'>
+            <div className='flex justify-center items-center w-fit'>
               {/* =====<<< SHOP LOGO >>>=========================================== */}
               <div className='relative w-56 h-10'>
                 <Link href='/'>

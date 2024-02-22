@@ -244,7 +244,10 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
       <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 w-full bg-blue-300'>
         {sizeCategoryValue.split(',').map((item) => {
           return (
-            <div key={item} className='flex items-center gap-1'>
+            <div
+              key={item}
+              className='flex items-center mx-auto w-full justify-center gap-1'
+            >
               <div className='min-w-[60px] text-center font-medium border border-black bg-slate-50 text-black px-1 rounded'>
                 {item.trim()}
               </div>

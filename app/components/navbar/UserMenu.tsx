@@ -25,7 +25,6 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     <>
       <div className='relative z-30'>
         <div
-          // className='h-[35px] aspect-square cursor-pointer'
           className='flex flex-row items-center rounded-full cursor-pointer text-slate-700'
           onClick={toggleOpen}
         >
