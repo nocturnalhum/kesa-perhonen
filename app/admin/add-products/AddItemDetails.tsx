@@ -199,7 +199,7 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
       {/* ==========<<< Item Color Details >>>================================= */}
       <div className=''>
         <div className='flex items-center gap-1 mt-7 mb-2'>
-          <div>Colorss:</div>
+          <div>Color:</div>
           <input
             name='color'
             type='text'
@@ -241,7 +241,7 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
       <div className='text-sm mb-2'>
         Enter price, discount and inventory values for each size item
       </div>
-      <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-lg'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl bg-green-300'>
         {sizeCategoryValue.split(',').map((item) => {
           return (
             <div key={item} className='flex items-center gap-1'>
