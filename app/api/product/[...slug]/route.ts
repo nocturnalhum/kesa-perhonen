@@ -37,7 +37,7 @@ export async function DELETE(
     (size: SizeType) => size.size[0] !== sizeToRemove
   );
 
-  console.log('updatedSizes', updatedSizes);
+  // console.log('updatedSizes', updatedSizes);
 
   // When the sizes array is empty, delete the color item from items
   if (updatedSizes.length < 1) {

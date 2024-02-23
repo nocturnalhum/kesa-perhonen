@@ -35,7 +35,7 @@ export const categories = [
   },
   {
     id: 4,
-    category: 'home decor',
+    category: 'Home',
     icon: TfiHome,
     link: '',
   },

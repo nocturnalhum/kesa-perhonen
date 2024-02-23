@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+'use client';
+
+import React, { useCallback, useEffect, useState } from 'react';
 import { sizeOptions } from '@/utils/sizeOptions';
 import { ItemType } from './AddProductForm';
 import { RiCloseCircleFill } from 'react-icons/ri';
@@ -13,7 +15,6 @@ import SelectImage from './SelectImage';
 import Button from '@/app/components/forms/Button';
 import DropdownInput from '@/app/components/forms/DropDownInput';
 import toast from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
 
 interface AddItemDetailsProps {
   itemId: string;
@@ -48,12 +49,6 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
     sizeCategory.value
   );
   const [error, setError] = useState(false);
-  const [priceError, setPriceError] = useState(false);
-  const [discountError, setDiscountError] = useState(false);
-  const [inventoryError, setInventoryError] = useState(false);
-
-  const router = useRouter();
-  const formRef = useRef(null) as any;
 
   useEffect(() => {
     if (
@@ -62,21 +57,23 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
       (sizeDetails.discount || sizeDetails.discount === 0)
     ) {
       console.log('SETTING ITEM');
-      const updatedSizes = item?.sizes?.map((size) =>
-        size.size === sizeDetails.size ? sizeDetails : size
-      );
-      if (!updatedSizes?.some((size) => size.size === sizeDetails.size)) {
-        updatedSizes?.push(sizeDetails);
-      }
-      setItem({
-        ...item,
-        sizes: updatedSizes as SizeType,
+      setItem((prevItem) => {
+        const updatedSizes = prevItem?.sizes?.map((size) =>
+          size.size === sizeDetails.size ? sizeDetails : size
+        );
+        if (!updatedSizes?.some((size) => size.size === sizeDetails.size)) {
+          updatedSizes?.push(sizeDetails);
+        }
+        return {
+          ...prevItem,
+          sizes: updatedSizes as SizeType,
+        };
       });
     }
   }, [sizeDetails]);
 
-  console.log('AddItem - Item', item);
-  console.log('AddItem - sizeDetails', sizeDetails);
+  // console.log('AddItem - Item', item);
+  // console.log('AddItem - sizeDetails', sizeDetails);
 
   // ==========================================================================
   // ========<<< Update FormState With Items >>>===============================
@@ -220,7 +217,7 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
           <div className='flex flex-row gap-2 text-sm col-span-2 items-center justify-between bg-white border border-slate-400 rounded p-1 px-1'>
             <div className='flex gap-1'>
               <CiImageOn size={20} />
-              <p>{file?.name}</p>
+              <p>{file.name}</p>
             </div>
             <div className='w-[70px]'>
               <Button label='Cancel' small onClick={handleRemoveImage} />
@@ -229,14 +226,14 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
         )}
       </>
       {/* ==========<<< Item Size Details >>>================================== */}
-      <div ref={formRef} className='flex items-center gap-2 mt-4 font-semibold'>
-        <div>Inventory for</div>
+      <div className='flex items-center gap-2 mt-4 font-semibold'>
+        <div>Size type for</div>
         <DropdownInput
           options={sizeOptions}
           selectedOption={sizeCategory.label}
           onOptionChange={handleSizeSelection}
         />
-        <div className='hidden sm:block'>item</div>
+        <div className='hidden sm:block'>items</div>
       </div>
       <div className='text-sm mb-2'>
         Enter price, discount and inventory values for each size item

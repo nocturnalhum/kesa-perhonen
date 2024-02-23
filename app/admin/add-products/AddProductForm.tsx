@@ -17,7 +17,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/navigation';
 import firebaseApp from '@/libs/firebase';
 import {
-  UploadTaskSnapshot,
   getDownloadURL,
   getStorage,
   ref,
@@ -43,7 +42,6 @@ const AddProductForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [isProductCreated, setIsProductCreated] = useState(false);
-  const [isSelected, setIsSelected] = useState(false);
 
   const {
     register,
@@ -98,7 +96,7 @@ const AddProductForm = () => {
     [setCustomValue, watch]
   );
 
-  console.log('ITEMS', watch('items'));
+  // console.log('ITEMS', watch('items'));
 
   // ==========================================================================
   // ========<<< Handle Category Selection >>>=================================
@@ -342,7 +340,7 @@ const AddProductForm = () => {
       {/* ==========<<< Item Details >>>======================================= */}
       <div>
         <div className='font-bold'>
-          Enter product details and upload their images
+          Enter product item details and upload their images
         </div>
         <div className='text-sm'>
           You must complete all details and upload an image for each item
