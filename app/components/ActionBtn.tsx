@@ -22,7 +22,6 @@ const ActionBtn: React.FC<ActionBtnProps> = ({
       } `}
     >
       <Icon size={18} />
-
       {text}
     </button>
   );
