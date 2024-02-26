@@ -1,4 +1,6 @@
+'use client';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface NullDataProps {
   title: string;
@@ -11,15 +13,13 @@ interface NullDataProps {
  * @return {JSX.Element} the rendered component
  */
 const NullData: React.FC<NullDataProps> = ({ title }) => {
+  const router = useRouter();
   return (
     <div className='flex flex-col items-center justify-center gap-5 w-full h-[50vh] text-xl md:text-2xl'>
       <p className='font-medium'>{title}</p>
-      <Link
-        href={'/login'}
-        className='text-lg font-medium text-blue-500 underline'
-      >
-        Return
-      </Link>
+      <button className='underline' onClick={() => router.back()}>
+        Go Back
+      </button>
     </div>
   );
 };

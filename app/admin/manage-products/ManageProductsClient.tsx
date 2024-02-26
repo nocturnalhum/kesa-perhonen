@@ -167,7 +167,12 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
       renderCell: (params) => {
         return (
           <div className='flex justify-between w-full'>
-            <ActionBtn onClick={() => {}} icon={MdRemoveRedEye} />
+            <ActionBtn
+              onClick={() => {
+                router.push(`/product/${params.row.id.split('+')[0]}`);
+              }}
+              icon={MdRemoveRedEye}
+            />
             <ActionBtn
               onClick={() => handleToggleIsNew(params.row.id, params.row.isNew)}
               icon={MdCached}
@@ -231,6 +236,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
       (item: ItemType) => item.itemId === itemId
     );
 
+    // Function to delete image when no longer needed
     const handleImageDelete = async () => {
       try {
         if (imageItem?.image) {

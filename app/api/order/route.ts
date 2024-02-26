@@ -5,8 +5,9 @@ import { getCurrentUser } from '@/actions/getCurrentUser';
 export async function PUT(request: Request) {
   const currentUser = await getCurrentUser();
 
-  if (!currentUser)
+  if (!currentUser) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  }
   if (currentUser.role !== 'ADMIN') {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }

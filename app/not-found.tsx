@@ -6,6 +6,7 @@ const Notfound = () => {
     <>
       <div className='flex flex-col justify-center items-center h-full min-h-[60vh] mt-10 gap-5'>
         <Image
+          priority
           src='/404_image.png'
           alt='empty coat hanger'
           height={150}

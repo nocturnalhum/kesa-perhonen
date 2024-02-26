@@ -3,6 +3,9 @@ import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/actions/getCurrentUser';
 import { ItemType, SizeType } from '@prisma/client';
 
+// ============================================================================
+// ==========<<< Product POST Route >>>========================================
+// ============================================================================
 export async function POST(request: Request) {
   const currentUser = await getCurrentUser();
 
@@ -38,6 +41,9 @@ export async function POST(request: Request) {
   return NextResponse.json(updatedProduct);
 }
 
+// ============================================================================
+// ==========<<< Product PUT Route >>>=========================================
+// ============================================================================
 export async function PUT(request: Request) {
   const currentUser = await getCurrentUser();
   if (!currentUser || currentUser.role !== 'ADMIN') {
@@ -53,6 +59,9 @@ export async function PUT(request: Request) {
   return NextResponse.json(product);
 }
 
+// ============================================================================
+// ==========<<< Product DELETE Route >>>======================================
+// ============================================================================
 export async function DELETE(request: Request) {
   const currentUser = await getCurrentUser();
   if (!currentUser || currentUser.role !== 'ADMIN') {
