@@ -36,7 +36,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             {currentUser ? (
               <div>
                 <Link href='/orders'>
-                  <MenuItem onClick={toggleOpen}>Your Orders</MenuItem>
+                  <MenuItem onClick={toggleOpen}>My Orders</MenuItem>
                 </Link>
                 {currentUser.role === 'ADMIN' && (
                   <Link href='/admin'>

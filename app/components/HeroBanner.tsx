@@ -24,7 +24,7 @@ export default function HeroBanner() {
             />
             <div className='absolute flex flex-col items-center justify-center w-full max-h-[80vh] inset-0 h-full lg:mb-0 text-center'>
               <h1 className='text-4xl lg:text-6xl font-bold text-white mb-4'>
-                Winter Sale
+                Spring Sale
               </h1>
               <p className='text-lg lg:text-xl text-white mb-2'>
                 Enjoy discounts on selected items

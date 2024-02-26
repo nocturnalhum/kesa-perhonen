@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/actions/getCurrentUser';
-import { ItemType, Order, Review } from '@prisma/client';
+import { CartProductType, Order, Review } from '@prisma/client';
 
 export async function POST(request: Request) {
   try {
@@ -13,11 +13,10 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { title, comment, rating, product, userId } = body;
 
-    console.log('currentUser?.orders', currentUser?.orders);
     const deliveredOrder = currentUser?.orders.some(
       (order: Order) =>
         order.products.find(
-          (item: ItemType) => item.id.split('+')[0] === product.id
+          (cartProduct: CartProductType) => cartProduct.id === product.id
         ) && order.deliveryStatus === 'delivered'
     );
 

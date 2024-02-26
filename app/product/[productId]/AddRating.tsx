@@ -6,7 +6,7 @@ import Input from '@/app/components/forms/Input';
 import TextArea from '@/app/components/forms/TextArea';
 import { SafeUser } from '@/types';
 import { Rating } from '@mui/material';
-import { ItemType, Order, Product, Review } from '@prisma/client';
+import { Order, Product, Review } from '@prisma/client';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -54,19 +54,25 @@ const AddRating: React.FC<AddRatingProps> = ({ product, user }) => {
     setIsLoading(true);
     if (data.rating === 0) {
       setIsLoading(false);
-      return toast.error('No Rating selected');
+      return toast.error('No Rating selected', {
+        id: 'ratingError',
+      });
     }
     const ratingData = { ...data, userId: user?.id, product: product };
 
     axios
       .post('/api/rating', ratingData)
       .then(() => {
-        toast.success('Rating submitted');
+        toast.success('Rating submitted', {
+          id: 'ratingSubmitted',
+        });
         router.refresh();
         reset();
       })
       .catch((error) => {
-        toast.error('Error: Rating not submitted');
+        toast.error('Error: Rating not submitted', {
+          id: 'ratingNotSubmitted',
+        });
       })
       .finally(() => {
         setIsLoading(false);

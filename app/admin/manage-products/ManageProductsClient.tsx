@@ -261,10 +261,11 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
         toast.success('Product deleted', {
           id: 'deleteProductSuccess',
         });
-        const { deleteImage } = res.data;
-        if (deleteImage) {
-          handleImageDelete();
-        }
+        // **NOTE: Disable Image Deletion for testing purposes, to allow product data restoration after deletion**
+        // const { deleteImage } = res.data;
+        // if (deleteImage) {
+        //   handleImageDelete();
+        // }
         router.refresh();
       })
       .catch((error: any) => {
