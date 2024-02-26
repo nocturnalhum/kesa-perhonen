@@ -15,7 +15,6 @@ export default function HeroBanner() {
         <div className='flex flex-col mx-auto gap-2 lg:flex-row items-center justify-evenly'>
           <div className='relative w-full max-h-screen'>
             <Image
-              priority
               src='https://kesa-perhonen.s3.ca-central-1.amazonaws.com/Clear_Care_Series.jpg'
               alt='Banner winter accessories'
               height={600}

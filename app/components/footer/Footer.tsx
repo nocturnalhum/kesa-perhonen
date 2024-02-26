@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { MdFacebook } from 'react-icons/md';
 import {
@@ -6,11 +8,40 @@ import {
   AiFillYoutube,
 } from 'react-icons/ai';
 import Container from '../Container';
-
+import queryString from 'query-string';
 import { categories } from '@/utils/categories';
 import FooterList from './FooterList';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const Footer = () => {
+  const router = useRouter();
+  const params = useSearchParams();
+  const handleClick = (label: string) => {
+    if (label === 'All') {
+      router.push('/');
+    } else {
+      let currentQuery = {};
+      if (params) {
+        currentQuery = queryString.parse(params.toString());
+        console.log('Category - Params', currentQuery);
+      }
+
+      const updatedQuery: any = {
+        ...currentQuery,
+        category: label,
+      };
+      const url = queryString.stringifyUrl(
+        {
+          url: '/',
+          query: updatedQuery,
+        },
+        {
+          skipNull: true,
+        }
+      );
+      router.push(url);
+    }
+  };
   return (
     <footer className='bg-slate-700 text-slate-200 text-sm'>
       <Container>
@@ -22,9 +53,13 @@ const Footer = () => {
             </h3>
             {categories.map((item) => {
               return (
-                <Link href={item.link} key={item.id} className='capitalize'>
+                <button
+                  onClick={() => handleClick(item.category)}
+                  key={item.id}
+                  className='capitalize'
+                >
                   {item.category}
-                </Link>
+                </button>
               );
             })}
           </FooterList>
