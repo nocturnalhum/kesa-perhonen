@@ -9,7 +9,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 });
 
 const calculateOrderAmount = (items: CartProductType[]) => {
-  const TAXES = 1.13;
+  const HST = 1.13;
   const subtotal = items.reduce(
     (acc: number, item: CartProductType) =>
       acc +
@@ -18,7 +18,7 @@ const calculateOrderAmount = (items: CartProductType[]) => {
         item.quantity,
     0
   );
-  return Math.round(subtotal * TAXES * 100);
+  return Math.round(subtotal * HST * 100);
 };
 
 export async function POST(request: Request) {
@@ -89,4 +89,5 @@ export async function POST(request: Request) {
     });
     return NextResponse.json({ paymentIntent });
   }
+  return NextResponse.error();
 }

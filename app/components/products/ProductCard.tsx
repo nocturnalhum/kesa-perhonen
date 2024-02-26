@@ -5,9 +5,10 @@ import { useRouter } from 'next/navigation';
 import { truncateText } from '@/utils/truncateText';
 import { Rating } from '@mui/material';
 import { formatPrice } from '@/utils/formatPrice';
+import { Product } from '@prisma/client';
 
 interface ProductCardProps {
-  product: any;
+  product: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
