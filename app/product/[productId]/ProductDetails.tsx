@@ -1,18 +1,17 @@
 'use client';
 
+import toast from 'react-hot-toast';
+import SetSize from './SetSize';
+import SetColor from './SetColor';
+import SetQuantity from './SetQuantity';
+import ProductImage from './ProductImage';
+import Button from '@/app/components/forms/Button';
 import { formatPrice } from '@/utils/formatPrice';
 import { Rating } from '@mui/material';
 import { useRouter } from 'next/navigation';
-
 import { useCallback, useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import { MdArrowBack, MdCheckCircle } from 'react-icons/md';
-import SetColor from './SetColor';
-import SetQuantity from './SetQuantity';
-import Button from '@/app/components/forms/Button';
-import ProductImage from './ProductImage';
 import { useCart } from '@/hooks/useCart';
-import SetSize from './SetSize';
 
 interface ProductDetailsProps {
   product: any;
@@ -41,7 +40,7 @@ export type SelectedItemType = {
 };
 
 export type SizeType = {
-  size: string[];
+  size: string;
   price: number;
   discount: number;
   inventory: number;

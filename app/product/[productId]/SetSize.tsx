@@ -26,7 +26,7 @@ const SetSize: React.FC<SetSizeProps> = ({
       <span className='font-bold uppercase'>
         size:
         <span className='font-normal uppercase ml-2'>
-          {cartProduct.selectedItem.itemDetail.size[1]}
+          {cartProduct.selectedItem.itemDetail.size}
         </span>
       </span>
       <div className='flex gap-3 items-center mt-2'>
@@ -34,18 +34,17 @@ const SetSize: React.FC<SetSizeProps> = ({
           return (
             <div
               onClick={() => handleSizeSelect(sizeDetail)}
-              key={sizeDetail.size[0]}
+              key={sizeDetail.size}
               className={`flex justify-center items-center h-9 aspect-square border rounded-full p-3  text-xs uppercase select-none ${
-                sizeDetail.size[1].length > 3 ? 'w-24 rounded-md' : 'w-9'
+                sizeDetail.size.length > 3 ? 'w-24 rounded-md' : 'w-9'
               }
               ${
-                cartProduct.selectedItem.itemDetail.size[0] ===
-                sizeDetail.size[0]
+                cartProduct.selectedItem.itemDetail.size === sizeDetail.size
                   ? 'border-[1.5px] border-slate-500'
                   : ''
               }`}
             >
-              {sizeDetail.size[1]}
+              {sizeDetail.size}
             </div>
           );
         })}

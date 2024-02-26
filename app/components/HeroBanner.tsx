@@ -10,9 +10,7 @@ export default function HeroBanner() {
   return (
     <Container>
       <div
-        className={`relative bg-gradient-to-r from-sky-500 to-sky-700 mb-8 w-full ${
-          hideBanner ? 'hidden' : 'block'
-        }`}
+        className={`relative mb-4 w-full ${hideBanner ? 'hidden' : 'block'}`}
       >
         <div className='flex flex-col mx-auto gap-2 lg:flex-row items-center justify-evenly'>
           <div className='relative w-full max-h-screen'>
@@ -22,7 +20,7 @@ export default function HeroBanner() {
               alt='Banner winter accessories'
               height={600}
               width={800}
-              className='object-cover w-full max-h-[80dvh]'
+              className='object-cover w-full max-h-[40dvh]'
             />
             <div className='absolute flex flex-col items-center justify-center w-full max-h-[80vh] inset-0 h-full lg:mb-0 text-center'>
               <h1 className='text-4xl lg:text-6xl font-bold text-white mb-4'>

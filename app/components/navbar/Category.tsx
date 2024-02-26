@@ -13,7 +13,7 @@ const Category: React.FC<CategoryProps> = ({ label, icon: Icon, selected }) => {
   const router = useRouter();
   const params = useSearchParams();
 
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     if (label === 'All') {
       router.push('/');
     } else {
@@ -37,19 +37,21 @@ const Category: React.FC<CategoryProps> = ({ label, icon: Icon, selected }) => {
       );
       router.push(url);
     }
-  }, [label, params, router]);
+  };
 
   return (
     <div
       onClick={handleClick}
-      className={`flex items-center justify-center text-center gap-1 p-2 hover:text-slate-800 cursor-pointer ${
+      className={`flex items-center justify-center text-center gap-1 p-2 border-b-[1.5px] hover:text-slate-800 transition cursor-pointer duration-300 ${
         selected
-          ? 'border-b-slate-800 text-slate-800'
+          ? 'border-b-slate-800 text-slate-800 border-b-[1.5px]'
           : 'border-transparent text-slate-500'
       }`}
     >
       <Icon size={20} />
-      <div className='font-medium text-sm capitalize'>{label}</div>
+      <div className='font-medium text-sm capitalize hover:scale-110 duration-300'>
+        {label}
+      </div>
     </div>
   );
 };

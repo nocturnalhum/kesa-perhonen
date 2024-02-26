@@ -181,11 +181,15 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
         deliveryStatus: 'dispatched',
       })
       .then((res) => {
-        toast.success('Order Dispatched');
+        toast.success('Order Dispatched', {
+          id: 'dispatchSuccess',
+        });
         router.refresh();
       })
       .catch((error: any) => {
-        toast.error('Oops! Order not dispatched');
+        toast.error('Oops! Order not dispatched', {
+          id: 'dispatchError',
+        });
         console.log('Error: ', error);
       });
   };
@@ -201,11 +205,15 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
         deliveryStatus: 'delivered',
       })
       .then((res) => {
-        toast.success('Order Delivered');
+        toast.success('Order Delivered', {
+          id: 'deliverSuccess',
+        });
         router.refresh();
       })
       .catch((error: any) => {
-        toast.error('Oops! Order not delivered');
+        toast.error('Oops! Order not delivered', {
+          id: 'deliverError',
+        });
         console.log('Error: ', error);
       });
   };

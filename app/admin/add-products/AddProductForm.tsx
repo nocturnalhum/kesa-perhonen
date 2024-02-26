@@ -254,7 +254,6 @@ const AddProductForm = () => {
       description: data.description.trim(),
       items: uploadedImages,
     };
-    console.log('productData', productData);
 
     // ========<<< save to MongoDB >>>=========================================
     axios

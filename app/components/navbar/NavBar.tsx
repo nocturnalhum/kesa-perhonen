@@ -9,6 +9,7 @@ import SearchBar from './SearchBar';
 import CartCount from './CartCount';
 import UserMenu from './UserMenu';
 import { getCurrentUser } from '@/actions/getCurrentUser';
+import { useState } from 'react';
 
 const amaticSC = Amatic_SC({
   subsets: ['latin'],

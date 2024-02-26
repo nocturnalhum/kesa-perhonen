@@ -15,6 +15,7 @@ export async function getCurrentUser() {
     const currentUser = await prisma.user
       .findUnique({
         where: { email: session?.user?.email },
+        include: { orders: true },
       })
       .catch((error) => {
         console.error('Error querying user data: ', error.message);

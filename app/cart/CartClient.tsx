@@ -40,6 +40,13 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
     <div>
       {/* ========<<< Shopping Cart Headers Display >>>======================== */}
       <Heading title='Shopping Cart' center />
+      <button
+        onClick={() => router.back()}
+        className='flex items-center duration-300 hover:font-medium underline'
+      >
+        <MdArrowBack size={20} />
+        Back
+      </button>
       <div className='grid grid-cols-5 text-xs gap-4 mt-8 pb-2 items-center uppercase'>
         <div className='col-span-2 justify-self-start'>product</div>
         <div className='justify-self-center'>price</div>
