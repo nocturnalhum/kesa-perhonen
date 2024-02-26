@@ -21,6 +21,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
   products,
 }) => {
   const router = useRouter();
+  const storage = getStorage(firebaseApp);
 
   let expandProducts: any[] = [];
 
@@ -49,7 +50,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
     );
   }
 
-  console.log('expandProducts', expandProducts);
+  // console.log('expandProducts', expandProducts);
   let rows: any = [];
 
   if (expandProducts) {
@@ -87,7 +88,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
           </div>
         );
       },
-      flex: 2,
+      flex: 1,
     },
     {
       field: 'name',
@@ -99,6 +100,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
       field: 'color',
       headerName: 'Color',
       headerAlign: 'center',
+      align: 'center',
       renderCell: (params) => {
         return <div className='capitalize'>{params.value}</div>;
       },
@@ -108,22 +110,21 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
       field: 'size',
       headerName: 'Size',
       headerAlign: 'center',
+      align: 'center',
       renderCell: (params) => {
-        return (
-          <div className='flex justify-center w-full uppercase'>
-            {params.value}
-          </div>
-        );
+        return <div className='uppercase'>{params.value}</div>;
       },
-      flex: 1,
+      width: 80,
     },
     {
       field: 'isNew',
-      headerName: 'Is New',
+      headerName: 'New',
+      headerAlign: 'center',
+      align: 'center',
       renderCell: (params) => {
         return <div>{params.value ? 'Yes' : 'No'}</div>;
       },
-      flex: 1,
+      width: 80,
     },
     {
       field: 'price',
@@ -133,12 +134,15 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
           <div className='font-semibold text-slate-800'>{params.value}</div>
         );
       },
-      flex: 1,
+      width: 100,
+      headerAlign: 'center',
+      align: 'center',
     },
     {
       field: 'inventory',
       headerName: 'Inventory',
       headerAlign: 'center',
+      align: 'center',
       renderCell: (params) => {
         return (
           <div
@@ -148,7 +152,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
                 : params.value === 0
                 ? 'text-red-500'
                 : 'text-amber-400'
-            } font-semibold w-full flex items-center justify-center`}
+            } font-semibold`}
           >
             {params.value === 0 ? 'Out of Stock' : params.value}
           </div>
@@ -159,56 +163,115 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
     {
       field: 'actions',
       headerName: 'Actions',
+      headerAlign: 'center',
       renderCell: (params) => {
         return (
-          <div className='flex justify-between gap-4 w-full'>
-            <ActionBtn
-              onClick={() =>
-                router.push(`/admin/manage-products/${params.row.id}`)
-              }
-              icon={MdRemoveRedEye}
-            />
+          <div className='flex justify-between w-full'>
+            <ActionBtn onClick={() => {}} icon={MdRemoveRedEye} />
             <ActionBtn
               onClick={() => handleToggleIsNew(params.row.id, params.row.isNew)}
               icon={MdCached}
             />
             <ActionBtn
-              onClick={() =>
-                router.push(`/admin/manage-products/${params.row.id}`)
-              }
+              onClick={() => handleDelete(params.row.id, params.row.size)}
               icon={MdDelete}
             />
           </div>
         );
       },
-      width: 200,
+      width: 175,
     },
   ];
 
-  const handleToggleIsNew = useCallback(
-    (id: string, isNew: boolean) => {
-      const productArray = id.split('+');
-      const productId = productArray[0];
-      axios
-        .put('/api/product', {
-          productId,
-          isNew: !isNew,
-        })
-        .then((res) => {
-          toast.success('Product status changed', {
-            id: 'statusChangeSuccess',
-          });
-          router.refresh();
-        })
-        .catch((error: any) => {
-          toast.error('Oops! Product status change error!', {
-            id: 'statusChangeError',
-          });
-          console.log('Error', error);
+  // ============================================================================
+  // =====<<< Handle Toggle Is New >>>===========================================
+  // ============================================================================
+  const handleToggleIsNew = (id: string, isNew: boolean) => {
+    const productArray = id.split('+');
+    const productId = productArray[0];
+    axios
+      .put('/api/product', {
+        productId,
+        isNew: !isNew,
+      })
+      .then((res) => {
+        toast.success('Product status changed', {
+          id: 'statusChangeSuccess',
         });
-    },
-    [router]
-  );
+        router.refresh();
+      })
+      .catch((error: any) => {
+        toast.error('Oops! Product status change error!', {
+          id: 'statusChangeError',
+        });
+        console.log('Error', error);
+      });
+  };
+
+  // ============================================================================
+  // =====<<< Handle Delete Product >>>==========================================
+  // ============================================================================
+  const handleDelete = (id: string, size: string) => {
+    toast('Deleting product. please wait', {
+      id: 'deleteProduct',
+      duration: 1000,
+    });
+    const splitId = id.split('+');
+    const productId = splitId[0];
+    const itemId = splitId[1];
+    const imageProduct = products.find((product) => product.id === productId);
+
+    if (!imageProduct) {
+      toast.error('Product not found', {
+        id: 'deleteProductNotFoundError',
+      });
+      return;
+    }
+    const imageItem = imageProduct?.items.find(
+      (item: ItemType) => item.itemId === itemId
+    );
+
+    const handleImageDelete = async () => {
+      try {
+        if (imageItem?.image) {
+          const imageRef = ref(storage, imageItem.image);
+          await deleteObject(imageRef);
+          console.log('Image deleted', imageItem.image);
+        }
+      } catch (error) {
+        return console.log('Error Deleting Images', error);
+      }
+    };
+
+    axios
+      .delete('/api/product', {
+        data: {
+          productId,
+          itemId,
+          size,
+        },
+      })
+      .then((res) => {
+        toast.success('Product deleted', {
+          id: 'deleteProductSuccess',
+        });
+        const { deleteImage } = res.data;
+        if (deleteImage) {
+          handleImageDelete();
+        }
+        router.refresh();
+      })
+      .catch((error: any) => {
+        toast.error('Error! Failed to delete product', {
+          id: 'deleteProductError',
+        });
+        console.log('Error', error.message);
+      });
+  };
+
+  // ============================================================================
+  // ============================================================================
+
   return (
     <div className='max-w-[1150px] mx-auto text-xl'>
       <div className='mt-8 mb-4'>

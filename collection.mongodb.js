@@ -36,6 +36,6 @@ const deleteCollection = (name) => {
 // =============================================
 // ========<<< Run Commands Here >>>============
 // =============================================
-
+clone('ProductCopy', 'Product');
 // rename('Product', 'ProductCopy');
 // deleteCollection('ProductCopy');
