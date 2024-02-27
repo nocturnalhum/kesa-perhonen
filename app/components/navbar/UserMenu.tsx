@@ -1,14 +1,14 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import Avatar from '../Avatar';
-import Link from 'next/link';
-import MenuItem from './MenuItem';
-import { signOut } from 'next-auth/react';
-import BackDrop from './BackDrop';
 import { SafeUser } from '@/types';
-import toast from 'react-hot-toast';
+import { signOut } from 'next-auth/react';
 import { AiFillCaretDown } from 'react-icons/ai';
+import Link from 'next/link';
+import toast from 'react-hot-toast';
+import Avatar from '../Avatar';
+import BackDrop from './BackDrop';
+import MenuItem from './MenuItem';
 
 interface UserMenuProps {
   currentUser: SafeUser | null;

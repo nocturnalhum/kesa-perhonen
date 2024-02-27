@@ -16,6 +16,10 @@ import { useRouter, useSearchParams } from 'next/navigation';
 const Footer = () => {
   const router = useRouter();
   const params = useSearchParams();
+
+  // ==========================================================================
+  // =========<<< Category Handler >>>=========================================
+  // ==========================================================================
   const handleClick = (label: string) => {
     if (label === 'All') {
       router.push('/');
@@ -42,6 +46,7 @@ const Footer = () => {
       router.push(url);
     }
   };
+
   return (
     <footer className='bg-slate-700 text-slate-200 text-sm'>
       <Container>

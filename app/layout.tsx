@@ -8,7 +8,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import NavBar from './components/navbar/NavBar';
 import Footer from './components/footer/Footer';
 import CartProvider from '@/providers/CartProvider';
-import { getCurrentUser } from '@/actions/getCurrentUser';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -35,7 +34,7 @@ export default async function RootLayout({ children }: Props) {
           }}
         />
         <CartProvider>
-          <div className='flex flex-col min-h-screen'>
+          <div className='relative flex flex-col min-h-screen'>
             <NavBar />
             <main className='flex-grow bg-slate-50'>
               {children}
