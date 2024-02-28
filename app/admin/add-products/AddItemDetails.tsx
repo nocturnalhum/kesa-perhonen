@@ -37,6 +37,7 @@ const defaultItem = {
     { size: 'm', price: 0, discount: 0, inventory: 0 },
     { size: 'l', price: 0, discount: 0, inventory: 0 },
     { size: 'xl', price: 0, discount: 0, inventory: 0 },
+    { size: 'xxl', price: 0, discount: 0, inventory: 0 },
   ],
   color: '',
   image: null,

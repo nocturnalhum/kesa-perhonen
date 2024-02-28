@@ -31,22 +31,24 @@ const SetSize: React.FC<SetSizeProps> = ({
       </span>
       <div className='flex gap-3 items-center mt-2'>
         {selectedItem?.sizes.map((sizeDetail) => {
-          return (
-            <div
-              onClick={() => handleSizeSelect(sizeDetail)}
-              key={sizeDetail.size}
-              className={`flex justify-center items-center h-9 aspect-square border rounded-full p-3 text-xs uppercase select-none ${
-                sizeDetail.size.length > 3 ? 'w-24 rounded-md' : 'w-9'
-              }
+          if (sizeDetail.price !== 0) {
+            return (
+              <div
+                onClick={() => handleSizeSelect(sizeDetail)}
+                key={sizeDetail.size}
+                className={`flex justify-center items-center h-9 aspect-square border rounded-full p-3 text-xs uppercase select-none ${
+                  sizeDetail.size.length > 3 ? 'w-24 rounded-md' : 'w-9'
+                }
               ${
                 cartProduct.selectedItem.itemDetail.size === sizeDetail.size
                   ? 'border-[1.5px] border-slate-500'
                   : ''
               }`}
-            >
-              {sizeDetail.size}
-            </div>
-          );
+              >
+                {sizeDetail.size}
+              </div>
+            );
+          }
         })}
       </div>
     </div>

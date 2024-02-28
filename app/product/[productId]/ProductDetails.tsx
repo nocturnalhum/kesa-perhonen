@@ -72,7 +72,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     },
   });
 
-  console.log('shoppingCart', shoppingCart);
   useEffect(() => {
     setIsProductInCart(false);
     if (shoppingCart) {
