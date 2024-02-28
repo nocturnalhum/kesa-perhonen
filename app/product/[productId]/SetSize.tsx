@@ -35,7 +35,7 @@ const SetSize: React.FC<SetSizeProps> = ({
             <div
               onClick={() => handleSizeSelect(sizeDetail)}
               key={sizeDetail.size}
-              className={`flex justify-center items-center h-9 aspect-square border rounded-full p-3  text-xs uppercase select-none ${
+              className={`flex justify-center items-center h-9 aspect-square border rounded-full p-3 text-xs uppercase select-none ${
                 sizeDetail.size.length > 3 ? 'w-24 rounded-md' : 'w-9'
               }
               ${
@@ -54,58 +54,3 @@ const SetSize: React.FC<SetSizeProps> = ({
 };
 
 export default SetSize;
-
-/**
- * Notes: CartProduct:
- * id * name * description * category[] * quantity * selectedItem
- *    selectedItem: color: 'Black' * image * sizes[]
- *        sizes: discount * inventory * price * size[]
- *            size: [ "xs", "xs", "extra-small" ]
- */
-
-/**
- * Notes: SetSize-items:
- * Object1 { color: 'Natural' * image * sizes[5]}
- *    sizes: price * discount * inventory * size[3]
- *        size: [ "xs", "xs", "extra-small" ]
- * Object2 *
- * Object3 *
- */
-
-/**
- * Notes: SetSize-cartProduct: Same as above
- * id * name * description * category[] * quantity * selectedItem
- *    selectedItem: color: 'Black' * image * sizes[]
- *        sizes: discount * inventory * price * size[]
- *            size: [ "xs", "xs", "extra-small" ]
- */
-
-/**
- * Notes: Product:
- * id * name * description * category[] * isNew * items * reviews[]
- *    items[3]: color: 'Black' * image * sizes[5]
- *        sizes[0]: discount * inventory * price * size[3]
- *            size: [ "xs", "xs", "extra-small" ]
- */
-
-// export type ProductType = {
-//   id: string;
-//   name: string;
-//   description: string;
-//   category: string[];
-//   isNew: boolean;
-//   items: ItemType[];
-// }
-
-// export type ItemType = {
-//   color: string;
-//   image: string;
-//   sizes: SizeType[];
-// }
-
-// export type SizeType = {
-//   size: string[];
-//   price: number;
-//   discount: number;
-//   inventory: number;
-// };

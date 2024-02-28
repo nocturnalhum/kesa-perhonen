@@ -31,7 +31,13 @@ const defaultSizeDetails = {
 
 const defaultItem = {
   itemId: '',
-  sizes: [],
+  sizes: [
+    { size: 'xs', price: 0, discount: 0, inventory: 0 },
+    { size: 's', price: 0, discount: 0, inventory: 0 },
+    { size: 'm', price: 0, discount: 0, inventory: 0 },
+    { size: 'l', price: 0, discount: 0, inventory: 0 },
+    { size: 'xl', price: 0, discount: 0, inventory: 0 },
+  ],
   color: '',
   image: null,
 } as ItemType;
@@ -42,21 +48,23 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
   handleItemUpdate,
 }) => {
   const [file, setFile] = useState<File | null>(null);
-  const [sizeCategory, setSizeCategory] = useState(sizeOptions[0]);
-  const [sizeDetails, setSizeDetails] = useState(defaultSizeDetails);
   const [item, setItem] = useState<ItemType>(defaultItem);
+  const [sizeDetails, setSizeDetails] = useState(defaultSizeDetails);
+  const [sizeCategory, setSizeCategory] = useState(sizeOptions[0]);
   const [sizeCategoryValue, setSizeCategoryValue] = useState(
     sizeCategory.value
   );
   const [error, setError] = useState(false);
 
+  console.log('ITEM STATE:', item);
+
   useEffect(() => {
     if (
       sizeDetails.price &&
-      sizeDetails.inventory &&
+      (sizeDetails.inventory || sizeDetails.discount === 0) &&
       (sizeDetails.discount || sizeDetails.discount === 0)
     ) {
-      console.log('SETTING ITEM');
+      console.log('SETTING ITEM', sizeDetails);
       setItem((prevItem) => {
         const updatedSizes = prevItem?.sizes?.map((size) =>
           size.size === sizeDetails.size ? sizeDetails : size

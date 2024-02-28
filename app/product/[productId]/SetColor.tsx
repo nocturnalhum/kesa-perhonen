@@ -23,7 +23,7 @@ const SetColor: React.FC<SetColorProps> = ({
   const checkInventory = (item: ItemType) => {
     const stock = item.sizes.find(
       (sizeItem: SizeType) =>
-        sizeItem.size[0] === cartProduct.selectedItem.itemDetail.size[0]
+        sizeItem.size === cartProduct.selectedItem.itemDetail.size
     );
     return stock.inventory === 0;
   };
@@ -68,5 +68,3 @@ const SetColor: React.FC<SetColorProps> = ({
 };
 
 export default SetColor;
-// cartProduct.selectedItem.color === item.color &&
-//                 cartProduct.selectedItem.itemDetail.inventory === 0 &&

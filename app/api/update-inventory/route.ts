@@ -24,7 +24,7 @@ export async function PUT(request: Request) {
   //               sizes: {
   //                 updateMany: {
   //                   where: {
-  //                     size: { has: item.selectedItem.itemDetail.size[0] },
+  //                     size: { has: item.selectedItem.itemDetail.size },
   //                   },
   //                   data: {
   //                     inventory: {

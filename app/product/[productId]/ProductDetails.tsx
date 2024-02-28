@@ -72,6 +72,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     },
   });
 
+  console.log('shoppingCart', shoppingCart);
   useEffect(() => {
     setIsProductInCart(false);
     if (shoppingCart) {
@@ -79,8 +80,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         (item) =>
           item.id === cartProduct.id &&
           item.selectedItem.color === cartProduct.selectedItem.color &&
-          item.selectedItem.itemDetail.size[0] ===
-            cartProduct.selectedItem.itemDetail.size[0]
+          item.selectedItem.itemDetail.size ===
+            cartProduct.selectedItem.itemDetail.size
       );
 
       if (existingIndex > -1) {
@@ -133,7 +134,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
       const { color, image, sizes } = item;
       const updateItemDetail = sizes.find(
         (sizeDetail: SizeType) =>
-          sizeDetail.size[0] === cartProduct.selectedItem.itemDetail.size[0]
+          sizeDetail.size === cartProduct.selectedItem.itemDetail.size
       );
 
       // Update Quantity to prevent orders exceeding an inventory stock:
