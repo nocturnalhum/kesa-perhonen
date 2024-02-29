@@ -24,7 +24,6 @@ const MenuButton = () => {
       let currentQuery = {};
       if (params) {
         currentQuery = queryString.parse(params.toString());
-        console.log('Category - Params', currentQuery);
       }
 
       const updatedQuery: any = {

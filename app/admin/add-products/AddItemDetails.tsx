@@ -31,14 +31,7 @@ const defaultSizeDetails = {
 
 const defaultItem = {
   itemId: '',
-  sizes: [
-    { size: 'xs', price: 0, discount: 0, inventory: 0 },
-    { size: 's', price: 0, discount: 0, inventory: 0 },
-    { size: 'm', price: 0, discount: 0, inventory: 0 },
-    { size: 'l', price: 0, discount: 0, inventory: 0 },
-    { size: 'xl', price: 0, discount: 0, inventory: 0 },
-    { size: 'xxl', price: 0, discount: 0, inventory: 0 },
-  ],
+  sizes: [],
   color: '',
   image: null,
 } as ItemType;
@@ -52,20 +45,22 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
   const [item, setItem] = useState<ItemType>(defaultItem);
   const [sizeDetails, setSizeDetails] = useState(defaultSizeDetails);
   const [sizeCategory, setSizeCategory] = useState(sizeOptions[0]);
-  const [sizeCategoryValue, setSizeCategoryValue] = useState(
-    sizeCategory.value
-  );
+  const [sizeCategoryValue, setSizeCategoryValue] = useState([
+    sizeCategory.value,
+  ]);
   const [error, setError] = useState(false);
 
-  console.log('ITEM STATE:', item);
+  console.log('Item', item);
+  console.log('sizeDetails', sizeDetails);
+  // console.log('sizeCategory', sizeCategory);
 
   useEffect(() => {
     if (
-      sizeDetails.price &&
-      (sizeDetails.inventory || sizeDetails.discount === 0) &&
-      (sizeDetails.discount || sizeDetails.discount === 0)
+      (sizeDetails.price || sizeDetails.price === 0) &&
+      (sizeDetails.inventory || sizeDetails.inventory === 0) &&
+      (sizeDetails.discount || sizeDetails.discount === 0) &&
+      sizeDetails.size
     ) {
-      console.log('SETTING ITEM', sizeDetails);
       setItem((prevItem) => {
         const updatedSizes = prevItem?.sizes?.map((size) =>
           size.size === sizeDetails.size ? sizeDetails : size
@@ -81,17 +76,43 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
     }
   }, [sizeDetails]);
 
-  // console.log('AddItem - Item', item);
-  // console.log('AddItem - sizeDetails', sizeDetails);
+  // ==========================================================================
+  // ========<<< Sort Sizes >>>================================================
+  // ==========================================================================
+  const sortSizes = (itemSizes: SizeType[], order: string[]) => {
+    const sortedSizes = itemSizes.sort((a, b) => {
+      return order.indexOf(a.size) - order.indexOf(b.size);
+    });
+    return sortedSizes;
+  };
 
   // ==========================================================================
   // ========<<< Update FormState With Items >>>===============================
   // ==========================================================================
   useEffect(() => {
     if (item.sizes?.length && item.sizes?.length > 0 && item.color) {
+      // Sort sizes to display in correct order in ProductDetails page
+      sortSizes(item.sizes, sizeCategoryValue);
       handleItemUpdate({ ...item, itemId });
     }
-  }, [item, itemId, handleItemUpdate, error]);
+  }, [item, itemId, handleItemUpdate, error, sizeCategoryValue]);
+
+  // ==========================================================================
+  // ========<<< Handle Size Type Selection >>>================================
+  // ==========================================================================
+  const handleSizeSelection = (event: any) => {
+    const index = sizeOptions.findIndex(
+      (option) => option.label === event.target.value
+    );
+    if (index < 0) {
+      return;
+    }
+    setSizeCategory(sizeOptions[index]);
+    const sizeCategoryValues = sizeOptions[index].value.split(', ');
+    setSizeCategoryValue(sizeCategoryValues);
+    setSizeDetails(defaultSizeDetails);
+    setItem({ ...item, sizes: [] });
+  };
 
   // ==========================================================================
   // ========<<< Handle Color Change >>>=======================================
@@ -105,7 +126,7 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
   // ==========================================================================
   const handlePriceChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    item: string
+    itemSize: string
   ) => {
     const newPrice = Number(event.target.value);
     if (isNaN(newPrice) || newPrice < 0.01) {
@@ -114,7 +135,19 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
       return;
     } else {
       setError(false);
-      setSizeDetails({ ...sizeDetails, price: Number(newPrice), size: item });
+      const getSizeDetails = item.sizes?.find((size) => size.size === itemSize);
+      if (getSizeDetails) {
+        setSizeDetails({
+          ...getSizeDetails,
+          price: Number(newPrice),
+        });
+      } else {
+        setSizeDetails({
+          ...sizeDetails,
+          price: Number(newPrice),
+          size: itemSize,
+        });
+      }
     }
   };
 
@@ -123,7 +156,7 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
   // ==========================================================================
   const handleDiscountChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    item: string
+    itemSize: string
   ) => {
     const newDiscount = Number(event.target.value);
     if (isNaN(newDiscount) || !(newDiscount >= 0 && newDiscount <= 99)) {
@@ -132,11 +165,19 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
       return;
     } else {
       setError(false);
-      setSizeDetails({
-        ...sizeDetails,
-        discount: Number(newDiscount),
-        size: item,
-      });
+      const getSizeDetails = item.sizes?.find((size) => size.size === itemSize);
+      if (getSizeDetails) {
+        setSizeDetails({
+          ...getSizeDetails,
+          discount: Number(newDiscount),
+        });
+      } else {
+        setSizeDetails({
+          ...sizeDetails,
+          discount: Number(newDiscount),
+          size: itemSize,
+        });
+      }
     }
   };
 
@@ -145,7 +186,7 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
   // ==========================================================================
   const handleInventoryChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    item: string
+    itemSize: string
   ) => {
     const newInventory = Number(event.target.value);
     if (isNaN(newInventory) || newInventory < 0) {
@@ -154,11 +195,22 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
       return;
     } else {
       setError(false);
-      setSizeDetails({
-        ...sizeDetails,
-        inventory: Number(newInventory),
-        size: item,
-      });
+      console.log('Item', item);
+      console.log('itemSize', itemSize);
+      const getSizeDetails = item.sizes?.find((size) => size.size === itemSize);
+      console.log('getSizeDetails', getSizeDetails);
+      if (getSizeDetails) {
+        setSizeDetails({
+          ...getSizeDetails,
+          inventory: Number(newInventory),
+        });
+      } else {
+        setSizeDetails({
+          ...sizeDetails,
+          inventory: Number(newInventory),
+          size: itemSize,
+        });
+      }
     }
   };
 
@@ -177,17 +229,6 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
     setFile(null);
     setItem({ ...item, image: null });
   }, [item]);
-
-  // ==========================================================================
-  // ========<<< Handle Size Selection >>>=====================================
-  // ==========================================================================
-  const handleSizeSelection = (event: any) => {
-    const index = sizeOptions.findIndex(
-      (option) => option.label === event.target.value
-    );
-    setSizeCategory(sizeOptions[index]);
-    setSizeCategoryValue(sizeOptions[index].value);
-  };
 
   // ==========================================================================
   // ==========================================================================
@@ -248,7 +289,7 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
         Enter price, discount and inventory values for each size item
       </div>
       <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 w-full'>
-        {sizeCategoryValue.split(',').map((item) => {
+        {sizeCategoryValue.map((item) => {
           return (
             <div
               key={item}

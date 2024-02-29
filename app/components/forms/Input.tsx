@@ -28,7 +28,6 @@ const Input: React.FC<InputProps> = ({
     <div className='relative w-full'>
       <input
         type={type}
-        placeholder=''
         autoComplete='off'
         id={id}
         disabled={disabled}

@@ -4,11 +4,10 @@ import axios from 'axios';
 import firebaseApp from '@/libs/firebase';
 import toast from 'react-hot-toast';
 import Heading from '@/app/components/Heading';
-import { Product, SizeType } from '@prisma/client';
+import { Product } from '@prisma/client';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { formatPrice } from '@/utils/formatPrice';
 import { MdCached, MdDelete, MdRemoveRedEye } from 'react-icons/md';
-import { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { deleteObject, getStorage, ref } from 'firebase/storage';
 import { ItemType } from '../add-products/AddProductForm';
@@ -50,7 +49,6 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
     );
   }
 
-  // console.log('expandProducts', expandProducts);
   let rows: any = [];
 
   if (expandProducts) {
@@ -69,7 +67,6 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
       };
     });
   }
-  // console.log('Rows', rows);
 
   const columns: GridColDef[] = [
     {

@@ -174,7 +174,6 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
   // =====<<< Handle Dispatch Order >>>==========================================
   // ============================================================================
   const handleDispatch = (id: string) => {
-    console.log('ID', id);
     axios
       .put('/api/order', {
         id,
@@ -198,7 +197,6 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
   // =====<<< Handle Deliver Order >>>===========================================
   // ============================================================================
   const handleDeliver = (id: string) => {
-    console.log('ID', id);
     axios
       .put('/api/order', {
         id,
