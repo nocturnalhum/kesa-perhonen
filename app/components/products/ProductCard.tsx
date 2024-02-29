@@ -22,13 +22,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div
       onClick={() => router.push(`/product/${id}`)}
-      className='col-span-1 cursor-pointer border border-slate-200 bg-slate-50 rounded-sm p-2 hover:scale-105 duration-300 text-center text-sm drop-shadow-md'
+      className='col-span-1 cursor-pointer border border-slate-300 bg-slate-100 rounded-sm p-2 hover:scale-105 duration-300 text-center text-sm drop-shadow-md'
     >
       <div className='flex flex-col items-center w-full'>
         <div className='relative w-full aspect-square overflow-hidden'>
           {product.isNew && (
-            <div className='absolute flex items-center justify-center gap-1 -rotate-45 font-extrabold tracking-wider -left-8 top-3 text-rose-50 bg-rose-500/90 h-6 w-28'>
+            <div className='absolute flex items-center justify-center gap-1 -rotate-45 text-sm font-extrabold tracking-wider -left-9 top-2 text-rose-50 bg-rose-800 h-5 w-28'>
               New!
+            </div>
+          )}
+          {items[0].sizes[0].discount > 0 && (
+            <div className='absolute flex items-center justify-center w-16 h-5 bottom-0 left-0 text-xs font-bold  text-white bg-rose-800'>
+              {items[0].sizes[0].discount}% Off
             </div>
           )}
           <Image
@@ -46,7 +51,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <div>{reviews.length} reviews</div>
         <div
           className={`font-semibold ${
-            items[0].sizes[0]?.discount > 0 && 'text-rose-500'
+            items[0].sizes[0]?.discount > 0 && 'text-rose-800'
           }`}
         >
           {formatPrice(

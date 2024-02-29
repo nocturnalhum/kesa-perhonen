@@ -234,7 +234,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
               <div
                 className={`${
                   cartProduct.selectedItem.itemDetail.discount > 0
-                    ? 'text-rose-500'
+                    ? 'text-rose-800'
                     : 'hidden'
                 }`}
               >
@@ -266,7 +266,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                 {product.category.map((item: string, index: number) => {
                   return (
                     <div key={index}>
-                      <span className='mx-0.5'>{index > 0 ? ' / ' : ''}</span>
+                      <span className='px-2'>{index > 0 ? '|' : ''}</span>
                       {item}
                     </div>
                   );

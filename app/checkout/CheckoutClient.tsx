@@ -8,6 +8,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import toast from 'react-hot-toast';
 import Button from '../components/forms/Button';
 import CheckoutForm from './CheckoutForm';
+import { CartProductType } from '@prisma/client';
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
@@ -19,6 +20,9 @@ const CheckoutClient = () => {
   const [error, setError] = useState(false);
   const [clientSecret, setClientSecret] = useState('');
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [cartInventory, setCartInventory] = useState<CartProductType[] | null>(
+    null
+  );
 
   const router = useRouter();
 
@@ -55,6 +59,31 @@ const CheckoutClient = () => {
     }
   }, [shoppingCart, paymentIntent, handleSetPaymentIntent, router]);
 
+  useEffect(() => {
+    if (paymentSuccess) {
+      toast.success('Payment Success');
+      // Update Inventory
+      const updateInventory = async () => {
+        try {
+          const response = await fetch('/api/update-inventory', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              items: cartInventory,
+            }),
+          });
+          const data = await response.json();
+          console.log('RETURNED DATA', data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      updateInventory();
+    }
+  }, [paymentSuccess, router, cartInventory]);
+
   const options: StripeElementsOptions = {
     clientSecret,
     appearance: {
@@ -63,9 +92,13 @@ const CheckoutClient = () => {
     },
   };
 
-  const handleSetPaymentSuccess = useCallback((value: boolean) => {
-    setPaymentSuccess(value);
-  }, []);
+  const handleSetPaymentSuccess = useCallback(
+    (value: boolean) => {
+      setCartInventory(shoppingCart);
+      setPaymentSuccess(value);
+    },
+    [shoppingCart]
+  );
 
   return (
     <div className='w-full'>
@@ -79,7 +112,7 @@ const CheckoutClient = () => {
       )}
       {loading && <div className='text-center'>Loading Checkout</div>}
       {error && (
-        <div className='text-center text-rose-500'>Something when wrong...</div>
+        <div className='text-center text-rose-800'>Something when wrong...</div>
       )}
       {paymentSuccess && (
         <div className='flex items-center flex-col gap-4'>

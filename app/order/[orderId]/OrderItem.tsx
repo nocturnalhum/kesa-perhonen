@@ -11,6 +11,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ item }) => {
   const discountPrice =
     item.selectedItem.itemDetail.price *
     (1 - item.selectedItem.itemDetail.discount / 100);
+  console.log('ITEM', item);
   return (
     <div className='grid grid-cols-5 text-xs md:text-sm gap-4 border-t-[1.5px] border-slate-200 py-4 items-center capitalize'>
       <div
@@ -34,7 +35,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ item }) => {
           </div>
         </div>
       </div>
-      <div className='justify-self-center text-rose-700'>
+      <div className='justify-self-center text-rose-800'>
         {formatPrice(
           discountPrice ? discountPrice : item.selectedItem.itemDetail.price
         )}
