@@ -40,9 +40,9 @@ const Slider = () => {
             <Image
               src='/bannerImages/Artboard_2.webp'
               alt='Spring Sale'
-              height={400}
-              width={800}
-              className='object-cover w-full max-h-[40dvh]'
+              height={600}
+              width={1800}
+              className='object-cover w-full h-[30dvh]'
               priority
             />
           </CarouselItem>
@@ -58,9 +58,9 @@ const Slider = () => {
             <Image
               src='/bannerImages/stationery_banner.webp'
               alt='Stationery'
-              height={430}
-              width={800}
-              className='object-cover w-full max-h-[40dvh]'
+              height={600}
+              width={1800}
+              className='object-cover w-full h-[30dvh]'
             />
           </CarouselItem>
           <CarouselItem>
@@ -78,9 +78,9 @@ const Slider = () => {
             <Image
               src='/bannerImages/beauty_banner.webp'
               alt='Health & Beauty'
-              height={430}
-              width={800}
-              className='object-cover w-full max-h-[40dvh]'
+              height={600}
+              width={1800}
+              className='object-cover w-full h-[30dvh]'
             />
           </CarouselItem>
           <CarouselItem>
@@ -98,9 +98,9 @@ const Slider = () => {
             <Image
               src='/bannerImages/men_apparel.webp'
               alt='Men clothing'
-              height={430}
-              width={800}
-              className='object-cover w-full max-h-[40dvh]'
+              height={600}
+              width={1800}
+              className='object-cover w-full h-[30dvh]'
             />
           </CarouselItem>
           <CarouselItem>
@@ -118,9 +118,9 @@ const Slider = () => {
             <Image
               src='/bannerImages/women_banner.webp'
               alt='Women clothing'
-              height={430}
-              width={800}
-              className='object-cover w-full max-h-[40dvh]'
+              height={600}
+              width={1800}
+              className='object-cover w-full h-[30dvh]'
             />
           </CarouselItem>
           <CarouselItem>
@@ -130,9 +130,9 @@ const Slider = () => {
             <Image
               src='/bannerImages/travel_banner.webp'
               alt='Travel'
-              height={430}
-              width={800}
-              className='object-cover w-full max-h-[40dvh]'
+              height={600}
+              width={1800}
+              className='object-cover w-full h-[30dvh]'
             />
           </CarouselItem>
         </CarouselContent>
