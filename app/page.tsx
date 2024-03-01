@@ -55,7 +55,10 @@ export default async function Home({ searchParams }: HomeProps) {
               return (
                 <div key={category.id}>
                   <div className='text-2xl md:text-xl text-rose-800 font-semibold underline capitalize pl-5 pb-4 hover:text-rose-600'>
-                    <Link href={`?category=${category.category}`}>
+                    <Link
+                      href={`?category=${category.category}`}
+                      shallow={true}
+                    >
                       {`Shop ${category.category}`}
                     </Link>
                   </div>
