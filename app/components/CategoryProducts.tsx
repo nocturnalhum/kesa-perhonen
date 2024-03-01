@@ -22,13 +22,14 @@ const CategoryProducts: React.FC<CategoryProductsProps> = ({
   };
 
   return (
-    <div>
-      <div className='text-2xl md:text-xl text-rose-800 font-semibold underline capitalize pl-5 pb-4 hover:text-rose-600'>
-        <button onClick={() => router.push(`/?category=${category}`)}>
-          {category}
-        </button>
-      </div>
-      <div className='grid grid-cols-2 gap-2 capitalize md:gap-8 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mb-10 px-2'>
+    <div className='flex flex-col items-center w-full'>
+      <button
+        onClick={() => router.push(`/?category=${category}`)}
+        className='text-2xl md:text-xl text-slate-800 font-semibold underline uppercase pb-3  hover:text-rose-800'
+      >
+        {category}
+      </button>
+      <div className='flex flex-start justify-center gap-5 mb-10 px-2'>
         {filterByCategory(shuffledProducts, category)
           .slice(0, 4)
           .map((product: Product) => {
