@@ -7,6 +7,7 @@ import NullData from './components/NullData';
 import getProducts, { IProductParams } from '@/actions/getProducts';
 import { Product } from '@prisma/client';
 import { Metadata } from 'next';
+import Slider from './components/Slider';
 
 export const metadata: Metadata = {
   title: 'kesä perhonen | Home Goods | Apparel | Gifts Store',
@@ -36,7 +37,8 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <div className='min-h-[90dvh]'>
-      <HeroBanner />
+      {/* <HeroBanner /> */}
+      <Slider />
       <Container>
         <div className='text-2xl md:text-3xl text-slate-600 font-bold ml-3 mb-4 capitalize'>
           {searchParams.category ? searchParams.category : 'All Products'}
