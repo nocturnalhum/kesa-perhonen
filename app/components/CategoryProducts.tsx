@@ -16,9 +16,17 @@ const CategoryProducts: React.FC<CategoryProductsProps> = ({
 }) => {
   const router = useRouter();
   const filterByCategory = (products: Product[], category: string) => {
-    return products.filter((product: Product) =>
-      product.category.includes(category)
-    );
+    return products
+      .filter((product: Product) => product.category.includes(category))
+      .sort((a, b) => {
+        if (a.isNew && !b.isNew) {
+          return -1;
+        } else if (!a.isNew && b.isNew) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
   };
 
   return (
