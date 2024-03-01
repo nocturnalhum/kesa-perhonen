@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import Container from './components/Container';
 import ProductCard from './components/products/ProductCard';
 import NullData from './components/NullData';
@@ -7,6 +9,7 @@ import { Metadata } from 'next';
 import Slider from './components/Slider';
 import { categories } from '@/utils/categories';
 import Link from 'next/link';
+import CategoryProducts from './components/CategoryProducts';
 
 export const metadata: Metadata = {
   title: 'kesä perhonen | Home Goods | Apparel | Gifts Store',
@@ -32,12 +35,6 @@ export default async function Home({ searchParams }: HomeProps) {
     return array;
   }
 
-  function filterByCategory(products: Product[], category: string) {
-    return products.filter((product: Product) =>
-      product.category.includes(category)
-    );
-  }
-
   const shuffledProducts = shuffleArray(products);
 
   return (
@@ -47,30 +44,17 @@ export default async function Home({ searchParams }: HomeProps) {
         <div className='text-2xl md:text-3xl text-slate-600 font-bold ml-3 mb-4 capitalize'>
           {searchParams.category
             ? searchParams.category
-            : 'All Products Debug Test2'}
+            : 'All Products Debug Test4'}
         </div>
         {!searchParams.category ? (
           <>
             {categories.slice(1, categories.length).map((category) => {
               return (
                 <div key={category.id}>
-                  <div className='text-2xl md:text-xl text-rose-800 font-semibold underline capitalize pl-5 pb-4 hover:text-rose-600'>
-                    <Link
-                      href={`?category=${category.category}`}
-                      shallow={true}
-                    >
-                      {`Shop ${category.category}`}
-                    </Link>
-                  </div>
-                  <div className='grid grid-cols-2 gap-2 capitalize md:gap-8 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mb-10 px-2'>
-                    {filterByCategory(shuffledProducts, category.category)
-                      .slice(0, 4)
-                      .map((product: Product) => {
-                        return (
-                          <ProductCard key={product.id} product={product} />
-                        );
-                      })}
-                  </div>
+                  <CategoryProducts
+                    category={category.category}
+                    shuffledProducts={shuffledProducts}
+                  />
                 </div>
               );
             })}
