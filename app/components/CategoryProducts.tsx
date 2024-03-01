@@ -30,14 +30,14 @@ const CategoryProducts: React.FC<CategoryProductsProps> = ({
   };
 
   return (
-    <div className='flex flex-col items-center'>
+    <div className='flex flex-col'>
       <button
         onClick={() => router.push(`/?category=${category}`)}
         className='w-fit text-2xl md:text-2xl text-slate-800 font-semibold underline uppercase py-3  hover:text-rose-800'
       >
         {category}
       </button>
-      <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-5 w-fit mb-10'>
+      <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-5 w-fit'>
         {filterByCategory(shuffledProducts, category)
           .slice(0, 4)
           .map((product: Product) => {
