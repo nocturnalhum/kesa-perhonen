@@ -45,7 +45,7 @@ export default async function Home({ searchParams }: HomeProps) {
           {searchParams.category ? searchParams.category : 'All Products'}
         </div>
         {!searchParams.category ? (
-          <>
+          <div>
             {categories.slice(1, categories.length).map((category) => {
               return (
                 <CategoryProducts
@@ -55,7 +55,7 @@ export default async function Home({ searchParams }: HomeProps) {
                 />
               );
             })}
-          </>
+          </div>
         ) : (
           <div className='grid grid-cols-2 gap-2 capitalize sm:gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 mb-10'>
             {shuffledProducts.map((product) => {
