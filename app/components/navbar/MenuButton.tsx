@@ -56,7 +56,7 @@ const MenuButton = () => {
         <CiMenuBurger />
       </button>
       <div
-        className={`fixed top-0 h-[100dvh] w-72 z-50 bg-slate-300/80 backdrop-blur-md duration-300 ease-in-out ${
+        className={`fixed top-0 h-[100dvh] w-72 z-50 bg-slate-300/80 backdrop-blur-md duration-300 ease-in-out  ${
           showMenu ? '-left-0' : '-left-[100vw]'
         }`}
       >
