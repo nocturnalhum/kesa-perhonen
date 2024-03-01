@@ -30,7 +30,7 @@ const CategoryProducts: React.FC<CategoryProductsProps> = ({
   };
 
   return (
-    <div className='flex flex-col items-center'>
+    <>
       <button
         onClick={() => router.push(`/?category=${category}`)}
         className='w-fit text-2xl md:text-2xl text-slate-800 font-semibold underline uppercase py-3  hover:text-rose-800'
@@ -46,7 +46,7 @@ const CategoryProducts: React.FC<CategoryProductsProps> = ({
           })}
       </div>
       {/* </div> */}
-    </div>
+    </>
   );
 };
 

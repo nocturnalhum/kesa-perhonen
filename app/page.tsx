@@ -48,12 +48,11 @@ export default async function Home({ searchParams }: HomeProps) {
           <>
             {categories.slice(1, categories.length).map((category) => {
               return (
-                <div key={category.id}>
-                  <CategoryProducts
-                    category={category.category}
-                    shuffledProducts={shuffledProducts}
-                  />
-                </div>
+                <CategoryProducts
+                  key={category.id}
+                  category={category.category}
+                  shuffledProducts={shuffledProducts}
+                />
               );
             })}
           </>
