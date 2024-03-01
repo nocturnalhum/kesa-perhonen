@@ -42,8 +42,8 @@ const Slider = () => {
               alt='Spring Sale'
               height={400}
               width={800}
-              priority
               className='object-cover w-full max-h-[40dvh]'
+              priority
             />
           </CarouselItem>
           <CarouselItem>
@@ -60,7 +60,6 @@ const Slider = () => {
               alt='Stationery'
               height={430}
               width={800}
-              priority
               className='object-cover w-full max-h-[40dvh]'
             />
           </CarouselItem>
@@ -81,7 +80,6 @@ const Slider = () => {
               alt='Health & Beauty'
               height={430}
               width={800}
-              priority
               className='object-cover w-full max-h-[40dvh]'
             />
           </CarouselItem>
@@ -102,19 +100,18 @@ const Slider = () => {
               alt='Men clothing'
               height={430}
               width={800}
-              priority
               className='object-cover w-full max-h-[40dvh]'
             />
           </CarouselItem>
           <CarouselItem>
-            <h2 className='absolute w-full h-full font-semibold text-slate-400 flex flex-col items-start pl-20 justify-center gap-1'>
-              <span className='text-[3.5vw] sm:text-[3vw]  md:text-[2.5vw] text-slate-100'>
+            <h2 className='absolute w-full h-full font-semibold text-slate-400 flex flex-col items-start pl-20 justify-center'>
+              <span className='text-[3.5vw] sm:text-[3vw] md:text-[2.5vw] text-slate-100'>
                 Women&apos;s
               </span>
-              <span className='text-[3.5vw] sm:text-[3vw]  md:text-[2.5vw] text-5xl  text-fuchsia-400 '>
+              <span className='text-[3.5vw] sm:text-[3vw] md:text-[2.5vw] text-fuchsia-400 '>
                 Apparel
               </span>
-              <span className='text-[3.5vw] sm:text-[3vw]  md:text-[2.5vw] text-5xl font-medium text-slate-100'>
+              <span className='text-[3.5vw] sm:text-[3vw] md:text-[2.5vw] font-medium text-slate-100'>
                 New Arrivals
               </span>
             </h2>
@@ -123,7 +120,6 @@ const Slider = () => {
               alt='Women clothing'
               height={430}
               width={800}
-              priority
               className='object-cover w-full max-h-[40dvh]'
             />
           </CarouselItem>
@@ -136,7 +132,6 @@ const Slider = () => {
               alt='Travel'
               height={430}
               width={800}
-              priority
               className='object-cover w-full max-h-[40dvh]'
             />
           </CarouselItem>
