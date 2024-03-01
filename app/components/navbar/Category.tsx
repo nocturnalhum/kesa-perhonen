@@ -21,8 +21,9 @@ const Category: React.FC<CategoryProps> = ({ label, icon: Icon, selected }) => {
         currentQuery = queryString.parse(params.toString());
       }
 
+      console.log('currentQuery', currentQuery);
       const updatedQuery: any = {
-        ...currentQuery,
+        // ...currentQuery,
         category: label,
       };
       const url = queryString.stringifyUrl(
