@@ -1,5 +1,3 @@
-export const revalidate = 0;
-
 import Container from './components/Container';
 import ProductCard from './components/products/ProductCard';
 import NullData from './components/NullData';
@@ -49,7 +47,7 @@ export default async function Home({ searchParams }: HomeProps) {
         <div className='text-2xl md:text-3xl text-slate-600 font-bold ml-3 mb-4 capitalize'>
           {searchParams.category
             ? searchParams.category
-            : 'All Products Debug Test'}
+            : 'All Products Debug Test2'}
         </div>
         {!searchParams.category ? (
           <>
