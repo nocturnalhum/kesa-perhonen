@@ -37,15 +37,15 @@ const CategoryProducts: React.FC<CategoryProductsProps> = ({
       >
         {category}
       </button>
-      <div className='flex flex-col items-center w-full mb-10'>
-        <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-5 w-fit'>
-          {filterByCategory(shuffledProducts, category)
-            .slice(0, 4)
-            .map((product: Product) => {
-              return <ProductCard key={product.id} product={product} />;
-            })}
-        </div>
+      {/* <div className='flex flex-col items-center w-full mb-10'> */}
+      <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-5 w-fit'>
+        {filterByCategory(shuffledProducts, category)
+          .slice(0, 4)
+          .map((product: Product) => {
+            return <ProductCard key={product.id} product={product} />;
+          })}
       </div>
+      {/* </div> */}
     </div>
   );
 };
