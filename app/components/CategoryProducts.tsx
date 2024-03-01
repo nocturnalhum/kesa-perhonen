@@ -38,7 +38,7 @@ const CategoryProducts: React.FC<CategoryProductsProps> = ({
         {category}
       </button>
       {/* <div className='flex flex-col items-center w-full mb-10'> */}
-      <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-5'>
+      <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-5 mb-10'>
         {filterByCategory(shuffledProducts, category)
           .slice(0, 4)
           .map((product: Product) => {
