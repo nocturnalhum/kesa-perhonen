@@ -29,25 +29,31 @@ const CategoryProducts: React.FC<CategoryProductsProps> = ({
       });
   };
 
-  return (
-    <div>
-      <div className='flex justify-center w-full'>
-        <button
-          onClick={() => router.push(`/?category=${category}`)}
-          className='w-fit text-2xl md:text-2xl text-slate-800 font-semibold underline uppercase p-3 hover:text-rose-800'
-        >
-          {category}
-        </button>
-      </div>
+  const hasItems = filterByCategory(shuffledProducts, category).length > 0;
 
-      <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-5 mb-4 lg:mb-6 px-2 sm:px-0'>
-        {filterByCategory(shuffledProducts, category)
-          .slice(0, 4)
-          .map((product: Product) => {
-            return <ProductCard key={product.id} product={product} />;
-          })}
-      </div>
-    </div>
+  return (
+    <>
+      {hasItems ? (
+        <div>
+          <div className='flex justify-center w-full'>
+            <button
+              onClick={() => router.push(`/?category=${category}`)}
+              className='w-fit text-2xl md:text-2xl text-slate-800 font-semibold underline uppercase p-3 hover:text-rose-800'
+            >
+              {category}
+            </button>
+          </div>
+
+          <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-5 mb-4 lg:mb-6 px-2 sm:px-0'>
+            {filterByCategory(shuffledProducts, category)
+              .slice(0, 4)
+              .map((product: Product) => {
+                return <ProductCard key={product.id} product={product} />;
+              })}
+          </div>
+        </div>
+      ) : null}
+    </>
   );
 };
 
