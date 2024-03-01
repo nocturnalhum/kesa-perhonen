@@ -85,7 +85,7 @@ const SearchMenu = () => {
       </div>
       <div
         className={`fixed left-0 h-[100dvh] w-screen z-50 bg-slate-300/80 backdrop-blur-md duration-300 ease-in-out ${
-          showSearch ? 'top-0' : 'top-[100dvh]'
+          showSearch ? 'top-0' : '-top-[100dvh]'
         }`}
       >
         <div>
