@@ -15,10 +15,11 @@ export default function HeroBanner() {
         <div className='flex flex-col mx-auto gap-2 lg:flex-row items-center justify-evenly'>
           <div className='relative w-full max-h-screen'>
             <Image
-              src='https://kesa-perhonen.s3.ca-central-1.amazonaws.com/Clear_Care_Series.jpg'
-              alt='Banner winter accessories'
+              src='https://firebasestorage.googleapis.com/v0/b/kesa-perhonen.appspot.com/o/products%2FClear_Care_Series.jpg?alt=media&token=269a33a7-b891-4098-8afc-b3bbe1b6e712'
+              alt='Banner Spring accessories'
               height={600}
               width={800}
+              priority
               className='object-cover w-full max-h-[40dvh]'
             />
             <div className='absolute flex flex-col items-center justify-center w-full max-h-[80vh] inset-0 h-full lg:mb-0 text-center'>

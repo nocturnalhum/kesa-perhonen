@@ -158,7 +158,6 @@ const AddProductForm = () => {
   // ========<<< OnSubmit Handler >>>========================================
   // ========================================================================
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log('Data', data);
     setIsLoading(true);
     let uploadedImages: UploadedItemType[] = [];
 

@@ -29,7 +29,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
         .post('/api/login', { userId: currentUser.id })
         .then((res) => {
           const { data } = res;
-          console.log('data', data.paymentIntentId);
           handleSetPaymentIntent(data.paymentIntentId);
           handleSetCartToLocalStorage(data.products);
         })

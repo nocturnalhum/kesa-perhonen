@@ -75,7 +75,6 @@ const CheckoutClient = () => {
             }),
           });
           const data = await response.json();
-          console.log('RETURNED DATA', data);
         } catch (error) {
           console.log(error);
         }

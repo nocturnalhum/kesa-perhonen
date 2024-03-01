@@ -50,10 +50,6 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
   ]);
   const [error, setError] = useState(false);
 
-  console.log('Item', item);
-  console.log('sizeDetails', sizeDetails);
-  // console.log('sizeCategory', sizeCategory);
-
   useEffect(() => {
     if (
       (sizeDetails.price || sizeDetails.price === 0) &&
@@ -195,10 +191,7 @@ const AddItemDetails: React.FC<AddItemDetailsProps> = ({
       return;
     } else {
       setError(false);
-      console.log('Item', item);
-      console.log('itemSize', itemSize);
       const getSizeDetails = item.sizes?.find((size) => size.size === itemSize);
-      console.log('getSizeDetails', getSizeDetails);
       if (getSizeDetails) {
         setSizeDetails({
           ...getSizeDetails,
