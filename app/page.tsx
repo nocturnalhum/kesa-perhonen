@@ -47,7 +47,9 @@ export default async function Home({ searchParams }: HomeProps) {
       <Slider />
       <Container>
         <div className='text-2xl md:text-3xl text-slate-600 font-bold ml-3 mb-4 capitalize'>
-          {searchParams.category ? searchParams.category : 'All Products'}
+          {searchParams.category
+            ? searchParams.category
+            : 'All Products Debug Test'}
         </div>
         {!searchParams.category ? (
           <>
