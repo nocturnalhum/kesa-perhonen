@@ -1,6 +1,7 @@
 export const sizeOptions = [
   { label: 'one-size', value: 'os' },
   { label: 'clothing', value: 'xs, s, m, l, xl, xxl' },
+  { label: 'pants', value: '28, 29, 30, 31, 32, 33, 34, 35' },
   { label: 'socks', value: 's, m, l' },
   {
     label: 'footwear',
