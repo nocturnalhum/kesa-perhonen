@@ -18,6 +18,9 @@ const SearchBar = () => {
     },
   });
 
+  // ==========================================================================
+  // =========<<< Search Handler >>>===========================================
+  // ==========================================================================
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     if (!data.searchTerm) return router.push('/');
     const url = queryString.stringifyUrl(

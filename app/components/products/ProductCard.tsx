@@ -15,6 +15,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { id, name, items, reviews } = product;
   const router = useRouter();
 
+  // Calculate product rating
   const productRating =
     reviews.reduce((acc: number, item: any) => item.rating + acc, 0) /
     reviews.length;

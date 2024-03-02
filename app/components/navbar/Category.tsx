@@ -12,7 +12,10 @@ const Category: React.FC<CategoryProps> = ({ label, icon: Icon, selected }) => {
   const router = useRouter();
   const params = useSearchParams();
 
-  const handleClick = () => {
+  // ==========================================================================
+  // =========<<< Category Handler >>>=========================================
+  // ==========================================================================
+  const handleCategory = () => {
     if (label === 'All') {
       router.push('/');
     } else {
@@ -41,7 +44,7 @@ const Category: React.FC<CategoryProps> = ({ label, icon: Icon, selected }) => {
 
   return (
     <div
-      onClick={handleClick}
+      onClick={handleCategory}
       className={`flex items-center justify-center text-center gap-1 p-2 border-b-[1.5px] hover:text-slate-800 transition cursor-pointer duration-300 ${
         selected
           ? 'border-b-slate-800 text-slate-800 border-b-[1.5px]'

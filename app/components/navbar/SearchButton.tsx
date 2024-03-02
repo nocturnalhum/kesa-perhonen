@@ -24,6 +24,9 @@ const SearchMenu = () => {
     },
   });
 
+  // ==========================================================================
+  // =========<<< Search Handler >>>===========================================
+  // ==========================================================================
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setShowSearch(false);
     if (!data.searchTerm) return router.push('/');

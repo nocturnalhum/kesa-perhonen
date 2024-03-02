@@ -26,6 +26,9 @@ const CheckoutClient = () => {
 
   const router = useRouter();
 
+  // ==========================================================================
+  // ===========<<< Create Payment Intent >>>==================================
+  // ==========================================================================
   useEffect(() => {
     // Create Payment Intent as soon as page loads:
     if (shoppingCart) {
@@ -59,6 +62,9 @@ const CheckoutClient = () => {
     }
   }, [shoppingCart, paymentIntent, handleSetPaymentIntent, router]);
 
+  // ==========================================================================
+  // ===========<<< Update Product Inventory on Payment Success >>>============
+  // ==========================================================================
   useEffect(() => {
     if (paymentSuccess) {
       toast.success('Payment Success');
@@ -91,6 +97,9 @@ const CheckoutClient = () => {
     },
   };
 
+  // ==========================================================================
+  // ===========<<< Handle Payment Success >>>=================================
+  // ==========================================================================
   const handleSetPaymentSuccess = useCallback(
     (value: boolean) => {
       setCartInventory(shoppingCart);

@@ -15,6 +15,10 @@ const CategoryProducts: React.FC<CategoryProductsProps> = ({
   category,
 }) => {
   const router = useRouter();
+
+  // ==========================================================================
+  // =========<<< Filter By Category >>>=======================================
+  // ==========================================================================
   const filterByCategory = (products: Product[], category: string) => {
     return products
       .filter((product: Product) => product.category.includes(category))

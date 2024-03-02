@@ -258,7 +258,9 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
         toast.success('Product deleted', {
           id: 'deleteProductSuccess',
         });
-        // **NOTE: Disable Image Deletion for testing purposes, to allow product data restoration after deletion**
+        {
+          /** NOTE: Disable Image deletion from Firebase for testing purposes. MongoDB data restoration has image links to Firebase storage */
+        }
         // const { deleteImage } = res.data;
         // if (deleteImage) {
         //   handleImageDelete();
