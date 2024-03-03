@@ -8,13 +8,13 @@ const Orders = async () => {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
-    return <NullData title='Oops! Access Denied' />;
+    return <NullData title='Oops! Access Denied' goBack={false} />;
   }
 
   const orders = await getOrdersByUserId(currentUser.id);
 
   if (!orders) {
-    return <NullData title='No orders yet...' />;
+    return <NullData title='No orders yet...' goBack={false} />;
   }
 
   return (

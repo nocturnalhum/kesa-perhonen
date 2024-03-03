@@ -8,10 +8,10 @@ const AddProducts = async () => {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
-    return <NullData title='Oops! Access Denied' />;
+    return <NullData title='Oops! Access Denied' goBack={false} />;
   }
   if (currentUser.role !== 'ADMIN') {
-    return <NullData title='Oops! Access Denied' />;
+    return <NullData title='Oops! Access Denied' goBack={false} />;
   }
 
   return (

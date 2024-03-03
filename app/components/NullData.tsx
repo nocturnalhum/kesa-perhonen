@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 
 interface NullDataProps {
   title: string;
+  goBack?: boolean;
 }
 
 /**
@@ -12,12 +13,20 @@ interface NullDataProps {
  * @param {NullDataProps} title - the title to be displayed
  * @return {JSX.Element} the rendered component
  */
-const NullData: React.FC<NullDataProps> = ({ title }) => {
+const NullData: React.FC<NullDataProps> = ({ title, goBack }) => {
   const router = useRouter();
+  const handleRoute = () => {
+    if (goBack) {
+      router.back();
+    } else {
+      router.push('/');
+    }
+  };
+
   return (
     <div className='flex flex-col items-center justify-center gap-5 w-full h-[50vh] text-xl md:text-2xl'>
       <p className='font-medium'>{title}</p>
-      <button className='underline' onClick={() => router.back()}>
+      <button className='underline' onClick={handleRoute}>
         Go Back
       </button>
     </div>
