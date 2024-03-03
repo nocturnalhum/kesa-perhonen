@@ -5,12 +5,23 @@ import getUsers from '@/actions/getUsers';
 import Container from '../components/Container';
 import BarGraph from './BarGraph';
 import getGraphData from '@/actions/getGraphData';
+import { getCurrentUser } from '@/actions/getCurrentUser';
+import NullData from '../components/NullData';
+import { useRouter } from 'next/navigation';
 
 const Admin = async () => {
   const products = await getProducts({ category: null });
   const orders = await getOrders();
   const users = await getUsers();
   const graphData = await getGraphData();
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) {
+    return <NullData title='Oops! Access Denied' goBack={false} />;
+  }
+  if (currentUser.role !== 'ADMIN') {
+    return <NullData title='Oops! Access Denied' goBack={false} />;
+  }
   return (
     <div className='pt-8'>
       <Container>

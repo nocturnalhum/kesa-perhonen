@@ -1,3 +1,4 @@
+import NullData from '@/app/components/NullData';
 import prisma from '@/libs/prismadb';
 
 interface IParams {
@@ -27,11 +28,14 @@ export default async function getProductById(params: IParams) {
         },
       },
     });
-    if (!product) {
-      return null;
-    }
+
     return product;
   } catch (error: any) {
-    throw new Error('Failed to fetch product', error);
+    // Prisma's error code for "Record not found"
+    if (error.code === 'P2023') {
+      return null;
+    } else {
+      throw new Error('Failed to fetch product', error);
+    }
   }
 }

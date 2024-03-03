@@ -18,10 +18,11 @@ const Product = async ({ params }: { params: IParams }) => {
     return (
       <NullData
         title='Oops! Product with given ID does not exist'
-        goBack={true}
+        goBack={false}
       />
     );
   }
+
   return (
     <div className='p-8'>
       <Container>

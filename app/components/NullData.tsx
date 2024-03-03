@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 interface NullDataProps {
   title: string;
@@ -22,6 +23,14 @@ const NullData: React.FC<NullDataProps> = ({ title, goBack }) => {
       router.push('/');
     }
   };
+
+  useEffect(() => {
+    if (!goBack) {
+      setInterval(() => {
+        router.push('/');
+      }, 2000);
+    }
+  });
 
   return (
     <div className='flex flex-col items-center justify-center gap-5 w-full h-[50vh] text-xl md:text-2xl'>
