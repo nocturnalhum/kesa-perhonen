@@ -20,7 +20,7 @@ const ListRating: React.FC<ListRatingProps> = ({ product }) => {
             return (
               <div key={review.id} className='max-w-xs'>
                 <div className='flex gap-2 items-center'>
-                  <Avatar src={review.user.image} />
+                  <Avatar src={review.user.image} alt={review.user.name} />
                   <div className='font-semibold'>{review?.user.name}</div>
                   <div className='font-light'>
                     {moment(review.createdDate).fromNow()}

@@ -1,12 +1,9 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { getCurrentUser } from '@/actions/getCurrentUser';
 
-const ForgetPassword = () => {
-  const router = useRouter();
-  const [error, setError] = useState('');
+const ForgetPassword = async () => {
+  const currentUser = await getCurrentUser();
+  console.log('currentUser', currentUser);
   // const { data: session, status: sessionStatus } = useSession();
 
   // console.log('sessionStatus', sessionStatus);
