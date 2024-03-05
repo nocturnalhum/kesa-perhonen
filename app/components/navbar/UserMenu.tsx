@@ -28,7 +28,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           className='flex flex-row items-center rounded-full cursor-pointer text-slate-700'
           onClick={toggleOpen}
         >
-          <Avatar src={currentUser?.image} />
+          <Avatar src={currentUser?.image} alt={currentUser?.name} />
           <AiFillCaretDown />
         </div>
         {isOpen && (
