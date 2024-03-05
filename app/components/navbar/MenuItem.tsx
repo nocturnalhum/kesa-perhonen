@@ -6,7 +6,7 @@ interface MenuItemProps {
 const MenuItem: React.FC<MenuItemProps> = ({ children, onClick }) => {
   return (
     <div
-      className='px-4 py-3 hover:bg-neutral-100 transition'
+      className='px-4 py-3 hover:bg-neutral-100 transition cursor-pointer'
       onClick={onClick}
     >
       {children}

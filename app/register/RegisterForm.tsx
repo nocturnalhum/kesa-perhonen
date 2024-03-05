@@ -17,6 +17,9 @@ interface RegisterFormProps {
   currentUser: SafeUser | null;
 }
 
+const emailRegex =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -26,7 +29,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       router.push('/');
       router.refresh();
     }
-  });
+  }, [currentUser, router]);
 
   const {
     register,
@@ -41,6 +44,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
 
   const validatePasswordMatch = (value: string) => {
     return value === password || 'passwords do not match';
+  };
+
+  const validateEmail = (value: string) => {
+    return emailRegex.test(value) || 'Email is not valid';
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
@@ -99,10 +106,12 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       <Input
         id='email'
         label='email'
+        type='email'
         disabled={isLoading}
         register={register}
         errors={errors}
         required
+        validate={validateEmail}
       />
       <Input
         id='password'

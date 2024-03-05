@@ -34,7 +34,10 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
         {isOpen && (
           <div className='absolute rounded-md shadow-md w-[170px] bg-white overflow-hidden top-12 right-0 text-sm flex flex-col cursor-pointer'>
             {currentUser ? (
-              <div>
+              <div className='cursor-default'>
+                <div className='px-4 py-2 font-semibold bg-neutral-700 text-neutral-50 capitalize'>
+                  {`Hello ${currentUser.name.slice(0, 15)}`}
+                </div>
                 <Link href='/orders'>
                   <MenuItem onClick={toggleOpen}>My Orders</MenuItem>
                 </Link>

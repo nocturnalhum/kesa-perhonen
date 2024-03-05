@@ -44,11 +44,18 @@ const Input: React.FC<InputProps> = ({
         {label}
         {required && <span className='text-rose-400 pl-0.5'>*</span>}
       </label>
-      {errors[id] && (
+      {errors[id] && type === 'password' && (
         <div className='absolute right-4 text-xs text-rose-400'>
           {type === 'password' &&
           errors?.confirmPassword?.message === 'passwords do not match'
             ? `*${errors?.confirmPassword?.message}`
+            : '*required'}
+        </div>
+      )}
+      {errors[id] && type === 'email' && (
+        <div className='absolute right-4 text-xs text-rose-400'>
+          {type === 'email' && errors?.email?.message === 'Email is not valid'
+            ? `*${errors?.email?.message}`
             : '*required'}
         </div>
       )}

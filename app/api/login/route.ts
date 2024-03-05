@@ -2,10 +2,14 @@ import prisma from '@/libs/prismadb';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
-  const data = await request.json();
-  const userId = data.userId;
+  try {
+    const data = await request.json();
+    const userId = data.userId;
 
-  if (userId) {
+    if (!userId) {
+      return NextResponse.json({ error: 'Invalid user' }, { status: 400 });
+    }
+
     const order = await prisma.order.findFirst({
       where: { userId, status: 'pending' },
     });
@@ -18,7 +22,11 @@ export async function POST(request: Request) {
         { status: 404 }
       );
     }
-  } else {
-    return NextResponse.json({ error: 'Invalid user' }, { status: 400 });
+  } catch (error) {
+    console.error('Error fetching order:', error); // Log error for debugging
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }

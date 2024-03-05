@@ -98,6 +98,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
       <Input
         id='email'
         label='email'
+        type='email'
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -118,7 +119,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
         onClick={handleSubmit(onSubmit)}
       />
       <div className='flex items-center justify-between w-full px-4'>
-        <p className='text-sm underline'>Forgot password?</p>
+        <p className='text-sm underline cursor-pointer'>Forgot password?</p>
         <p className='text-sm'>
           {`Don't have an account?`}
           <Link href='/register' className='underline ml-2'>
