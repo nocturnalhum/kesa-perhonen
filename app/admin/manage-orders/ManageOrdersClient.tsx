@@ -15,7 +15,6 @@ import {
   MdRemoveRedEye,
 } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
-import { IconType } from 'react-icons';
 
 interface ManageOrdersClientProps {
   orders: ExtendedOrder[];

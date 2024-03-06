@@ -42,8 +42,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
 
   const password = watch('password', '');
 
+  const validateName = (value: string) => {
+    return value.length > 2 || 'Name must be at least 3 characters';
+  };
+
+  const validatePassword = (value: string) => {
+    return value.length > 5 || 'Password must be at least 6 characters';
+  };
+
   const validatePasswordMatch = (value: string) => {
-    return value === password || 'passwords do not match';
+    return value === password || 'Passwords do not match';
   };
 
   const validateEmail = (value: string) => {
@@ -71,7 +79,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
           }
         });
       })
-      .catch(() => toast.error('Error on submit'))
+      .catch(() => {
+        toast.error('Email already in use', {
+          id: 'emailAlreadyInUse',
+        });
+      })
       .finally(() => {
         data.password = '';
         data.confirmPassword = '';
@@ -102,6 +114,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
         register={register}
         errors={errors}
         required
+        validate={validateName}
       />
       <Input
         id='email'
@@ -116,11 +129,12 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       <Input
         id='password'
         label='password'
+        type='password'
         disabled={isLoading}
         register={register}
         errors={errors}
         required
-        type='password'
+        validate={validatePassword}
       />
       <Input
         id='confirmPassword'

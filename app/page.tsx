@@ -1,15 +1,14 @@
 export const revalidate = 0;
 
+import { Metadata } from 'next';
+import { Product } from '@prisma/client';
+import { categories } from '@/utils/categories';
+import getProducts, { IProductParams } from '@/actions/getProducts';
 import Container from './components/Container';
+import Slider from './components/Slider';
+import CategoryProducts from './components/CategoryProducts';
 import ProductCard from './components/products/ProductCard';
 import NullData from './components/NullData';
-import getProducts, { IProductParams } from '@/actions/getProducts';
-import { Product } from '@prisma/client';
-import { Metadata } from 'next';
-import Slider from './components/Slider';
-import { categories } from '@/utils/categories';
-import Link from 'next/link';
-import CategoryProducts from './components/CategoryProducts';
 
 export const metadata: Metadata = {
   title: 'kesä perhonen | Home Goods | Apparel | Gifts Store',

@@ -26,7 +26,7 @@ const Avatar: React.FC<AvatarProps> = ({ src, alt }) => {
   } else {
     if (alt) {
       return (
-        <div className='flex items-center justify-center text-lg font-semibold text-gray-50 w-[32px] aspect-square bg-blue-400 rounded-full uppercase'>
+        <div className='flex items-center justify-center text-lg font-semibold text-gray-50 w-[32px] aspect-square bg-blue-400 rounded-full uppercase select-none'>
           {alt[0]}
         </div>
       );

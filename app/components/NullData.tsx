@@ -28,7 +28,7 @@ const NullData: React.FC<NullDataProps> = ({ title, goBack }) => {
     if (!goBack) {
       setInterval(() => {
         router.push('/');
-      }, 2000);
+      }, 1000);
     }
   });
 

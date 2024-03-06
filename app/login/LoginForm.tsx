@@ -1,17 +1,18 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import axios from 'axios';
 import Link from 'next/link';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import Heading from '../components/Heading';
-import { AiOutlineGoogle } from 'react-icons/ai';
+import Input from '../components/forms/Input';
+import Button from '../components/forms/Button';
+import { useEffect, useState } from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { AiOutlineGithub } from 'react-icons/ai';
+import { FcGoogle } from 'react-icons/fc';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
 import { SafeUser } from '@/types';
-import Button from '../components/forms/Button';
-import Input from '../components/forms/Input';
-import axios from 'axios';
 import { useCart } from '@/hooks/useCart';
 
 interface LoginFormProps {
@@ -35,7 +36,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
         .catch((error) => {
           console.error('Error fetching data:', error);
         });
-      router.push('/');
+      router.replace('/');
       router.refresh();
     }
   }, [
@@ -88,9 +89,17 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
       <Button
         outline
         label='Continue with Google'
-        icon={AiOutlineGoogle}
+        icon={FcGoogle}
         onClick={() => {
           signIn('google');
+        }}
+      />
+      <Button
+        outline
+        label='Continue with GitHub'
+        icon={AiOutlineGithub}
+        onClick={() => {
+          signIn('github');
         }}
       />
       <hr className='bg-slate-300 w-full h-px' />
