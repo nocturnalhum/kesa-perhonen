@@ -17,6 +17,7 @@ const nextConfig = {
   images: {
     domains: [
       'lh3.googleusercontent.com',
+      'avatars.githubusercontent.com',
       'kesa-perhonen.s3.ca-central-1.amazonaws.com',
       'firebasestorage.googleapis.com',
     ],

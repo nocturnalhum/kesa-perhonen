@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
-import { AiOutlineGoogle } from 'react-icons/ai';
+import { AiOutlineGithub, AiOutlineGoogle } from 'react-icons/ai';
 import Heading from '../components/Heading';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { SafeUser } from '@/types';
 import Input from '../components/forms/Input';
 import Button from '../components/forms/Button';
+import { FcGoogle } from 'react-icons/fc';
 
 interface RegisterFormProps {
   currentUser: SafeUser | null;
@@ -101,9 +102,17 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       <Button
         outline
         label='Sign up with Google'
-        icon={AiOutlineGoogle}
+        icon={FcGoogle}
         onClick={() => {
           signIn('google');
+        }}
+      />
+      <Button
+        outline
+        label='Sign up with GitHub'
+        icon={AiOutlineGithub}
+        onClick={() => {
+          signIn('github');
         }}
       />
       <hr className='bg-slate-300 w-full h-px' />
