@@ -13,6 +13,9 @@ const nextConfig = {
 
     return config;
   },
+  experimental: {
+    serverComponentsExternalPackages: ['resend'],
+  },
 
   images: {
     domains: [

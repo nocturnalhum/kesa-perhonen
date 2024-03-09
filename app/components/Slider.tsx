@@ -144,6 +144,7 @@ const Slider = () => {
               height={600}
               width={1800}
               className='object-cover w-full h-[30dvh]'
+              priority
             />
           </CarouselItem>
           <CarouselItem>
@@ -158,6 +159,7 @@ const Slider = () => {
               height={600}
               width={1800}
               className='object-cover w-full h-[30dvh]'
+              priority
             />
           </CarouselItem>
         </CarouselContent>

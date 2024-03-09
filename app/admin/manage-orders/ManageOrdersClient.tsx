@@ -188,7 +188,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
         toast.error('Oops! Order not dispatched', {
           id: 'dispatchError',
         });
-        console.log('Error: ', error);
+        console.log('Error: ', error.res.data.message);
       });
   };
 
@@ -211,7 +211,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
         toast.error('Oops! Order not delivered', {
           id: 'deliverError',
         });
-        console.log('Error: ', error);
+        console.log('Error: ', error.res.data.message);
       });
   };
 

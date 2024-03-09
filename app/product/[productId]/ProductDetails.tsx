@@ -291,10 +291,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                     handleColorSelect={handleColorSelect}
                   />
                   <Horizontal />
-                  <p className='mb-2 text-slate-500 flex items-center gap-1'>
+                  <div className='mb-2 text-slate-500 flex items-center gap-1'>
                     <MdCheckCircle size={20} className='text-teal-400' />
                     <span>Product added to cart</span>
-                  </p>
+                  </div>
                   <div className='max-w-xs'>
                     <Button
                       label='View Cart'

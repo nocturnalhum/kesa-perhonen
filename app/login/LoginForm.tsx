@@ -34,9 +34,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
           handleSetCartToLocalStorage(data.products);
         })
         .catch((error) => {
-          console.error('Error fetching data:', error);
+          console.error(error.response.data.message);
         });
-      router.replace('/');
+      router.push('/');
       router.refresh();
     }
   }, [
@@ -62,7 +62,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
     signIn('credentials', { ...data, redirect: false }).then((callback) => {
       setIsLoading(false);
       if (callback?.ok) {
-        router.back();
+        router.push('/');
         router.refresh();
         toast.success('Logged In');
       }
@@ -128,13 +128,18 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
         onClick={handleSubmit(onSubmit)}
       />
       <div className='flex items-center justify-between w-full px-4'>
-        <p className='text-sm underline cursor-pointer'>Forgot password?</p>
-        <p className='text-sm'>
+        <button
+          onClick={() => router.push('/forgot-password')}
+          className='text-sm underline cursor-pointer'
+        >
+          Forgot password?
+        </button>
+        <div className='text-sm'>
           {`Don't have an account?`}
           <Link href='/register' className='underline ml-2'>
             Sign Up
           </Link>
-        </p>
+        </div>
       </div>
     </>
   );

@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import Avatar from '../Avatar';
 import BackDrop from './BackDrop';
 import MenuItem from './MenuItem';
+import { useRouter } from 'next/navigation';
 
 interface UserMenuProps {
   currentUser: SafeUser | null;
@@ -16,6 +17,8 @@ interface UserMenuProps {
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const router = useRouter();
 
   const toggleOpen = useCallback(() => {
     setIsOpen((prev) => !prev);
@@ -58,6 +61,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                     localStorage.clear();
                     signOut({ callbackUrl: process.env.NEXTAUTH_URL });
                     toast.success('Logged Out');
+                    router.push('/');
                   }}
                 >
                   Logout

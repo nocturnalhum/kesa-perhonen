@@ -29,16 +29,6 @@ export default async function Home({ searchParams }: HomeProps) {
     );
   }
 
-  function shuffleArray(array: Product[]) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
-
-  const shuffledProducts = shuffleArray(products);
-
   return (
     <div className='min-h-[90dvh]'>
       <Slider />
@@ -53,7 +43,7 @@ export default async function Home({ searchParams }: HomeProps) {
                 <div key={category.id}>
                   <CategoryProducts
                     category={category.category}
-                    shuffledProducts={shuffledProducts}
+                    products={products}
                   />
                 </div>
               );
@@ -61,7 +51,7 @@ export default async function Home({ searchParams }: HomeProps) {
           </>
         ) : (
           <div className='grid grid-cols-2 gap-2 capitalize sm:gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 mb-10'>
-            {shuffledProducts.map((product) => {
+            {products.map((product: Product) => {
               return <ProductCard key={product.id} product={product} />;
             })}
           </div>

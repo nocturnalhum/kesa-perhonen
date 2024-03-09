@@ -1,17 +1,16 @@
 'use client';
 
 import { Product } from '@prisma/client';
-import React from 'react';
 import ProductCard from './products/ProductCard';
 import { useRouter } from 'next/navigation';
 
 interface CategoryProductsProps {
-  shuffledProducts: Product[];
+  products: Product[];
   category: string;
 }
 
 const CategoryProducts: React.FC<CategoryProductsProps> = ({
-  shuffledProducts,
+  products,
   category,
 }) => {
   const router = useRouter();
@@ -33,7 +32,7 @@ const CategoryProducts: React.FC<CategoryProductsProps> = ({
       });
   };
 
-  const hasItems = filterByCategory(shuffledProducts, category).length > 0;
+  const hasItems = filterByCategory(products, category).length > 0;
 
   return (
     <>
@@ -49,7 +48,7 @@ const CategoryProducts: React.FC<CategoryProductsProps> = ({
           </div>
 
           <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-5 mb-4 lg:mb-6 px-2 sm:px-0'>
-            {filterByCategory(shuffledProducts, category)
+            {filterByCategory(products, category)
               .slice(0, 4)
               .map((product: Product) => {
                 return <ProductCard key={product.id} product={product} />;

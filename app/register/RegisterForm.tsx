@@ -80,8 +80,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
           }
         });
       })
-      .catch(() => {
-        toast.error('Email already in use', {
+      .catch((error) => {
+        toast.error(error.response.data.error, {
           id: 'emailAlreadyInUse',
         });
       })
@@ -159,12 +159,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
         label={isLoading ? 'Loading' : 'Sign Up'}
         onClick={handleSubmit(onSubmit)}
       />
-      <p className='text-sm'>
+      <div className='flex text-sm'>
         Already have an account?
-        <Link href='/login' className='underline ml-2'>
-          Log In
+        <Link href='/login'>
+          <div className='underline ml-2 duration-300 hover:scale-105'>
+            Log In
+          </div>
         </Link>
-      </p>
+      </div>
     </>
   );
 };
