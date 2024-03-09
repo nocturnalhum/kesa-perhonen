@@ -49,7 +49,7 @@ export async function POST(request: Request) {
         text: text,
         html: message,
       };
-      sgMail
+      await sgMail
         .send(msg)
         .then(() => {
           return NextResponse.json(
@@ -83,7 +83,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(
       {
-        message: 'Email successfully sent. Please check your inbox.',
+        message: 'Email successfully sent.\nPlease check your inbox.',
         html: message,
         resetToken: hashedResetToken,
         resetUrl: resetUrl,
