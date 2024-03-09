@@ -6,7 +6,7 @@ import { Amatic_SC } from 'next/font/google';
 const amaticSC = Amatic_SC({
   subsets: ['latin'],
   weight: '700',
-  preload: false,
+  preload: true,
 });
 
 const Logo = () => {

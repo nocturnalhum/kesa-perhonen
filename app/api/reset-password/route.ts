@@ -43,11 +43,11 @@ export async function POST(request: Request) {
 
     try {
       const msg = {
-        to: email,
+        to: 'claska2@yahoo.com',
         from: 'Kesä Perhonen <bikko.webdev@gmail.com>',
         subject: 'Kesä Perhonen - Password Reset',
-        text: text,
-        html: message,
+        text: 'Text',
+        html: `<p>TEST</p>`,
       };
       // sgMail
       //   .send(msg)
@@ -85,15 +85,15 @@ export async function POST(request: Request) {
         );
       } catch (error) {
         console.error(error);
-        await prisma.user.update({
-          where: {
-            email: email,
-          },
-          data: {
-            resetToken: null,
-            resetTokenExpires: null,
-          },
-        });
+        // await prisma.user.update({
+        //   where: {
+        //     email: email,
+        //   },
+        //   data: {
+        //     resetToken: null,
+        //     resetTokenExpires: null,
+        //   },
+        // });
         return NextResponse.json(
           { success: false, message: 'Failed sending password reset email.' },
           { status: 500 }
