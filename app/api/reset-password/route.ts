@@ -50,52 +50,52 @@ export async function POST(request: Request) {
         html: message,
       };
 
-      const sent = await sgMail.send(msg);
-      console.log(sent);
-      if (sent) {
-        return NextResponse.json(
-          { message: 'Email for password reset successfully sent!' },
-          { status: 200 }
-        );
-      } else {
-        await prisma.user.update({
-          where: {
-            email: email,
-          },
-          data: {
-            resetToken: null,
-            resetTokenExpires: null,
-          },
-        });
-        return NextResponse.json(
-          { message: 'Failed sending password reset email.' },
-          { status: 500 }
-        );
-      }
-      // await sgMail
-      //   .send(msg)
-      //   .then(() => {
-      //     return NextResponse.json(
-      //       { message: 'Email for password reset successfully sent!' },
-      //       { status: 200 }
-      //     );
-      //   })
-      //   .catch(async (error) => {
-      //     console.error(error);
-      //     await prisma.user.update({
-      //       where: {
-      //         email: email,
-      //       },
-      //       data: {
-      //         resetToken: null,
-      //         resetTokenExpires: null,
-      //       },
-      //     });
-      //     return NextResponse.json(
-      //       { error: error.message || 'Failed sending password reset email.' },
-      //       { status: 500 }
-      //     );
+      // const sent = await sgMail.send(msg);
+      // console.log(sent);
+      // if (sent) {
+      //   return NextResponse.json(
+      //     { message: 'Email for password reset successfully sent!' },
+      //     { status: 200 }
+      //   );
+      // } else {
+      //   await prisma.user.update({
+      //     where: {
+      //       email: email,
+      //     },
+      //     data: {
+      //       resetToken: null,
+      //       resetTokenExpires: null,
+      //     },
       //   });
+      //   return NextResponse.json(
+      //     { message: 'Failed sending password reset email.' },
+      //     { status: 500 }
+      //   );
+      // }
+      await sgMail
+        .send(msg)
+        .then(() => {
+          return NextResponse.json(
+            { message: 'Email for password reset successfully sent!' },
+            { status: 200 }
+          );
+        })
+        .catch(async (error) => {
+          console.error(error);
+          await prisma.user.update({
+            where: {
+              email: email,
+            },
+            data: {
+              resetToken: null,
+              resetTokenExpires: null,
+            },
+          });
+          return NextResponse.json(
+            { error: error.message || 'Failed sending password reset email.' },
+            { status: 500 }
+          );
+        });
     } catch (error: any) {
       console.error(error.message);
       return NextResponse.json(
