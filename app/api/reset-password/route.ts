@@ -37,11 +37,11 @@ export async function POST(request: Request) {
 
     const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password/${resetToken}`;
 
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
     const message = ResetPasswordEmailTemplate(resetUrl);
     const text = `Hello, you requested a password reset, click the link below to reset your password. \n\n ${resetUrl} \n\n If you did not request a password reset, please ignore this email. Best regards, www.kesa-perhonen-shop.vercel.app`;
 
     try {
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
       const msg = {
         to: 'claska2@yahoo.com',
         from: 'Kesä Perhonen <bikko.webdev@gmail.com>',
@@ -74,8 +74,7 @@ export async function POST(request: Request) {
       //     );
       //   });
       try {
-        const res = await sgMail.send(msg);
-        console.log('RESPONSE', res);
+        await sgMail.send(msg);
         return NextResponse.json(
           {
             success: true,
