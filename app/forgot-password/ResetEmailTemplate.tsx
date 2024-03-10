@@ -5,7 +5,7 @@ const ResetPasswordEmailTemplate = (resetLink: string) => {
       <p>
         You requested to reset your password. Click the following link to do so:
       </p>
-      <a href=${resetLink} style="text-decoration: underline; font-size:18px; font-weight:strong">Click here to reset your password</a>
+      <a href=${resetLink} clicktracking=off style="text-decoration: underline; font-size:18px; font-weight:strong">Click here to reset your password</a>
       <br/><br/>
       <p>
         If you cannot click the link, copy and paste the following link into your
