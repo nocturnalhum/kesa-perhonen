@@ -97,6 +97,7 @@ const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
         router.push('/login');
       })
       .catch((error) => {
+        console.log('ERROR: ', error);
         toast.error(error.response.data.message);
         setError(error.response.data.message);
       })

@@ -49,9 +49,9 @@ const ForgetPasswordForm: React.FC<ForgetPasswordFormProps> = ({
     }
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
-    axios
+    const res = await axios
       .post('/api/reset-password', data)
       .then((res) => {
         toast.success(res.data.message);
@@ -59,13 +59,15 @@ const ForgetPasswordForm: React.FC<ForgetPasswordFormProps> = ({
       })
       .catch((error) => {
         console.log('TEST: ', error.response.data.message);
-        toast.error(error.response.data.message || 'Error resetting password', {
+        toast.error('Error resetting password', {
           id: 'passwordResetError',
         });
       })
       .finally(() => {
         setIsLoading(false);
       });
+
+    return res;
   };
 
   return (
