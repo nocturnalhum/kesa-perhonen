@@ -58,7 +58,7 @@ const ForgetPasswordForm: React.FC<ForgetPasswordFormProps> = ({
         router.push('/login');
       })
       .catch((error) => {
-        console.log('TEST: ', error.response.data.message);
+        console.log(error.response.data.message);
         toast.error('Error resetting password', {
           id: 'passwordResetError',
         });

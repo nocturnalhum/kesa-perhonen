@@ -55,6 +55,8 @@ const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
         }
       } catch (error: any) {
         setError('Invalid token or has expired');
+        toast.error(error.response.data.message);
+        setVerified(true);
         console.log(error.response.data.message);
       }
     };
