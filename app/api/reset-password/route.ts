@@ -33,59 +33,53 @@ export async function POST(request: Request) {
     });
     const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password/${resetToken}`;
     const message = ResetPasswordEmailTemplate(resetUrl);
+    const text = `Hello, you requested a password reset, click the link below to reset your password. \n\n ${resetUrl} \n\n If you did not request a password reset, please ignore this email. Best regards, www.kesa-perhonen-shop.vercel.app`;
+
     sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
     const msg = {
-      to: 'claska2@yahoo.com',
-      from: 'Kesä Perhonen <bikko.webdev@gmail.com>',
+      to: email,
+      from: process.env.EMAIL_FROM as string,
       subject: 'Kesä Perhonen - Password Reset',
-      text: 'Text',
-      html: `<p>TEST</p>`,
+      text: text,
+      html: message,
     };
 
     try {
-      const res = await sgMail.send(msg);
-      return NextResponse.json({ message: 'Email sent' });
+      await sgMail.send(msg);
+      return NextResponse.json(
+        {
+          message: 'Email successfully sent.\nPlease check your inbox.',
+          html: message,
+          resetToken: hashedResetToken,
+          resetUrl: resetUrl,
+        },
+        { status: 200 }
+      );
     } catch (error) {
       console.log(error);
-      return NextResponse.json({ message: 'Email could not be sent.' });
+      await prisma.user.update({
+        where: {
+          email: email,
+        },
+        data: {
+          resetToken: null,
+          resetTokenExpires: null,
+        },
+      });
+      return NextResponse.json(
+        { message: 'Email could not be sent.' },
+        { status: 404 }
+      );
     }
-    return NextResponse.json({ resetToken });
   } catch (error) {
     return NextResponse.json(
-      { message: 'This Email is not registered' },
+      { message: 'Email could not be sent.' },
       { status: 404 }
     );
   }
 }
 
-// const resetToken = crypto.randomBytes(20).toString('hex');
-// const hashedResetToken = crypto
-//   .createHash('sha256')
-//   .update(resetToken)
-//   .digest('hex');
-
-// await prisma.user.update({
-//   where: { email },
-//   data: {
-//     resetToken: hashedResetToken,
-//     resetTokenExpires: new Date(Date.now() + 30 * 60 * 1000),
-//   },
-// });
-
-// const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password/${resetToken}`;
-
-// const message = ResetPasswordEmailTemplate(resetUrl);
-// const text = `Hello, you requested a password reset, click the link below to reset your password. \n\n ${resetUrl} \n\n If you did not request a password reset, please ignore this email. Best regards, www.kesa-perhonen-shop.vercel.app`;
-
 // try {
-//   sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
-//   const msg = {
-//     to: 'claska2@yahoo.com',
-//     from: 'Kesä Perhonen <bikko.webdev@gmail.com>',
-//     subject: 'Kesä Perhonen - Password Reset',
-//     text: 'Text',
-//     html: `<p>TEST</p>`,
-//   };
 // sgMail
 //   .send(msg)
 //   .then(() => {
@@ -110,8 +104,6 @@ export async function POST(request: Request) {
 //       { status: 500 }
 //     );
 //   });
-
-//   await new Promise((resolve) => setTimeout(resolve, 2000));
 //   await sgMail.send(msg);
 //   return NextResponse.json(
 //     {
