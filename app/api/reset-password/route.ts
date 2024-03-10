@@ -73,31 +73,14 @@ export async function POST(request: Request) {
       //       { status: 500 }
       //     );
       //   });
-      try {
-        await sgMail.send(msg);
-        return NextResponse.json(
-          {
-            success: true,
-            message: 'Email for password reset successfully sent!',
-          },
-          { status: 200 }
-        );
-      } catch (error) {
-        console.error(error);
-        // await prisma.user.update({
-        //   where: {
-        //     email: email,
-        //   },
-        //   data: {
-        //     resetToken: null,
-        //     resetTokenExpires: null,
-        //   },
-        // });
-        return NextResponse.json(
-          { success: false, message: 'Failed sending password reset email.' },
-          { status: 500 }
-        );
-      }
+      await sgMail.send(msg);
+      return NextResponse.json(
+        {
+          success: true,
+          message: 'Email for password reset successfully sent!',
+        },
+        { status: 200 }
+      );
     } catch (error: any) {
       console.error(error.message);
       return NextResponse.json(
